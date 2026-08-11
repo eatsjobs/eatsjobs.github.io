@@ -78,3 +78,109 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(248, 250, 252, 0.85);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.brand {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+.brand span { color: var(--accent-on-light); }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  position: relative;
+  font-size: 14px;
+  color: var(--ink-700);
+  transition: color 160ms ease;
+}
+.nav-links a:hover { color: var(--accent-on-light); }
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: none;
+  padding: 0;
+}
+.mobile-menu-toggle span {
+  display: block;
+  height: 2px;
+  background: var(--ink-950);
+  border-radius: 2px;
+}
+
+.mobile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.5);
+  z-index: 199;
+}
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(80vw, 320px);
+  background: var(--bg-dark);
+  color: var(--ink-200);
+  z-index: 200;
+  padding: 24px;
+}
+.mobile-drawer-inner { display: flex; flex-direction: column; gap: 24px; }
+.mobile-menu-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--ink-200);
+  font-size: 28px;
+  line-height: 1;
+}
+.mobile-nav-links { display: flex; flex-direction: column; gap: 20px; }
+.mobile-nav-links a { font-size: 18px; }
+
+@media (max-width: 760px) {
+  .nav-links { display: none; }
+  .mobile-menu-toggle { display: flex; }
+}
+@media (min-width: 761px) {
+  .mobile-drawer, .mobile-drawer-backdrop { display: none !important; }
+}
+
+@keyframes header-elevate {
+  from { box-shadow: none; background: rgba(248, 250, 252, 0.7); }
+  to   { box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12); background: rgba(248, 250, 252, 0.95); }
+}
+@supports (animation-timeline: scroll()) {
+  .site-header {
+    animation: header-elevate linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 80px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header { animation: none !important; }
+}
