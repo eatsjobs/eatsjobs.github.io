@@ -1,0 +1,33 @@
+.projects-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  display: block;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-dark-soft);
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  transition: transform 160ms ease, border-color 160ms ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: rgba(249, 115, 22, 0.4);
+  }
+  & h3 {
+    margin: 0 0 10px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+    color: var(--ink-200);
+  }
+  & .link-button {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+  }
+}
