@@ -24,13 +24,13 @@ type-writer {
   display: inline;
 }
 
-/* --- Guarantee content is visible: the scroll-linked reveal animation has
-   no meaning on a static printed page, and some browsers evaluate the
-   view-timeline as still-at-0%, which would print sections blank. --- */
+/* --- Guarantee content is visible: the IntersectionObserver-driven reveal
+   has no meaning on a static printed page (nothing "scrolls into view"),
+   and print rendering may capture the DOM before the observer has fired. --- */
 .reveal {
   opacity: 1 !important;
   transform: none !important;
-  animation: none !important;
+  transition: none !important;
 }
 
 /* --- Page geometry: paper width replaces the on-screen container/section
