@@ -271,12 +271,22 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .card-panel { border-radius: var(--radius-lg); overflow: hidden; }
 .hero-feature {
+  position: relative;
   background: linear-gradient(150deg, #0f172a 0%, #1c2b4a 100%);
   color: var(--ink-200);
   box-shadow: var(--shadow-card);
   will-change: transform;
 }
-.hero-feature-inner { padding: 32px; }
+.hero-feature-gloss {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 65%);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.hero-feature-inner { position: relative; padding: 32px; }
 .status-badge {
   display: inline-flex;
   padding: 6px 12px;

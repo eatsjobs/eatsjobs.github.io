@@ -35,6 +35,7 @@
 
 (function () {
   var card = document.querySelector(".hero-feature");
+  var gloss = document.querySelector(".hero-feature-gloss");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!card || reduceMotion) {
@@ -64,15 +65,29 @@
     var axisY = deltaX / halfWidth;
     card.style.transform =
       "perspective(700px) rotate3d(" + (-axisX).toFixed(3) + ", " + axisY.toFixed(3) + ", 0, " + degree.toFixed(2) + "deg)";
+
+    if (gloss) {
+      var glossOpacity = Math.min(0.6, (distance * 0.6) / maxDistance);
+      gloss.style.transform =
+        "translate(" + (-axisY * 100).toFixed(1) + "%, " + (-axisX * 100).toFixed(1) + "%) scale(2.2)";
+      gloss.style.opacity = glossOpacity.toFixed(2);
+    }
   }
 
   function resetTilt() {
     card.style.transition = "transform 400ms ease";
     card.style.transform = "";
+    if (gloss) {
+      gloss.style.transition = "opacity 400ms ease";
+      gloss.style.opacity = 0;
+    }
   }
 
   card.addEventListener("pointerenter", function () {
     card.style.transition = "none";
+    if (gloss) {
+      gloss.style.transition = "none";
+    }
     enterTimer = window.setTimeout(function () {
       isTracking = true;
     }, enterDelay);
