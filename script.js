@@ -51,12 +51,19 @@
       return;
     }
     var rect = card.getBoundingClientRect();
-    var px = (event.clientX - rect.left) / rect.width;
-    var py = (event.clientY - rect.top) / rect.height;
-    var rotateY = (px - 0.5) * maxTilt * 2;
-    var rotateX = (0.5 - py) * maxTilt * 2;
+    var halfWidth = rect.width / 2;
+    var halfHeight = rect.height / 2;
+    var centerX = rect.left + halfWidth;
+    var centerY = rect.top + halfHeight;
+    var deltaX = event.clientX - centerX;
+    var deltaY = event.clientY - centerY;
+    var distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    var maxDistance = Math.max(halfWidth, halfHeight);
+    var degree = (distance * maxTilt) / maxDistance;
+    var axisX = deltaY / halfHeight;
+    var axisY = deltaX / halfWidth;
     card.style.transform =
-      "perspective(700px) rotateX(" + rotateX.toFixed(2) + "deg) rotateY(" + rotateY.toFixed(2) + "deg)";
+      "perspective(700px) rotate3d(" + (-axisX).toFixed(3) + ", " + axisY.toFixed(3) + ", 0, " + degree.toFixed(2) + "deg)";
   }
 
   function resetTilt() {
