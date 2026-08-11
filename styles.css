@@ -274,6 +274,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: linear-gradient(150deg, #0f172a 0%, #1c2b4a 100%);
   color: var(--ink-200);
   box-shadow: var(--shadow-card);
+  will-change: transform;
 }
 .hero-feature-inner { padding: 32px; }
 .status-badge {
