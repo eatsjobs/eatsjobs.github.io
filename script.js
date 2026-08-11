@@ -3,6 +3,11 @@
   var closeBtn = document.getElementById("mobileMenuClose");
   var drawer = document.getElementById("mobileDrawer");
   var backdrop = document.getElementById("mobileDrawerBackdrop");
+
+  if (!toggle || !closeBtn || !drawer || !backdrop) {
+    return;
+  }
+
   var links = drawer.querySelectorAll("a");
 
   function openDrawer() {
