@@ -394,12 +394,19 @@ ul { margin: 0; padding: 0; list-style: none; }
   gap: 28px;
 }
 .timeline-item {
-  padding-bottom: 28px;
+  padding: 12px 16px 28px;
+  margin: 0 -16px;
   border-bottom: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  transition: background-color 200ms ease, transform 200ms ease;
 }
 .timeline-item:last-child {
-  padding-bottom: 0;
+  padding-bottom: 12px;
   border-bottom: none;
+}
+.timeline-item:hover {
+  background-color: rgba(15, 23, 42, 0.06);
+  transform: translateX(6px);
 }
 .timeline-header {
   display: flex;
