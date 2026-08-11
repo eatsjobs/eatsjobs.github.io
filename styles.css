@@ -281,3 +281,17 @@ ul { margin: 0; padding: 0; list-style: none; }
 @media (max-width: 900px) {
   .hero-grid { grid-template-columns: 1fr; }
 }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 56px;
+}
+.fact-list { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; font-size: 14px; }
+.fact-list strong { display: block; color: var(--ink-400); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 2px; }
+.about-copy .title { margin-bottom: 20px; }
+.about-copy .body-copy + .body-copy { margin-top: 16px; }
+
+@media (max-width: 760px) {
+  .about-grid { grid-template-columns: 1fr; }
+}
