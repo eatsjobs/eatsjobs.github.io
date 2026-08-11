@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   background:
-    radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.1), transparent 42%),
+    radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.32) 0%, rgba(249, 115, 22, 0.12) 32%, transparent 62%),
     var(--bg-light);
   padding: clamp(64px, 12svh, 140px) 0;
   animation: hero-gradient-drift 20s ease-in-out infinite alternate;
