@@ -35,7 +35,12 @@ type-writer {
 
 /* --- Page geometry: paper width replaces the on-screen container/section
    rhythm, which would otherwise waste a lot of paper. --- */
-.container { width: 100% !important; max-width: none !important; }
+.container {
+  width: 100% !important;
+  max-width: none !important;
+  padding: 0 8px !important;
+  box-sizing: border-box;
+}
 .section { padding: 18px 0 !important; }
 .site-footer { padding: 12px 0 !important; }
 .hero {
@@ -64,17 +69,34 @@ type-writer {
   color: #333c4d !important;
 }
 
-/* --- Single-column, paper-friendly layout for the two-column sections --- */
-.hero-grid,
-.about-grid {
+/* --- Single-column for the hero (name/tagline + stat card stacked); About
+   keeps its two-column layout (narrower sidebar fits the page better than
+   the on-screen 280px) since facts-beside-narrative reads fine on paper
+   and is more compact than stacking them. --- */
+.hero-grid {
   display: block !important;
 }
+.about-grid {
+  display: grid !important;
+  grid-template-columns: 170px 1fr !important;
+  gap: 24px !important;
+}
 .hero-feature {
-  margin-top: 16px;
+  margin-top: 12px;
   background: #ffffff !important;
   color: #0f172a !important;
   box-shadow: none !important;
   border: 1px solid #cbd5e1;
+}
+.hero-feature-inner {
+  padding: 14px 16px !important;
+}
+.hero-feature h2 {
+  font-size: 16px !important;
+  margin: 8px 0 !important;
+}
+.hero-divider {
+  margin-bottom: 10px !important;
 }
 .hero-feature .accent,
 .status-badge {
@@ -83,15 +105,22 @@ type-writer {
 .status-badge {
   background: none !important;
   border: 1px solid #cbd5e1 !important;
+  font-size: 9px !important;
+  padding: 4px 8px !important;
+}
+.feature-value {
+  font-size: 15px !important;
+}
+.feature-value small {
+  font-size: 10px !important;
 }
 .about-facts {
   margin-bottom: 16px;
 }
 
-/* --- Cards: drop shadows/gradients, keep a plain border so entries stay
-   legible and don't get split across a page break --- */
-.project-card,
-.timeline-item {
+/* --- Project cards: drop shadows/gradients, keep a plain border so entries
+   stay legible and don't get split across a page break --- */
+.project-card {
   border: 1px solid #cbd5e1 !important;
   background: #ffffff !important;
   box-shadow: none !important;
@@ -104,6 +133,26 @@ type-writer {
 }
 .project-card .link-button {
   color: #c2410c !important;
+}
+
+/* --- Timeline: dense, resume-style list - no card box, just a hairline
+   divider between entries. --- */
+.timeline {
+  gap: 0 !important;
+}
+.timeline-item {
+  margin: 0 !important;
+  padding: 8px 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  transform: none !important;
+  break-inside: avoid;
+}
+.timeline-item:last-child {
+  border-bottom: none !important;
+}
+.timeline-desc {
+  margin-top: 4px !important;
 }
 .timeline-badge {
   background: none !important;
