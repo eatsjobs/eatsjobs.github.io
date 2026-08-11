@@ -43,6 +43,11 @@ button { font: inherit; cursor: pointer; }
 img { max-width: 100%; display: block; }
 ul { margin: 0; padding: 0; list-style: none; }
 
+.print-only-header,
+.print-only-name {
+  display: none;
+}
+
 .container {
   width: min(calc(100% - 48px), var(--container));
   margin: 0 auto;

@@ -30,6 +30,7 @@
     --playground-background: transparent;
     --cursor-width: 3px;
     --cursor-height: 0.85em;
+    --cursor-color: var(--accent-on-light);
   }
 }
 
