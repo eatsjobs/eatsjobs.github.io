@@ -216,7 +216,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .reveal {
     opacity: 0;
     animation: reveal-in linear both;
-    animation-timeline: view(0% 25%);
+    animation-timeline: view();
     animation-range: entry;
   }
 }
