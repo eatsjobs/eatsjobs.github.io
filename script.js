@@ -99,3 +99,39 @@
     resetTilt();
   });
 })();
+
+(function () {
+  var heading = document.querySelector(".title--hero");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!heading || reduceMotion) {
+    return;
+  }
+
+  var fullText = heading.textContent;
+  var typeSpeed = 55;
+
+  function* typewriter(text) {
+    for (var i = 1; i <= text.length; i++) {
+      yield text.slice(0, i);
+    }
+  }
+
+  heading.setAttribute("aria-label", fullText);
+  heading.textContent = "";
+  heading.classList.add("is-typing");
+
+  var characters = typewriter(fullText);
+
+  function typeNextCharacter() {
+    var step = characters.next();
+    if (step.done) {
+      heading.classList.remove("is-typing");
+      return;
+    }
+    heading.textContent = step.value;
+    window.setTimeout(typeNextCharacter, typeSpeed);
+  }
+
+  typeNextCharacter();
+})();
