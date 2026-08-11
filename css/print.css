@@ -69,17 +69,16 @@ type-writer {
   color: #333c4d !important;
 }
 
-/* --- Single-column for the hero (name/tagline + stat card stacked); About
-   keeps its two-column layout (narrower sidebar fits the page better than
-   the on-screen 280px) since facts-beside-narrative reads fine on paper
-   and is more compact than stacking them. --- */
+/* --- Single-column for the hero (name/tagline + stat card stacked) and for
+   About: a two-column grid reads fine visually on paper, but PDF text
+   extraction (e.g. an ATS parsing a saved-as-PDF copy) reads columns
+   positionally and can interleave the facts sidebar with the narrative
+   mid-sentence. Stacking keeps the extracted text in true DOM order. --- */
 .hero-grid {
   display: block !important;
 }
 .about-grid {
-  display: grid !important;
-  grid-template-columns: 170px 1fr !important;
-  gap: 24px !important;
+  display: block !important;
 }
 .hero-feature {
   margin-top: 12px;
