@@ -6,7 +6,9 @@
 }
 
 .project-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 28px;
   border-radius: var(--radius-lg);
   background: var(--bg-dark-soft);
