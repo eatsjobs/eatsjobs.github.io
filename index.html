@@ -1,239 +1,611 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Pasquale Mangialavori — Senior Frontend Engineer</title>
-<meta name="description" content="Pasquale Mangialavori is a Senior Frontend Engineer at Scandit, based in Barcelona, building web platforms and open-source JavaScript/TypeScript tools.">
-<meta name="author" content="Pasquale Mangialavori">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Pasquale Mangialavori">
-<meta property="og:url" content="https://eatsjobs.github.io/">
-<meta property="og:title" content="Pasquale Mangialavori — Senior Frontend Engineer">
-<meta property="og:description" content="Senior Frontend Engineer at Scandit, based in Barcelona. Building web platforms and open-source JS/TS tools.">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Pasquale Mangialavori — Senior Frontend Engineer">
-<meta name="twitter:description" content="Senior Frontend Engineer at Scandit, based in Barcelona. Building web platforms and open-source JS/TS tools.">
-<link rel="canonical" href="https://eatsjobs.github.io/">
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/hero.css">
-<link rel="stylesheet" href="css/about.css">
-<link rel="stylesheet" href="css/experience.css">
-<link rel="stylesheet" href="css/projects.css">
-<link rel="stylesheet" href="css/contact.css">
-<link rel="stylesheet" href="css/print.css" media="print">
-</head>
-<body>
-<p class="print-only-header">eatsjobs.github.io</p>
-<div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
-<aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation" inert>
-  <div class="mobile-drawer-inner">
-    <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">&times;</button>
-    <ul class="mobile-nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</aside>
-<header class="site-header" id="siteHeader">
-  <div class="container site-nav">
-    <a class="brand" href="#top">Pasquale<span>.</span></a>
-    <nav aria-label="Primary">
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-    <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-<main id="top">
-  <section class="hero" id="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <span class="eyebrow">Senior Frontend Engineer · Barcelona</span>
-        <h1 class="title title--hero" aria-label="Pasquale Mangialavori">
-          <type-writer aria-hidden="true" autostart typingdelay="100">Pasquale Mangialavori</type-writer>
-          <span class="print-only-name">Pasquale Mangialavori</span>
-        </h1>
-        <p class="body-copy hero-tagline">I build fast, well-crafted interfaces — and the open-source tools that make building them easier.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="#experience">View experience</a>
-          <a class="button button-outline" href="#contact">Get in touch</a>
-        </div>
-      </div>
-      <div class="hero-feature card-panel">
-        <div class="hero-feature-gloss" aria-hidden="true"></div>
-        <div class="hero-feature-inner">
-          <span class="status-badge">Currently at Scandit</span>
-          <h2>Building web experiences, <span class="accent">one component at a time</span></h2>
-          <div class="hero-divider"></div>
-          <div class="feature-metrics">
-            <div class="feature-metric">
-              <div class="feature-value">4+<small>yrs @ Scandit</small></div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
+        <title>Pasquale Mangialavori — Senior Frontend Engineer</title>
+        <meta
+            name="description"
+            content="Pasquale Mangialavori is a Senior Frontend Engineer at Scandit, based in Barcelona, building web platforms and open-source JavaScript/TypeScript tools."
+        />
+        <meta name="author" content="Pasquale Mangialavori" />
+        <meta
+            name="keywords"
+            content="Pasquale Mangialavori, frontend engineer, Scandit, Barcelona, JavaScript, TypeScript, React, web developer"
+        />
+        <meta
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <meta
+            name="googlebot"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
+        <meta
+            name="format-detection"
+            content="telephone=no, address=no, email=no"
+        />
+        <meta name="application-name" content="Pasquale Mangialavori" />
+        <meta
+            name="apple-mobile-web-app-title"
+            content="Pasquale Mangialavori"
+        />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#0f172a" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Pasquale Mangialavori" />
+        <meta property="og:url" content="https://eatsjobs.github.io/" />
+        <meta
+            property="og:title"
+            content="Pasquale Mangialavori — Senior Frontend Engineer"
+        />
+        <meta
+            property="og:description"
+            content="Senior Frontend Engineer at Scandit, based in Barcelona. Building web platforms and open-source JS/TS tools."
+        />
+        <meta property="og:locale" content="en_US" />
+        <meta
+            property="og:image"
+            content="https://eatsjobs.github.io/og-image.png"
+        />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+            property="og:image:alt"
+            content="Pasquale Mangialavori — Senior Frontend Engineer"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Pasquale Mangialavori — Senior Frontend Engineer"
+        />
+        <meta
+            name="twitter:description"
+            content="Senior Frontend Engineer at Scandit, based in Barcelona. Building web platforms and open-source JS/TS tools."
+        />
+        <meta
+            name="twitter:image"
+            content="https://eatsjobs.github.io/og-image.png"
+        />
+        <meta
+            name="twitter:image:alt"
+            content="Pasquale Mangialavori — Senior Frontend Engineer"
+        />
+        <link rel="canonical" href="https://eatsjobs.github.io/" />
+        <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="favicon-16x16.png"
+        />
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="apple-touch-icon.png"
+        />
+        <link rel="manifest" href="site.webmanifest" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/base.css" />
+        <link rel="stylesheet" href="css/animations.css" />
+        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/hero.css" />
+        <link rel="stylesheet" href="css/about.css" />
+        <link rel="stylesheet" href="css/experience.css" />
+        <link rel="stylesheet" href="css/projects.css" />
+        <link rel="stylesheet" href="css/contact.css" />
+        <link rel="stylesheet" href="css/print.css" media="print" />
+        <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="c11ff6e9-67e4-4456-a30c-474f91518609"
+        ></script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@graph": [
+                    {
+                        "@type": "WebSite",
+                        "@id": "https://eatsjobs.github.io/#website",
+                        "url": "https://eatsjobs.github.io/",
+                        "name": "Pasquale Mangialavori",
+                        "description": "Personal website of Pasquale Mangialavori, Senior Frontend Engineer.",
+                        "inLanguage": "en",
+                        "publisher": {
+                            "@id": "https://eatsjobs.github.io/#person"
+                        }
+                    },
+                    {
+                        "@type": "Person",
+                        "@id": "https://eatsjobs.github.io/#person",
+                        "name": "Pasquale Mangialavori",
+                        "url": "https://eatsjobs.github.io/",
+                        "image": "https://eatsjobs.github.io/og-image.png",
+                        "jobTitle": "Senior Frontend Engineer",
+                        "description": "Senior Frontend Engineer at Scandit, based in Barcelona, building web platforms and open-source JavaScript/TypeScript tools.",
+                        "knowsLanguage": ["English", "Italian"],
+                        "nationality": "Italian",
+                        "worksFor": {
+                            "@type": "Organization",
+                            "name": "Scandit"
+                        },
+                        "address": {
+                            "@type": "PostalAddress",
+                            "addressLocality": "Barcelona",
+                            "addressCountry": "ES"
+                        },
+                        "alumniOf": [
+                            {
+                                "@type": "CollegeOrUniversity",
+                                "name": "Sapienza University of Rome"
+                            },
+                            {
+                                "@type": "CollegeOrUniversity",
+                                "name": "University of Florence"
+                            }
+                        ],
+                        "sameAs": [
+                            "https://github.com/eatsjobs",
+                            "https://www.linkedin.com/in/pasquale-mangialavori",
+                            "https://dev.to/eatsjobs",
+                            "https://medium.com/@eatsjobs",
+                            "https://stackoverflow.com/users/5364206/pasquale-mangialavori",
+                            "https://bsky.app/profile/eatsjobs.bsky.social"
+                        ]
+                    },
+                    {
+                        "@type": "WebPage",
+                        "@id": "https://eatsjobs.github.io/#webpage",
+                        "url": "https://eatsjobs.github.io/",
+                        "name": "Pasquale Mangialavori — Senior Frontend Engineer",
+                        "isPartOf": {
+                            "@id": "https://eatsjobs.github.io/#website"
+                        },
+                        "about": {
+                            "@id": "https://eatsjobs.github.io/#person"
+                        },
+                        "description": "Pasquale Mangialavori is a Senior Frontend Engineer at Scandit, based in Barcelona, building web platforms and open-source JavaScript/TypeScript tools.",
+                        "inLanguage": "en"
+                    }
+                ]
+            }
+        </script>
+    </head>
+    <body>
+        <p class="print-only-header">eatsjobs.github.io</p>
+        <div class="mobile-drawer-backdrop" id="mobileDrawerBackdrop"></div>
+        <aside
+            class="mobile-drawer"
+            id="mobileDrawer"
+            aria-label="Mobile navigation"
+            inert
+        >
+            <div class="mobile-drawer-inner">
+                <button
+                    class="mobile-menu-close"
+                    id="mobileMenuClose"
+                    type="button"
+                    aria-label="Close menu"
+                >
+                    &times;
+                </button>
+                <ul class="mobile-nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
             </div>
-            <div class="feature-metric">
-              <div class="feature-value">11+<small>yrs frontend</small></div>
+        </aside>
+        <header class="site-header" id="siteHeader">
+            <div class="container site-nav">
+                <a class="brand" href="#top">Pasquale<span>.</span></a>
+                <nav aria-label="Primary">
+                    <ul class="nav-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <button
+                    class="mobile-menu-toggle"
+                    id="mobileMenuToggle"
+                    type="button"
+                    aria-label="Open menu"
+                    aria-controls="mobileDrawer"
+                    aria-expanded="false"
+                >
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-            <div class="feature-metric">
-              <div class="feature-value">BCN<small>Barcelona</small></div>
+        </header>
+        <main id="top">
+            <section class="hero" id="hero">
+                <div class="container hero-grid">
+                    <div class="hero-copy">
+                        <span class="eyebrow"
+                            >Senior Frontend Engineer · Barcelona</span
+                        >
+                        <h1
+                            class="title title--hero"
+                            aria-label="Pasquale Mangialavori"
+                        >
+                            <type-writer
+                                aria-hidden="true"
+                                autostart
+                                typingdelay="100"
+                                >Pasquale Mangialavori</type-writer
+                            >
+                            <span class="print-only-name"
+                                >Pasquale Mangialavori</span
+                            >
+                        </h1>
+                        <p class="body-copy hero-tagline">
+                            I build fast, well-crafted interfaces — and the
+                            open-source tools that make building them easier.
+                        </p>
+                        <div class="hero-actions">
+                            <a class="button button-primary" href="#experience"
+                                >View experience</a
+                            >
+                            <a class="button button-outline" href="#contact"
+                                >Get in touch</a
+                            >
+                        </div>
+                    </div>
+                    <div class="hero-feature card-panel">
+                        <div
+                            class="hero-feature-gloss"
+                            aria-hidden="true"
+                        ></div>
+                        <div class="hero-feature-inner">
+                            <span class="status-badge"
+                                >Currently at Scandit</span
+                            >
+                            <h2>
+                                Building web experiences,
+                                <span class="accent"
+                                    >one component at a time</span
+                                >
+                            </h2>
+                            <div class="hero-divider"></div>
+                            <div class="feature-metrics">
+                                <div class="feature-metric">
+                                    <div class="feature-value">
+                                        4+<small>yrs @ Scandit</small>
+                                    </div>
+                                </div>
+                                <div class="feature-metric">
+                                    <div class="feature-value">
+                                        11+<small>yrs frontend</small>
+                                    </div>
+                                </div>
+                                <div class="feature-metric">
+                                    <div class="feature-value">
+                                        BCN<small>Barcelona</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-dark" id="about">
+                <div class="container about-grid reveal">
+                    <div class="about-facts">
+                        <span class="eyebrow">About</span>
+                        <ul class="fact-list">
+                            <li><strong>Based in</strong> Barcelona, Spain</li>
+                            <li><strong>Currently at</strong> Scandit</li>
+                            <li>
+                                <strong>From</strong> Tropea, Calabria, Italy
+                            </li>
+                            <li>
+                                <strong>Studied at</strong> La Sapienza (Rome)
+                                &amp; University of Florence
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="about-copy">
+                        <h2 class="title">
+                            A frontend engineer who grew up on 'nduja and red
+                            onions
+                        </h2>
+                        <p class="body-copy">
+                            Born in Tropea, in the south of Italy, and raised
+                            nearby in Capo Vaticano, I studied at La Sapienza in
+                            Rome and specialized with a master's degree at the
+                            University of Florence. I started my career at
+                            Docomo Digital, then moved to Barcelona to work at
+                            eDreamsOdigeo. Since 2022 I've been building
+                            frontend platforms at Scandit.
+                        </p>
+                        <p class="body-copy">
+                            When I'm not staring at a screen, I'm usually out
+                            for a walk, playing beach volleyball or football,
+                            swimming, or playing guitar and annoying the
+                            neighbors.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-light" id="experience">
+                <div class="container reveal">
+                    <span class="eyebrow">Experience</span>
+                    <h2 class="title">Where I've worked</h2>
+                    <ol class="timeline">
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Front-end Software Engineer
+                                    <span class="timeline-company"
+                                        >· Scandit</span
+                                    >
+                                    <span class="timeline-badge">Current</span>
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Sep 2022 – Present</span
+                                >
+                            </div>
+                            <span class="timeline-location">Remote</span>
+                        </li>
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Senior Front-end Software Engineer
+                                    <span class="timeline-company"
+                                        >· eDreamsOdigeo</span
+                                    >
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Apr 2022 – Sep 2022</span
+                                >
+                            </div>
+                            <span class="timeline-location">Barcelona</span>
+                        </li>
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Front-end Software Engineer
+                                    <span class="timeline-company"
+                                        >· eDreamsOdigeo</span
+                                    >
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Jul 2019 – Apr 2022</span
+                                >
+                            </div>
+                            <span class="timeline-location">Barcelona</span>
+                            <p class="body-copy timeline-desc">
+                                Worked on the React migration team, focusing on
+                                the results page for a new accommodation product
+                                and building primitive components for the design
+                                system.
+                            </p>
+                        </li>
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Front-end Software Engineer
+                                    <span class="timeline-company"
+                                        >· luisaviaroma.com</span
+                                    >
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Jun 2018 – Jul 2019</span
+                                >
+                            </div>
+                            <span class="timeline-location">Florence</span>
+                            <p class="body-copy timeline-desc">
+                                Designed and implement the new React with SSR
+                                architecture and developed the LVR-UI design
+                                system.
+                            </p>
+                        </li>
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Front-end Developer
+                                    <span class="timeline-company"
+                                        >· Docomo Digital</span
+                                    >
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Feb 2015 – May 2018</span
+                                >
+                            </div>
+                            <span class="timeline-location">Florence</span>
+                            <p class="body-copy timeline-desc">
+                                Developed subscription-based web platforms for
+                                clients including Vodafone, TIM, Wind, and Sky —
+                                performant, spec-faithful frontend delivery.
+                            </p>
+                        </li>
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Game Developer Intern
+                                    <span class="timeline-company"
+                                        >· Balzo</span
+                                    >
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Nov 2014 – Jan 2015</span
+                                >
+                            </div>
+                            <span class="timeline-location">Florence</span>
+                            <p class="body-copy timeline-desc">
+                                Developed
+                                <a
+                                    href="https://eatsjobs.github.io/pizza-birra/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    >PizzaBirra</a
+                                >, a game built for Giunti Editore and
+                                Assobirra.
+                            </p>
+                        </li>
+                        <li class="timeline-item reveal">
+                            <div class="timeline-header">
+                                <h3>
+                                    Web Developer Intern
+                                    <span class="timeline-company"
+                                        >· Studio Creativo Matrjoska</span
+                                    >
+                                </h3>
+                                <span class="timeline-dates"
+                                    >Sep 2013 – Jul 2014</span
+                                >
+                            </div>
+                            <span class="timeline-location">Lucca</span>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+            <section class="section section-dark" id="projects">
+                <div class="container reveal">
+                    <span class="eyebrow">Projects</span>
+                    <h2 class="title">A few things I've built</h2>
+                    <div class="projects-grid">
+                        <a
+                            class="project-card"
+                            href="https://github.com/eatsjobs/media-mock"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <h3>media-mock</h3>
+                            <p class="body-copy">
+                                Simulates and mocks media devices like webcams
+                                in web applications.
+                            </p>
+                            <span class="link-button">View on GitHub →</span>
+                        </a>
+                        <a
+                            class="project-card"
+                            href="https://github.com/eatsjobs/ts-pattern-match"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <h3>ts-pattern-match</h3>
+                            <p class="body-copy">
+                                Simple pattern matching for
+                                JavaScript/TypeScript.
+                            </p>
+                            <span class="link-button">View on GitHub →</span>
+                        </a>
+                        <a
+                            class="project-card"
+                            href="https://github.com/eatsjobs/media-mock-extension"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <h3>media-mock-extension</h3>
+                            <p class="body-copy">
+                                Cross-browser extension (Chrome, Firefox,
+                                Safari) for testing camera/webcam behavior by
+                                mocking media devices, built on media-mock.
+                            </p>
+                            <span class="link-button">View on GitHub →</span>
+                        </a>
+                        <a
+                            class="project-card"
+                            href="https://github.com/eatsjobs/type-writer"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            <h3>type-writer</h3>
+                            <p class="body-copy">
+                                A type writer effect web component.
+                            </p>
+                            <span class="link-button">View on GitHub →</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-light" id="contact">
+                <div class="container reveal">
+                    <span class="eyebrow">Contact</span>
+                    <h2 class="title">Let's connect</h2>
+                    <p class="body-copy contact-intro">
+                        Best way to reach me is through one of these — happy to
+                        talk frontend, open source, or beach volleyball.
+                    </p>
+                    <ul class="social-links">
+                        <li>
+                            <a
+                                href="https://github.com/eatsjobs"
+                                target="_blank"
+                                rel="me noreferrer"
+                                >GitHub</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.linkedin.com/in/pasquale-mangialavori"
+                                target="_blank"
+                                rel="me noreferrer"
+                                >LinkedIn</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://dev.to/eatsjobs"
+                                target="_blank"
+                                rel="me noreferrer"
+                                >dev.to</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://medium.com/@eatsjobs"
+                                target="_blank"
+                                rel="me noreferrer"
+                                >Medium</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://stackoverflow.com/users/5364206/pasquale-mangialavori"
+                                target="_blank"
+                                rel="me noreferrer"
+                                >Stack Overflow</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://bsky.app/profile/eatsjobs.bsky.social"
+                                target="_blank"
+                                rel="me noreferrer"
+                                >Bluesky</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <span>© 2026 Pasquale Mangialavori. All rights reserved.</span>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section section-dark" id="about">
-    <div class="container about-grid reveal">
-      <div class="about-facts">
-        <span class="eyebrow">About</span>
-        <ul class="fact-list">
-          <li><strong>Based in</strong> Barcelona, Spain</li>
-          <li><strong>Currently at</strong> Scandit</li>
-          <li><strong>From</strong> Tropea, Calabria, Italy</li>
-          <li><strong>Studied at</strong> La Sapienza (Rome) &amp; University of Florence</li>
-        </ul>
-      </div>
-      <div class="about-copy">
-        <h2 class="title">A frontend engineer who grew up on 'nduja and red onions</h2>
-        <p class="body-copy">
-          Born in Tropea, in the south of Italy, and raised nearby in Capo Vaticano, I studied
-          at La Sapienza in Rome and specialized with a master's degree at the University of
-          Florence. I started my career at Docomo Digital, then moved to Barcelona to work at
-          eDreamsOdigeo. Since 2022 I've been building frontend platforms at Scandit.
-        </p>
-        <p class="body-copy">
-          When I'm not staring at a screen, I'm usually out for a walk, playing beach volleyball
-          or football, swimming, or playing guitar and annoying the neighbors.
-        </p>
-      </div>
-    </div>
-  </section>
-  <section class="section section-light" id="experience">
-    <div class="container reveal">
-      <span class="eyebrow">Experience</span>
-      <h2 class="title">Where I've worked</h2>
-      <ol class="timeline">
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Front-end Software Engineer <span class="timeline-company">· Scandit</span> <span class="timeline-badge">Current</span></h3>
-            <span class="timeline-dates">Sep 2022 – Present</span>
-          </div>
-          <span class="timeline-location">Remote</span>
-        </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Senior Front-end Software Engineer <span class="timeline-company">· eDreamsOdigeo</span></h3>
-            <span class="timeline-dates">Apr 2022 – Sep 2022</span>
-          </div>
-          <span class="timeline-location">Barcelona</span>
-        </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Front-end Software Engineer <span class="timeline-company">· eDreamsOdigeo</span></h3>
-            <span class="timeline-dates">Jul 2019 – Apr 2022</span>
-          </div>
-          <span class="timeline-location">Barcelona</span>
-          <p class="body-copy timeline-desc">Worked on the React migration team, focusing on the results page for a new accommodation product and building primitive components for the design system.</p>
-        </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Front-end Software Engineer <span class="timeline-company">· luisaviaroma.com</span></h3>
-            <span class="timeline-dates">Jun 2018 – Jul 2019</span>
-          </div>
-          <span class="timeline-location">Florence</span>
-          <p class="body-copy timeline-desc">Designed and implement the new React with SSR architecture and developed the LVR-UI design system.</p>
-        </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Front-end Developer <span class="timeline-company">· Docomo Digital</span></h3>
-            <span class="timeline-dates">Feb 2015 – May 2018</span>
-          </div>
-          <span class="timeline-location">Florence</span>
-          <p class="body-copy timeline-desc">Developed subscription-based web platforms for clients including Vodafone, TIM, Wind, and Sky — performant, spec-faithful frontend delivery.</p>
-        </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Game Developer Intern <span class="timeline-company">· Balzo</span></h3>
-            <span class="timeline-dates">Nov 2014 – Jan 2015</span>
-          </div>
-          <span class="timeline-location">Florence</span>
-          <p class="body-copy timeline-desc">Developed <a href="https://eatsjobs.github.io/pizza-birra/" target="_blank" rel="noreferrer">PizzaBirra</a>, a game built for Giunti Editore and Assobirra.</p>
-        </li>
-        <li class="timeline-item reveal">
-          <div class="timeline-header">
-            <h3>Web Developer Intern <span class="timeline-company">· Studio Creativo Matrjoska</span></h3>
-            <span class="timeline-dates">Sep 2013 – Jul 2014</span>
-          </div>
-          <span class="timeline-location">Lucca</span>
-        </li>
-      </ol>
-    </div>
-  </section>
-  <section class="section section-dark" id="projects">
-    <div class="container reveal">
-      <span class="eyebrow">Projects</span>
-      <h2 class="title">A few things I've built</h2>
-      <div class="projects-grid">
-        <a class="project-card" href="https://github.com/eatsjobs/media-mock" target="_blank" rel="noreferrer">
-          <h3>media-mock</h3>
-          <p class="body-copy">Simulates and mocks media devices like webcams in web applications.</p>
-          <span class="link-button">View on GitHub →</span>
-        </a>
-        <a class="project-card" href="https://github.com/eatsjobs/ts-pattern-match" target="_blank" rel="noreferrer">
-          <h3>ts-pattern-match</h3>
-          <p class="body-copy">Simple pattern matching for JavaScript/TypeScript.</p>
-          <span class="link-button">View on GitHub →</span>
-        </a>
-        <a class="project-card" href="https://github.com/eatsjobs/media-mock-extension" target="_blank" rel="noreferrer">
-          <h3>media-mock-extension</h3>
-          <p class="body-copy">Cross-browser extension (Chrome, Firefox, Safari) for testing camera/webcam behavior by mocking media devices, built on media-mock.</p>
-          <span class="link-button">View on GitHub →</span>
-        </a>
-        <a class="project-card" href="https://github.com/eatsjobs/type-writer" target="_blank" rel="noreferrer">
-          <h3>type-writer</h3>
-          <p class="body-copy">A type writer effect web component.</p>
-          <span class="link-button">View on GitHub →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-  <section class="section section-light" id="contact">
-    <div class="container reveal">
-      <span class="eyebrow">Contact</span>
-      <h2 class="title">Let's connect</h2>
-      <p class="body-copy contact-intro">
-        Best way to reach me is through one of these — happy to talk frontend, open source, or
-        beach volleyball.
-      </p>
-      <ul class="social-links">
-        <li><a href="https://github.com/eatsjobs" target="_blank" rel="noreferrer">GitHub</a></li>
-        <li><a href="https://www.linkedin.com/in/pasquale-mangialavori" target="_blank" rel="noreferrer">LinkedIn</a></li>
-        <li><a href="https://dev.to/eatsjobs" target="_blank" rel="noreferrer">dev.to</a></li>
-        <li><a href="https://medium.com/@eatsjobs" target="_blank" rel="noreferrer">Medium</a></li>
-        <li><a href="https://stackoverflow.com/users/5364206/pasquale-mangialavori" target="_blank" rel="noreferrer">Stack Overflow</a></li>
-        <li><a href="https://bsky.app/profile/eatsjobs.bsky.social" target="_blank" rel="noreferrer">Bluesky</a></li>
-      </ul>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <span>© 2026 Pasquale Mangialavori. All rights reserved.</span>
-  </div>
-</footer>
-<script type="module" src="js/main.js"></script>
-</body>
+        </footer>
+        <script type="module" src="js/main.js"></script>
+    </body>
 </html>
