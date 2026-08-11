@@ -12,7 +12,14 @@
   margin: 0 -16px;
   border-bottom: 1px solid var(--line);
   border-radius: var(--radius-md);
-  transition: background-color 200ms ease, transform 200ms ease;
+  /* This element also carries .reveal (see js/reveal.js), which wants its own
+     transition on opacity/transform. `transition` is a single property, so
+     the two declarations can't merge across files - the later-loaded one
+     would simply replace the earlier one. Folding everything this element
+     needs into one declaration here avoids that: background-color/transform
+     stay snappy for the hover effect, opacity gets the slower fade the
+     reveal system uses everywhere else. */
+  transition: background-color 200ms ease, transform 320ms cubic-bezier(0.22, 1, 0.36, 1), opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
 
   &:last-child {
     padding-bottom: 12px;
