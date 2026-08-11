@@ -375,4 +375,66 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--ink-400);
   font-size: 13px;
 }
+
+.timeline {
+  margin: 36px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.timeline-item {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.timeline-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.timeline-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.timeline-header h3 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+}
+.timeline-company {
+  color: var(--accent-on-light);
+  font-weight: 500;
+}
+.timeline-badge {
+  display: inline-flex;
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(194, 65, 12, 0.1);
+  border: 1px solid rgba(194, 65, 12, 0.25);
+  color: var(--accent-on-light);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  vertical-align: middle;
+}
+.timeline-dates {
+  font-size: 13px;
+  color: var(--ink-700);
+  white-space: nowrap;
+}
+.timeline-location {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ink-700);
+}
+.timeline-desc {
+  margin-top: 10px;
+}
 .footer-inner { text-align: center; }
