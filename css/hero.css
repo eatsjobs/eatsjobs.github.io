@@ -1,11 +1,38 @@
+/* Typed custom properties so the gradient's position can be smoothly
+   animated by a keyframe animation - plain (untyped) custom properties
+   can't be interpolated, they'd just snap between values. */
+@property --hero-gx {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --hero-gy {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@keyframes hero-gradient-drift {
+  0%   { --hero-gx: 0%;   --hero-gy: 0%; }
+  50%  { --hero-gx: 100%; --hero-gy: 35%; }
+  100% { --hero-gx: 15%;  --hero-gy: 100%; }
+}
+
 .hero {
   min-height: calc(100svh - 65px);
   display: flex;
   align-items: center;
   background:
-    radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.08), transparent 40%),
+    radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.1), transparent 42%),
     var(--bg-light);
   padding: clamp(64px, 12svh, 140px) 0;
+  animation: hero-gradient-drift 20s ease-in-out infinite alternate;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    --hero-gx: 0%;
+    --hero-gy: 0%;
+  }
 }
 
 .hero-grid {
