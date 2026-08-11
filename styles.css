@@ -326,27 +326,6 @@ ul { margin: 0; padding: 0; list-style: none; }
   .about-grid { grid-template-columns: 1fr; }
 }
 
-.skills-grid {
-  margin-top: 36px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 32px;
-}
-.skill-group h3 {
-  margin: 0 0 14px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 15px;
-}
-.pill-list { display: flex; flex-wrap: wrap; gap: 8px; }
-.pill-list li {
-  padding: 6px 14px;
-  border-radius: 999px;
-  background: rgba(194, 65, 12, 0.08);
-  border: 1px solid rgba(194, 65, 12, 0.2);
-  color: var(--accent-on-light);
-  font-size: 13px;
-}
-
 .projects-grid {
   margin-top: 36px;
   display: grid;
