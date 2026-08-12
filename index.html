@@ -642,28 +642,5 @@
             </div>
         </footer>
         <script type="module" src="js/main.js"></script>
-        <!-- TEMPORARY placeholder wiring for the pixel-cam toggle: Task 5
-             replaces this with the real camera/worker orchestration. It
-             only toggles the visual layering classes so this task's CSS
-             can be verified before any camera code exists. -->
-        <script type="module">
-            const toggle = document.getElementById("pixelCamToggle");
-            const hero = document.querySelector(".hero");
-            const supported =
-                !!navigator.mediaDevices &&
-                typeof navigator.mediaDevices.getUserMedia === "function" &&
-                typeof window.OffscreenCanvas === "function" &&
-                typeof HTMLCanvasElement.prototype
-                    .transferControlToOffscreen === "function";
-            if (toggle && supported) {
-                toggle.hidden = false;
-                toggle.addEventListener("click", () => {
-                    const isActive = hero.classList.toggle(
-                        "is-pixel-cam-active",
-                    );
-                    toggle.setAttribute("aria-pressed", String(isActive));
-                });
-            }
-        </script>
     </body>
 </html>
