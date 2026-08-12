@@ -93,6 +93,39 @@
   }
 }
 
+.header-pixel-cam-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 4px;
+  background: none;
+  color: var(--ink-700);
+  transition: color 160ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent-on-light);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent-on-light);
+    outline-offset: 2px;
+  }
+  &[aria-pressed="true"] {
+    color: var(--accent);
+    animation: pixel-cam-pulse 1.6s ease-in-out infinite;
+  }
+}
+@keyframes pixel-cam-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .header-pixel-cam-toggle[aria-pressed="true"] { animation: none; }
+}
+
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;

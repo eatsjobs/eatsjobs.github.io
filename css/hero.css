@@ -19,13 +19,31 @@
 }
 
 .hero {
+  position: relative;
+  overflow: hidden;
   min-height: calc(100svh - 65px);
   display: flex;
   align-items: center;
+  padding: clamp(64px, 12svh, 140px) 0;
+}
+
+.hero-pixel-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.hero.is-pixel-cam-active .hero-pixel-canvas { display: block; }
+
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
     radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.32) 0%, rgba(249, 115, 22, 0.12) 32%, transparent 62%),
     var(--bg-light);
-  padding: clamp(64px, 12svh, 140px) 0;
   animation: hero-gradient-drift 20s ease-in-out infinite alternate;
 
   @media (prefers-reduced-motion: reduce) {
@@ -34,8 +52,18 @@
     --hero-gy: 0%;
   }
 }
+/* Once the camera background is active, lighten/thin the scrim so the
+   pixel art reads clearly while keeping the hero's dark text legible
+   regardless of what's in frame. */
+.hero.is-pixel-cam-active .hero-scrim {
+  background:
+    radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.55) 0%, rgba(249, 115, 22, 0.3) 45%, rgba(248, 250, 252, 0.6) 75%),
+    transparent;
+}
 
 .hero-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 380px;
   align-items: center;
