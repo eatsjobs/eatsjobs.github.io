@@ -111,7 +111,9 @@ export function initPixelCam({
     } catch (err) {
       console.warn("Pixel cam could not start:", err);
       if (stream) {
-        stream.getTracks().forEach((track) => track.stop());
+        stream.getTracks().forEach((track) => {
+          track.stop();
+        });
         stream = null;
       }
       if (video) {
@@ -139,7 +141,9 @@ export function initPixelCam({
     }
     observer.unobserve(hero);
     if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach((track) => {
+        track.stop();
+      });
       stream = null;
     }
     if (video) {
