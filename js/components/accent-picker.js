@@ -29,34 +29,45 @@ template.innerHTML = `
 `;
 
 export class AccentPicker extends HTMLElement {
-  connectedCallback() {
-    if (this.shadowRoot) {
+  #handleClick = (event) => {
+    const button = event.target.closest("button");
+    if (!button) {
       return;
     }
-    const shadow = this.attachShadow({ mode: "open" });
-    shadow.appendChild(template.content.cloneNode(true));
+    const { accent, accentOnLight } = button.dataset;
+    document.documentElement.style.setProperty("--accent", accent);
+    document.documentElement.style.setProperty("--accent-on-light", accentOnLight);
 
-    const buttons = COLORS.map(({ name, accent, accentOnLight }, index) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.style.background = accent;
-      button.setAttribute("aria-label", `${name} accent`);
-      button.setAttribute("aria-pressed", String(index === 0));
-      button.classList.toggle("is-selected", index === 0);
-
-      button.addEventListener("click", () => {
-        document.documentElement.style.setProperty("--accent", accent);
-        document.documentElement.style.setProperty("--accent-on-light", accentOnLight);
-        buttons.forEach((candidate, candidateIndex) => {
-          const isSelected = candidateIndex === index;
-          candidate.classList.toggle("is-selected", isSelected);
-          candidate.setAttribute("aria-pressed", String(isSelected));
-        });
-      });
-
-      shadow.appendChild(button);
-      return button;
+    this.shadowRoot.querySelectorAll("button").forEach((candidate) => {
+      const isSelected = candidate === button;
+      candidate.classList.toggle("is-selected", isSelected);
+      candidate.setAttribute("aria-pressed", String(isSelected));
     });
+  };
+
+  connectedCallback() {
+    if (!this.shadowRoot) {
+      const shadow = this.attachShadow({ mode: "open" });
+      shadow.appendChild(template.content.cloneNode(true));
+
+      COLORS.forEach(({ name, accent, accentOnLight }, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.style.background = accent;
+        button.dataset.accent = accent;
+        button.dataset.accentOnLight = accentOnLight;
+        button.setAttribute("aria-label", `${name} accent`);
+        button.setAttribute("aria-pressed", String(index === 0));
+        button.classList.toggle("is-selected", index === 0);
+        shadow.appendChild(button);
+      });
+    }
+
+    this.shadowRoot.addEventListener("click", this.#handleClick);
+  }
+
+  disconnectedCallback() {
+    this.shadowRoot.removeEventListener("click", this.#handleClick);
   }
 }
 
