@@ -4,6 +4,26 @@ const COLORS = [
   { name: "Matrix green", accent: "#00ff41", accentOnLight: "#15803d" },
 ];
 
+const STORAGE_KEY = "accentColorIndex";
+
+function readStoredIndex() {
+  try {
+    const index = Number(sessionStorage.getItem(STORAGE_KEY));
+    return Number.isInteger(index) && index >= 0 && index < COLORS.length ? index : 0;
+  } catch {
+    // sessionStorage unavailable (private browsing, disabled storage, etc.) - just start at the default.
+    return 0;
+  }
+}
+
+function storeIndex(index) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, String(index));
+  } catch {
+    // Persistence is best-effort only - the picker still works for the rest of this page view.
+  }
+}
+
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
@@ -34,12 +54,16 @@ export class AccentPicker extends HTMLElement {
     if (!button) {
       return;
     }
+    const buttons = Array.from(this.shadowRoot.querySelectorAll("button"));
+    const index = buttons.indexOf(button);
     const { accent, accentOnLight } = button.dataset;
+
     document.documentElement.style.setProperty("--accent", accent);
     document.documentElement.style.setProperty("--accent-on-light", accentOnLight);
+    storeIndex(index);
 
-    this.shadowRoot.querySelectorAll("button").forEach((candidate) => {
-      const isSelected = candidate === button;
+    buttons.forEach((candidate, candidateIndex) => {
+      const isSelected = candidateIndex === index;
       candidate.classList.toggle("is-selected", isSelected);
       candidate.setAttribute("aria-pressed", String(isSelected));
     });
@@ -50,6 +74,8 @@ export class AccentPicker extends HTMLElement {
       const shadow = this.attachShadow({ mode: "open" });
       shadow.appendChild(template.content.cloneNode(true));
 
+      const selectedIndex = readStoredIndex();
+
       COLORS.forEach(({ name, accent, accentOnLight }, index) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -57,10 +83,14 @@ export class AccentPicker extends HTMLElement {
         button.dataset.accent = accent;
         button.dataset.accentOnLight = accentOnLight;
         button.setAttribute("aria-label", `${name} accent`);
-        button.setAttribute("aria-pressed", String(index === 0));
-        button.classList.toggle("is-selected", index === 0);
+        button.setAttribute("aria-pressed", String(index === selectedIndex));
+        button.classList.toggle("is-selected", index === selectedIndex);
         shadow.appendChild(button);
       });
+
+      const selected = COLORS[selectedIndex];
+      document.documentElement.style.setProperty("--accent", selected.accent);
+      document.documentElement.style.setProperty("--accent-on-light", selected.accentOnLight);
     }
 
     this.shadowRoot.addEventListener("click", this.#handleClick);
