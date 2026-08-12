@@ -8,17 +8,17 @@ const STORAGE_KEY = "accentColorIndex";
 
 function readStoredIndex() {
   try {
-    const index = Number(sessionStorage.getItem(STORAGE_KEY));
+    const index = Number(localStorage.getItem(STORAGE_KEY));
     return Number.isInteger(index) && index >= 0 && index < COLORS.length ? index : 0;
   } catch {
-    // sessionStorage unavailable (private browsing, disabled storage, etc.) - just start at the default.
+    // localStorage unavailable (private browsing, disabled storage, etc.) - just start at the default.
     return 0;
   }
 }
 
 function storeIndex(index) {
   try {
-    sessionStorage.setItem(STORAGE_KEY, String(index));
+    localStorage.setItem(STORAGE_KEY, String(index));
   } catch {
     // Persistence is best-effort only - the picker still works for the rest of this page view.
   }
