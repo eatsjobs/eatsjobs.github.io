@@ -13,23 +13,29 @@
    visible - content is never hidden waiting on a feature that isn't
    there.
 
-   The slide distance animates a typed custom property (--reveal-y)
-   instead of `transform` directly. An actively-animating property
-   always wins the cascade over a normal rule for that same property,
-   regardless of specificity - so animating `transform` directly here
-   would silently defeat .timeline-item:hover/.project-card:hover's own
-   `transform` (verified: the hover background/border still applied,
-   but the hover transform never did). Routing it through a custom
-   property means only that property is animation-owned; `transform`
-   itself stays a normal, overridable declaration. */
+   The slide distance and scale each animate a typed custom property
+   (--reveal-y, --reveal-scale) instead of `transform` directly. An
+   actively-animating property always wins the cascade over a normal
+   rule for that same property, regardless of specificity - so animating
+   `transform` directly here would silently defeat
+   .timeline-item:hover/.project-card:hover's own `transform` (verified:
+   the hover background/border still applied, but the hover transform
+   never did). Routing it through custom properties means only those
+   properties are animation-owned; `transform` itself stays a normal,
+   overridable declaration built from both. */
 @property --reveal-y {
   syntax: "<length>";
   inherits: false;
   initial-value: 0px;
 }
+@property --reveal-scale {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
 
 .reveal {
-  transform: translateY(var(--reveal-y));
+  transform: translateY(var(--reveal-y)) scale(var(--reveal-scale));
 
   @supports (animation-timeline: view()) {
     animation: reveal-in linear both;
@@ -45,9 +51,11 @@
   from {
     opacity: 0;
     --reveal-y: 200px;
+    --reveal-scale: 0.85;
   }
   to {
     opacity: 1;
     --reveal-y: 0px;
+    --reveal-scale: 1;
   }
 }

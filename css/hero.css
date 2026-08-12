@@ -78,6 +78,7 @@
 .title--hero {
   font-size: clamp(2.75rem, 6vw, 3.75rem);
   line-height: 1.02;
+  min-height: 115px;
 
   & type-writer {
     --font-family: "Space Grotesk", sans-serif;
