@@ -117,14 +117,23 @@ type-writer {
   margin-bottom: 16px;
 }
 
-/* --- Project cards: drop shadows/gradients, keep a plain border so entries
-   stay legible and don't get split across a page break --- */
+/* --- Project cards: single column (the on-screen multi-column grid would
+   otherwise read out of order in ATS text extraction, same issue as About
+   above), drop shadows/gradients, keep a plain border so entries stay
+   legible and don't get split across a page break --- */
+.projects-grid {
+  display: block !important;
+}
 .project-card {
+  margin-bottom: 12px;
   border: 1px solid #cbd5e1 !important;
   background: #ffffff !important;
   box-shadow: none !important;
   transform: none !important;
   break-inside: avoid;
+}
+.project-card:last-child {
+  margin-bottom: 0;
 }
 .project-card h3,
 .project-card .body-copy {
