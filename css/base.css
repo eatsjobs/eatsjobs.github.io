@@ -1,3 +1,18 @@
+/* Typed so JS-driven accent swaps (see .accent-swatch) animate smoothly
+   through every var(--accent)/var(--accent-on-light) usage site-wide,
+   rather than snapping instantly - plain (untyped) custom properties
+   can't be interpolated. */
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f97316;
+}
+@property --accent-on-light {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #c2410c;
+}
+
 :root {
   --bg-dark: #0f172a;
   --bg-dark-soft: #14213a;
@@ -16,6 +31,11 @@
   --shadow-card: 0 20px 50px rgba(15, 23, 42, 0.35);
   --container: 1200px;
   --section-pad: 96px;
+  transition: --accent 400ms ease, --accent-on-light 400ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 
 *, *::before, *::after { box-sizing: border-box; }

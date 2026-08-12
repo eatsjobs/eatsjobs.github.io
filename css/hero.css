@@ -43,7 +43,7 @@
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.32) 0%, rgba(249, 115, 22, 0.12) 32%, transparent 62%),
+    radial-gradient(circle at var(--hero-gx) var(--hero-gy), color-mix(in srgb, var(--accent) 32%, transparent) 0%, color-mix(in srgb, var(--accent) 12%, transparent) 32%, transparent 62%),
     var(--bg-light);
   animation: hero-gradient-drift 20s ease-in-out infinite alternate;
 
@@ -58,7 +58,7 @@
    regardless of what's in frame. */
 .hero.is-pixel-cam-active .hero-scrim {
   background:
-    radial-gradient(circle at var(--hero-gx) var(--hero-gy), rgba(249, 115, 22, 0.55) 0%, rgba(249, 115, 22, 0.3) 45%, rgba(248, 250, 252, 0.6) 75%),
+    radial-gradient(circle at var(--hero-gx) var(--hero-gy), color-mix(in srgb, var(--accent) 55%, transparent) 0%, color-mix(in srgb, var(--accent) 30%, transparent) 45%, rgba(248, 250, 252, 0.6) 75%),
     transparent;
 }
 
@@ -148,8 +148,8 @@
   display: inline-flex;
   padding: 6px 12px;
   border-radius: 6px;
-  background: rgba(249, 115, 22, 0.12);
-  border: 1px solid rgba(249, 115, 22, 0.3);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   color: var(--accent);
   font-size: 10px;
   font-weight: 700;
@@ -157,10 +157,10 @@
   text-transform: uppercase;
 }
 
-.hero-divider { height: 1px; background: rgba(249, 115, 22, 0.2); margin-bottom: 20px; }
+.hero-divider { height: 1px; background: color-mix(in srgb, var(--accent) 20%, transparent); margin-bottom: 20px; }
 
 .feature-metrics { display: grid; grid-template-columns: repeat(3, 1fr); }
-.feature-metric + .feature-metric { border-left: 1px solid rgba(249, 115, 22, 0.15); padding-left: 14px; margin-left: 14px; }
+.feature-metric + .feature-metric { border-left: 1px solid color-mix(in srgb, var(--accent) 15%, transparent); padding-left: 14px; margin-left: 14px; }
 .feature-value {
   display: flex;
   flex-direction: column;
