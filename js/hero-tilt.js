@@ -1,6 +1,4 @@
-export function initHeroTilt() {
-  const card = document.querySelector(".hero-feature");
-  const gloss = document.querySelector(".hero-feature-gloss");
+export function initHeroTilt({ cardElement: card, glossElement: gloss } = {}) {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!card || reduceMotion) {

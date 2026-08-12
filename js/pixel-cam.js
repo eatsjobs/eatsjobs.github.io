@@ -11,11 +11,13 @@ function isPixelCamSupported() {
   );
 }
 
-export function initPixelCam() {
-  const toggle = document.getElementById("pixelCamToggle");
-  const hero = document.querySelector(".hero");
-  const canvas = document.querySelector(".hero-pixel-canvas");
-  const build = document.documentElement.dataset.build;
+export function initPixelCam({
+  toggleElement: toggle,
+  heroElement: hero,
+  canvasElement: canvas,
+  docElement,
+} = {}) {
+  const build = docElement?.dataset.build;
 
   if (!toggle || !hero || !canvas || !isPixelCamSupported()) {
     return;

@@ -1,8 +1,8 @@
-export function initMobileMenu() {
-  const toggle = document.getElementById("mobileMenuToggle");
-  const closeBtn = document.getElementById("mobileMenuClose");
-  const drawer = document.getElementById("mobileDrawer");
-
+export function initMobileMenu({
+  toggleElement: toggle,
+  closeButtonElement: closeBtn,
+  drawerElement: drawer,
+} = {}) {
   if (!toggle || !closeBtn || !drawer) {
     return;
   }

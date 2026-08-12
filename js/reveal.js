@@ -1,5 +1,4 @@
-export function initReveal() {
-  const items = document.querySelectorAll(".reveal");
+export function initReveal({ revealElements: items = [] } = {}) {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!items.length || reduceMotion) {

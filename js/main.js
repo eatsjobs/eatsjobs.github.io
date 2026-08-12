@@ -1,6 +1,7 @@
 import "https://cdn.jsdelivr.net/npm/@eatsjobs/type-writer@1.2.0/+esm";
 
-const build = document.documentElement.dataset.build;
+const docElement = document.documentElement;
+const build = docElement.dataset.build;
 
 const [{ initMobileMenu }, { initHeroTilt }, { initReveal }, { initPixelCam }] =
   await Promise.all([
@@ -10,7 +11,24 @@ const [{ initMobileMenu }, { initHeroTilt }, { initReveal }, { initPixelCam }] =
     import(`./pixel-cam.js?v=${build}`)
   ]);
 
-initMobileMenu();
-initHeroTilt();
-initReveal();
-initPixelCam();
+initMobileMenu({
+  toggleElement: document.getElementById("mobileMenuToggle"),
+  closeButtonElement: document.getElementById("mobileMenuClose"),
+  drawerElement: document.getElementById("mobileDrawer"),
+});
+
+initHeroTilt({
+  cardElement: document.querySelector(".hero-feature"),
+  glossElement: document.querySelector(".hero-feature-gloss"),
+});
+
+initReveal({
+  revealElements: document.querySelectorAll(".reveal"),
+});
+
+initPixelCam({
+  toggleElement: document.getElementById("pixelCamToggle"),
+  heroElement: document.querySelector(".hero"),
+  canvasElement: document.querySelector(".hero-pixel-canvas"),
+  docElement,
+});
