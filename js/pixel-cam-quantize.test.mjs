@@ -17,3 +17,12 @@ test("output buffer is the same length as the input", () => {
   const out = quantizeFrame(src, 4, 4);
   assert.equal(out.length, src.length);
 });
+
+test("a low-contrast, muddy pixel snaps to a punchier palette color once boosted", () => {
+  // (100, 110, 90) is nearest (unboosted) to the dull gray [78, 74, 78], but
+  // contrast+saturation boosting before matching pushes it to the greener,
+  // more saturated [82, 129, 43] instead — this is the "more defined" fix.
+  const src = new Uint8ClampedArray([100, 110, 90, 255]);
+  const out = quantizeFrame(src, 1, 1);
+  assert.deepEqual(Array.from(out), [82, 129, 43, 255]);
+});

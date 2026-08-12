@@ -1,5 +1,5 @@
-const BUFFER_W = 64;
-const BUFFER_H = 48;
+const BUFFER_W = 112;
+const BUFFER_H = 84;
 const CAPTURE_INTERVAL_MS = 83; // ~12fps
 
 function isPixelCamSupported() {
