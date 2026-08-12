@@ -54,13 +54,36 @@
     border-radius: 4px;
     transition: color 160ms ease;
 
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6px;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--accent-on-light);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms ease;
+    }
     &:hover,
     &:focus-visible {
       color: var(--accent-on-light);
     }
+    &:hover::after,
+    &:focus-visible::after {
+      transform: scaleX(1);
+    }
     &:focus-visible {
       outline: 2px solid var(--accent-on-light);
       outline-offset: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+
+      &::after { transition: none; }
     }
   }
 
