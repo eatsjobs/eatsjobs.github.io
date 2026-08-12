@@ -1,6 +1,12 @@
 @keyframes header-elevate {
-  from { box-shadow: none; background: rgba(248, 250, 252, 0.55); }
-  to   { box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12); background: rgba(248, 250, 252, 0.8); }
+  from {
+    box-shadow: none;
+    background: rgba(248, 250, 252, 0.55);
+  }
+  to {
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    background: rgba(248, 250, 252, 0.8);
+  }
 }
 
 .site-header {
@@ -39,7 +45,9 @@
   font-weight: 700;
   border-radius: 4px;
 
-  & span { color: var(--accent-on-light); }
+  & span {
+    color: var(--accent-on-light);
+  }
 
   &:focus-visible {
     outline: 2px solid var(--accent-on-light);
@@ -88,7 +96,9 @@
     @media (prefers-reduced-motion: reduce) {
       transition: none;
 
-      &::after { transition: none; }
+      &::after {
+        transition: none;
+      }
     }
   }
 
@@ -126,11 +136,18 @@
   }
 }
 @keyframes pixel-cam-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.45; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .header-pixel-cam-toggle[aria-pressed="true"] { animation: none; }
+  .header-pixel-cam-toggle[aria-pressed="true"] {
+    animation: none;
+  }
 }
 
 .mobile-menu-toggle {
@@ -205,11 +222,17 @@
   @media (prefers-reduced-motion: reduce) {
     transition: none !important;
 
-    &::backdrop { transition: none !important; }
+    &::backdrop {
+      transition: none !important;
+    }
   }
 }
 
-.mobile-drawer-inner { display: flex; flex-direction: column; gap: 24px; }
+.mobile-drawer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
 .mobile-menu-close {
   align-self: flex-end;
@@ -237,7 +260,9 @@
     opacity: 0;
     transform: translateY(16px);
     border-radius: 4px;
-    transition: opacity 220ms ease, transform 220ms ease;
+    transition:
+      opacity 220ms ease,
+      transform 220ms ease;
 
     &:focus-visible {
       outline: 2px solid var(--accent);

@@ -13,9 +13,18 @@
 }
 
 @keyframes hero-gradient-drift {
-  0%   { --hero-gx: 0%;   --hero-gy: 0%; }
-  50%  { --hero-gx: 100%; --hero-gy: 35%; }
-  100% { --hero-gx: 15%;  --hero-gy: 100%; }
+  0% {
+    --hero-gx: 0%;
+    --hero-gy: 0%;
+  }
+  50% {
+    --hero-gx: 100%;
+    --hero-gy: 35%;
+  }
+  100% {
+    --hero-gx: 15%;
+    --hero-gy: 100%;
+  }
 }
 
 .hero {
@@ -36,14 +45,21 @@
   image-rendering: pixelated;
   display: none;
 }
-.hero.is-pixel-cam-active .hero-pixel-canvas { display: block; }
+.hero.is-pixel-cam-active .hero-pixel-canvas {
+  display: block;
+}
 
 .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(circle at var(--hero-gx) var(--hero-gy), color-mix(in srgb, var(--accent) 32%, transparent) 0%, color-mix(in srgb, var(--accent) 12%, transparent) 32%, transparent 62%),
+    radial-gradient(
+      circle at var(--hero-gx) var(--hero-gy),
+      color-mix(in srgb, var(--accent) 32%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 12%, transparent) 32%,
+      transparent 62%
+    ),
     var(--bg-light);
   animation: hero-gradient-drift 20s ease-in-out infinite alternate;
 
@@ -58,7 +74,12 @@
    regardless of what's in frame. */
 .hero.is-pixel-cam-active .hero-scrim {
   background:
-    radial-gradient(circle at var(--hero-gx) var(--hero-gy), color-mix(in srgb, var(--accent) 55%, transparent) 0%, color-mix(in srgb, var(--accent) 30%, transparent) 45%, rgba(248, 250, 252, 0.6) 75%),
+    radial-gradient(
+      circle at var(--hero-gx) var(--hero-gy),
+      color-mix(in srgb, var(--accent) 55%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 30%, transparent) 45%,
+      rgba(248, 250, 252, 0.6) 75%
+    ),
     transparent;
 }
 
@@ -91,8 +112,16 @@
   }
 }
 
-.hero-tagline { max-width: 460px; margin-top: 20px; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+.hero-tagline {
+  max-width: 460px;
+  margin-top: 20px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
 
 .button {
   display: inline-flex;
@@ -106,16 +135,27 @@
   border: 1px solid transparent;
   transition: transform 160ms ease;
 
-  &:hover { transform: translateY(-1px); }
+  &:hover {
+    transform: translateY(-1px);
+  }
   &:focus-visible {
     outline: 2px solid var(--ink-950);
     outline-offset: 3px;
   }
 }
-.button-primary { background: var(--accent-on-light); color: #fff; }
-.button-outline { border-color: var(--accent-on-light); color: var(--accent-on-light); }
+.button-primary {
+  background: var(--accent-on-light);
+  color: #fff;
+}
+.button-outline {
+  border-color: var(--accent-on-light);
+  color: var(--accent-on-light);
+}
 
-.card-panel { border-radius: var(--radius-lg); overflow: hidden; }
+.card-panel {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
 
 .hero-feature {
   position: relative;
@@ -130,7 +170,9 @@
     font-size: 24px;
     line-height: 1.15;
   }
-  & .accent { color: var(--accent); }
+  & .accent {
+    color: var(--accent);
+  }
 }
 
 .hero-feature-gloss {
@@ -143,7 +185,10 @@
   will-change: transform, opacity;
 }
 
-.hero-feature-inner { position: relative; padding: 32px; }
+.hero-feature-inner {
+  position: relative;
+  padding: 32px;
+}
 
 .status-badge {
   display: inline-flex;
@@ -158,10 +203,21 @@
   text-transform: uppercase;
 }
 
-.hero-divider { height: 1px; background: color-mix(in srgb, var(--accent) 20%, transparent); margin-bottom: 20px; }
+.hero-divider {
+  height: 1px;
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  margin-bottom: 20px;
+}
 
-.feature-metrics { display: grid; grid-template-columns: repeat(3, 1fr); }
-.feature-metric + .feature-metric { border-left: 1px solid color-mix(in srgb, var(--accent) 15%, transparent); padding-left: 14px; margin-left: 14px; }
+.feature-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.feature-metric + .feature-metric {
+  border-left: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  padding-left: 14px;
+  margin-left: 14px;
+}
 .feature-value {
   display: flex;
   flex-direction: column;
@@ -170,5 +226,9 @@
   font-weight: 700;
   font-size: 20px;
 
-  & small { color: var(--ink-400); font-size: 11px; font-weight: 500; }
+  & small {
+    color: var(--ink-400);
+    font-size: 11px;
+    font-weight: 500;
+  }
 }

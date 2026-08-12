@@ -12,8 +12,7 @@ export function initMobileMenu({
     link.style.setProperty("--i", index);
   });
 
-  const prefersReducedMotion = () =>
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function openDrawer() {
     drawer.showModal();

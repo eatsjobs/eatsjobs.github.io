@@ -26,13 +26,11 @@ export function initHeroTilt({ cardElement: card, glossElement: gloss } = {}) {
     const degree = (distance * maxTilt) / maxDistance;
     const axisX = deltaY / halfHeight;
     const axisY = deltaX / halfWidth;
-    card.style.transform =
-      `perspective(700px) rotate3d(${(-axisX).toFixed(3)}, ${axisY.toFixed(3)}, 0, ${degree.toFixed(2)}deg)`;
+    card.style.transform = `perspective(700px) rotate3d(${(-axisX).toFixed(3)}, ${axisY.toFixed(3)}, 0, ${degree.toFixed(2)}deg)`;
 
     if (gloss) {
       const glossOpacity = Math.min(0.6, (distance * 0.6) / maxDistance);
-      gloss.style.transform =
-        `translate(${(-axisY * 100).toFixed(1)}%, ${(-axisX * 100).toFixed(1)}%) scale(2.2)`;
+      gloss.style.transform = `translate(${(-axisY * 100).toFixed(1)}%, ${(-axisX * 100).toFixed(1)}%) scale(2.2)`;
       gloss.style.opacity = glossOpacity.toFixed(2);
     }
   }

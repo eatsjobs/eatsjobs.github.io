@@ -1,6 +1,6 @@
-import { test } from "node:test";
 import assert from "node:assert/strict";
-import { RETRO8_PALETTE, nearestPaletteColor } from "./pixel-cam-palette.js";
+import { test } from "node:test";
+import { nearestPaletteColor, RETRO8_PALETTE } from "./pixel-cam-palette.js";
 
 test("palette has exactly 8 colors", () => {
   assert.equal(RETRO8_PALETTE.length, 8);

@@ -26,6 +26,10 @@
 }
 
 .about-copy {
-  & .title { margin-bottom: 20px; }
-  & .body-copy + .body-copy { margin-top: 16px; }
+  & .title {
+    margin-bottom: 20px;
+  }
+  & .body-copy + .body-copy {
+    margin-top: 16px;
+  }
 }

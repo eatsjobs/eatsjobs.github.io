@@ -1,6 +1,6 @@
 import { initHeroTilt } from "./hero-tilt.js";
-import { initPixelCam } from "./pixel-cam.js";
 import { initMobileMenu } from "./mobile-menu.js";
+import { initPixelCam } from "./pixel-cam.js";
 
 initMobileMenu({
   toggleElement: document.getElementById("mobileMenuToggle"),

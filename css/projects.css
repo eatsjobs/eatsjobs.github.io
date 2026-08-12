@@ -13,7 +13,9 @@
   border-radius: var(--radius-lg);
   background: var(--bg-dark-soft);
   border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
-  transition: transform 160ms ease, border-color 160ms ease;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease;
 
   &:hover {
     transform: translateY(-2px);

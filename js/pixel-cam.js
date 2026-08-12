@@ -48,10 +48,9 @@ export function initPixelCam({
       stop();
     };
     const offscreen = canvas.transferControlToOffscreen();
-    worker.postMessage(
-      { type: "init", canvas: offscreen, width: BUFFER_W, height: BUFFER_H },
-      [offscreen]
-    );
+    worker.postMessage({ type: "init", canvas: offscreen, width: BUFFER_W, height: BUFFER_H }, [
+      offscreen,
+    ]);
     return worker;
   }
 
@@ -87,7 +86,7 @@ export function initPixelCam({
       isPaused = computeIsPaused();
       syncCaptureLoop();
     },
-    { threshold: 0.01 }
+    { threshold: 0.01 },
   );
 
   document.addEventListener("visibilitychange", () => {

@@ -21,7 +21,9 @@
     font-weight: 600;
     transition: background 160ms ease;
 
-    &:hover { background: color-mix(in srgb, var(--accent-on-light) 8%, transparent); }
+    &:hover {
+      background: color-mix(in srgb, var(--accent-on-light) 8%, transparent);
+    }
   }
 }
 
@@ -32,4 +34,6 @@
   font-size: 13px;
 }
 
-.footer-inner { text-align: center; }
+.footer-inner {
+  text-align: center;
+}
