@@ -1,8 +1,8 @@
-const COLORS = [
-  { name: "Orange", accent: "#f97316", accentOnLight: "#c2410c" },
-  { name: "Blue", accent: "#38bdf8", accentOnLight: "#0369a1" },
-  { name: "Matrix green", accent: "#00ff41", accentOnLight: "#15803d" },
-];
+// Kept in sync with the inline anti-FOUC script in index.html's <head>,
+// which sets --accent/--accent-on-light from localStorage before first
+// paint. Reading the same list back here (rather than redefining it) keeps
+// the two from drifting apart.
+const COLORS = window.__ACCENT_COLORS__;
 
 const STORAGE_KEY = "accentColorIndex";
 

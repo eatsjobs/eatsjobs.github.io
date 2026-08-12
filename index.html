@@ -2,6 +2,26 @@
 <html lang="en" data-build="dev">
     <head>
         <meta charset="UTF-8" />
+        <script>
+            (function () {
+                window.__ACCENT_COLORS__ = [
+                    { name: "Orange", accent: "#f97316", accentOnLight: "#c2410c" },
+                    { name: "Blue", accent: "#38bdf8", accentOnLight: "#0369a1" },
+                    { name: "Matrix green", accent: "#00ff41", accentOnLight: "#15803d" },
+                ];
+                try {
+                    var index = Number(localStorage.getItem("accentColorIndex"));
+                    if (!(Number.isInteger(index) && index >= 0 && index < window.__ACCENT_COLORS__.length)) {
+                        index = 0;
+                    }
+                    var color = window.__ACCENT_COLORS__[index];
+                    document.documentElement.style.setProperty("--accent", color.accent);
+                    document.documentElement.style.setProperty("--accent-on-light", color.accentOnLight);
+                } catch (e) {
+                    // localStorage unavailable - CSS defaults already apply, nothing to do.
+                }
+            })();
+        </script>
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1, viewport-fit=cover"

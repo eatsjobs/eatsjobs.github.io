@@ -3,15 +3,15 @@ import "https://cdn.jsdelivr.net/npm/@eatsjobs/type-writer@1.2.1/+esm";
 const docElement = document.documentElement;
 const build = docElement.dataset.build;
 
+// Self-registering custom element - no init call needed.
+await import(`./components/accent-picker.js?v=${build}`);
+
 const [{ initMobileMenu }, { initHeroTilt }, { initPixelCam }] =
   await Promise.all([
     import(`./mobile-menu.js?v=${build}`),
     import(`./hero-tilt.js?v=${build}`),
     import(`./pixel-cam.js?v=${build}`)
   ]);
-
-// Self-registering custom element - no init call needed.
-await import(`./components/accent-picker.js?v=${build}`);
 
 initMobileMenu({
   toggleElement: document.getElementById("mobileMenuToggle"),
