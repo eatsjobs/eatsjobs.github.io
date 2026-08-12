@@ -49,6 +49,14 @@ type-writer {
   background: #ffffff !important;
 }
 
+/* --- The screen body background (--bg-light, a pale gray-blue) is never
+   covered by a section in the leftover blank space at the end of a page -
+   force plain white paper everywhere, not just inside named sections. --- */
+html,
+body {
+  background: #ffffff !important;
+}
+
 /* --- Every section becomes light-on-white: dark backgrounds are unreliable
    in print (many browsers skip background colors by default), so text
    color must not depend on a background that may never render. --- */
@@ -69,16 +77,22 @@ type-writer {
   color: #333c4d !important;
 }
 
-/* --- Single-column for the hero (name/tagline + stat card stacked). About
-   is a row instead: narrower sidebar fits the page better than the
-   on-screen 280px, and facts-beside-narrative reads fine on paper. --- */
+/* --- Single-column for the hero (name/tagline + stat card stacked) and for
+   About: the on-screen 280px facts sidebar wastes paper width next to a
+   narrow copy column, so facts become one horizontal row above the
+   narrative instead of a side-by-side grid. --- */
 .hero-grid {
   display: block !important;
 }
 .about-grid {
-  display: grid !important;
-  grid-template-columns: 170px 1fr !important;
-  gap: 24px !important;
+  display: block !important;
+}
+.fact-list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 10px 32px !important;
+  margin: 12px 0 20px !important;
 }
 .hero-feature {
   margin-top: 12px;
@@ -187,7 +201,21 @@ type-writer {
 }
 .social-links {
   display: block !important;
+  column-count: 2;
+  column-gap: 24px;
 }
 .social-links li {
   margin-bottom: 4px;
+  break-inside: avoid;
+}
+/* --- The pill is inline-flex on screen, sized to fit its content; a full
+   URL appended after the label is often wider than a print column, so it
+   must fill the column and wrap instead of overflowing past the edge. --- */
+.social-links a {
+  display: flex !important;
+  width: 100%;
+  box-sizing: border-box;
+}
+.social-links a::after {
+  word-break: break-all;
 }
