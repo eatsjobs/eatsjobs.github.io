@@ -1,6 +1,7 @@
 import { initHeroTilt } from "./hero-tilt.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { initPixelCam } from "./pixel-cam.js";
+import { initTypewriterRestart } from "./typewriter-restart.js";
 
 initMobileMenu({
   toggleElement: document.getElementById("mobileMenuToggle"),
@@ -18,4 +19,8 @@ initPixelCam({
   heroElement: document.querySelector(".hero"),
   canvasElement: document.querySelector(".hero-pixel-canvas"),
   docElement: document.documentElement,
+});
+
+initTypewriterRestart({
+  element: document.querySelector("type-writer"),
 });
