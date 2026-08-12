@@ -1,28 +1,35 @@
-/* Driven by js/reveal.js (IntersectionObserver), not a scroll-linked CSS
-   animation: a scroll-driven timeline's progress is tied 1:1 to scroll
-   offset, so it only looks smooth when the input scroll itself is
-   continuous (trackpad momentum). A mouse wheel (or a trackpad without
-   momentum) delivers scroll in discrete jumps, and the animation just
-   snaps to whatever progress matches each new offset - no easing curve
-   fixes that, since there's no time dimension to ease along. A real
-   transition, triggered once per element, has its own clock and eases
-   smoothly regardless of how choppy the scroll input is.
+/* Pure CSS scroll-driven reveal via animation-timeline: view() - no JS,
+   no IntersectionObserver. Known, accepted tradeoff: a view-timeline's
+   progress is tied 1:1 to scroll offset, not time, so it only eases
+   smoothly under continuous scroll input (trackpad momentum). A mouse
+   wheel or a non-momentum trackpad delivers scroll in discrete jumps,
+   and the animation snaps to whichever progress matches each new
+   offset - there's no time dimension for a timing function to ease
+   along. (This project tried this approach once before and reverted
+   to a triggered-transition + IntersectionObserver instead specifically
+   to avoid that choppiness; this reintroduces it deliberately.)
 
-   Default state (no classes) is fully visible - if JS never runs, content
-   was never hidden in the first place, matching the same "never stuck
-   invisible" guarantee the old @supports-gated approach had. */
+   Default state (no @supports match, or reduced motion) is fully
+   visible - content is never hidden waiting on a feature that isn't
+   there. */
 .reveal {
-  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: opacity, transform;
+  @supports (animation-timeline: view()) {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 75%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+  }
 }
-.reveal.is-pending {
-  opacity: 0;
-  transform: translateY(40px);
-}
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal { transition: none !important; }
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
