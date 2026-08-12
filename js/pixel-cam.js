@@ -29,6 +29,12 @@ export function initPixelCam() {
   let captureTimer = null;
   let isActive = false;
   let isPaused = false;
+  let isIntersecting = true;
+  let isTransitioning = false;
+
+  function computeIsPaused() {
+    return !isIntersecting || document.visibilityState !== "visible";
+  }
 
   function ensureWorker() {
     if (worker) {
@@ -66,8 +72,9 @@ export function initPixelCam() {
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        isPaused = !entry.isIntersecting || document.visibilityState !== "visible";
+        isIntersecting = entry.isIntersecting;
       }
+      isPaused = computeIsPaused();
       syncCaptureLoop();
     },
     { threshold: 0.01 }
@@ -77,7 +84,7 @@ export function initPixelCam() {
     if (!isActive) {
       return;
     }
-    isPaused = document.visibilityState !== "visible";
+    isPaused = computeIsPaused();
     syncCaptureLoop();
   });
 
@@ -99,7 +106,7 @@ export function initPixelCam() {
     ensureWorker();
 
     isActive = true;
-    isPaused = document.visibilityState !== "visible";
+    isPaused = computeIsPaused();
     observer.observe(hero);
     syncCaptureLoop();
 
@@ -109,6 +116,7 @@ export function initPixelCam() {
 
   function stop() {
     isActive = false;
+    isIntersecting = true;
     if (captureTimer) {
       window.clearInterval(captureTimer);
       captureTimer = null;
@@ -127,11 +135,19 @@ export function initPixelCam() {
     toggle.setAttribute("aria-pressed", "false");
   }
 
-  toggle.addEventListener("click", () => {
-    if (isActive) {
-      stop();
-    } else {
-      start();
+  toggle.addEventListener("click", async () => {
+    if (isTransitioning) {
+      return;
+    }
+    isTransitioning = true;
+    try {
+      if (isActive) {
+        stop();
+      } else {
+        await start();
+      }
+    } finally {
+      isTransitioning = false;
     }
   });
 
