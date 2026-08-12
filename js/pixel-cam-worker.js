@@ -16,6 +16,8 @@ self.onmessage = (event) => {
     height = msg.height;
     ctx = msg.canvas.getContext("2d");
     ctx.imageSmoothingEnabled = false;
+    msg.canvas.width = width;
+    msg.canvas.height = height;
     bufferCanvas = new OffscreenCanvas(width, height);
     bufferCtx = bufferCanvas.getContext("2d", { willReadFrequently: true });
     scratchCanvas = new OffscreenCanvas(width, height);
@@ -37,6 +39,6 @@ self.onmessage = (event) => {
     scratchCtx.putImageData(new ImageData(quantized, width, height), 0, 0);
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.drawImage(scratchCanvas, 0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.drawImage(scratchCanvas, 0, 0);
   }
 };

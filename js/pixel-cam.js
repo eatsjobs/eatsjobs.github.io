@@ -41,6 +41,10 @@ export function initPixelCam() {
       return worker;
     }
     worker = new Worker(`./js/pixel-cam-worker.js?v=${build}`, { type: "module" });
+    worker.onerror = (event) => {
+      console.warn("Pixel cam worker error:", event.message);
+      stop();
+    };
     const offscreen = canvas.transferControlToOffscreen();
     worker.postMessage(
       { type: "init", canvas: offscreen, width: BUFFER_W, height: BUFFER_H },
@@ -53,8 +57,12 @@ export function initPixelCam() {
     if (!video || video.readyState < 2 || !worker) {
       return;
     }
-    const bitmap = await createImageBitmap(video);
-    worker.postMessage({ type: "frame", bitmap }, [bitmap]);
+    try {
+      const bitmap = await createImageBitmap(video);
+      worker.postMessage({ type: "frame", bitmap }, [bitmap]);
+    } catch (err) {
+      console.warn("Pixel cam frame capture failed:", err);
+    }
   }
 
   function syncCaptureLoop() {
@@ -93,17 +101,24 @@ export function initPixelCam() {
       stream = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: "user" },
       });
-    } catch {
+      video = document.createElement("video");
+      video.muted = true;
+      video.playsInline = true;
+      video.srcObject = stream;
+      await video.play();
+      ensureWorker();
+    } catch (err) {
+      console.warn("Pixel cam could not start:", err);
+      if (stream) {
+        stream.getTracks().forEach((track) => track.stop());
+        stream = null;
+      }
+      if (video) {
+        video.srcObject = null;
+        video = null;
+      }
       return;
     }
-
-    video = document.createElement("video");
-    video.muted = true;
-    video.playsInline = true;
-    video.srcObject = stream;
-    await video.play();
-
-    ensureWorker();
 
     isActive = true;
     isPaused = computeIsPaused();

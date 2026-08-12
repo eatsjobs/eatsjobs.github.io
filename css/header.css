@@ -25,8 +25,12 @@
 .site-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 16px;
   min-height: 64px;
+
+  & > nav {
+    margin-left: auto;
+  }
 }
 
 .brand {
@@ -116,6 +120,9 @@
   &[aria-pressed="true"] {
     color: var(--accent);
     animation: pixel-cam-pulse 1.6s ease-in-out infinite;
+  }
+  &[hidden] {
+    display: none;
   }
 }
 @keyframes pixel-cam-pulse {
