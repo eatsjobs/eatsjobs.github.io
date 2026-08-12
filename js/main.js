@@ -1,16 +1,18 @@
-import "https://cdn.jsdelivr.net/npm/@eatsjobs/type-writer@1.2.0/+esm";
+import "https://cdn.jsdelivr.net/npm/@eatsjobs/type-writer@1.2.1/+esm";
 
 const docElement = document.documentElement;
 const build = docElement.dataset.build;
 
-const [{ initMobileMenu }, { initHeroTilt }, { initReveal }, { initPixelCam }, { initAccentPicker }] =
+const [{ initMobileMenu }, { initHeroTilt }, { initReveal }, { initPixelCam }] =
   await Promise.all([
     import(`./mobile-menu.js?v=${build}`),
     import(`./hero-tilt.js?v=${build}`),
     import(`./reveal.js?v=${build}`),
-    import(`./pixel-cam.js?v=${build}`),
-    import(`./accent-picker.js?v=${build}`)
+    import(`./pixel-cam.js?v=${build}`)
   ]);
+
+// Self-registering custom element - no init call needed.
+await import(`./components/accent-picker.js?v=${build}`);
 
 initMobileMenu({
   toggleElement: document.getElementById("mobileMenuToggle"),
@@ -31,10 +33,5 @@ initPixelCam({
   toggleElement: document.getElementById("pixelCamToggle"),
   heroElement: document.querySelector(".hero"),
   canvasElement: document.querySelector(".hero-pixel-canvas"),
-  docElement,
-});
-
-initAccentPicker({
-  swatchElements: document.querySelectorAll(".accent-swatch"),
   docElement,
 });

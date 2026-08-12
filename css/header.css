@@ -133,26 +133,6 @@
   .header-pixel-cam-toggle[aria-pressed="true"] { animation: none; }
 }
 
-.accent-picker {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.accent-swatch {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  padding: 0;
-  border: 2px solid transparent;
-  outline-offset: 3px;
-  transition: transform 160ms ease, border-color 160ms ease;
-
-  &:hover { transform: scale(1.15); }
-  &:focus-visible { outline: 2px solid var(--accent-on-light); }
-  &.is-selected { border-color: var(--ink-700); }
-}
-
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
