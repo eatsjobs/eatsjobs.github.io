@@ -11,8 +11,26 @@
 
    Default state (no @supports match, or reduced motion) is fully
    visible - content is never hidden waiting on a feature that isn't
-   there. */
+   there.
+
+   The slide distance animates a typed custom property (--reveal-y)
+   instead of `transform` directly. An actively-animating property
+   always wins the cascade over a normal rule for that same property,
+   regardless of specificity - so animating `transform` directly here
+   would silently defeat .timeline-item:hover/.project-card:hover's own
+   `transform` (verified: the hover background/border still applied,
+   but the hover transform never did). Routing it through a custom
+   property means only that property is animation-owned; `transform`
+   itself stays a normal, overridable declaration. */
+@property --reveal-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
 .reveal {
+  transform: translateY(var(--reveal-y));
+
   @supports (animation-timeline: view()) {
     animation: reveal-in linear both;
     animation-timeline: view();
@@ -26,10 +44,10 @@
 @keyframes reveal-in {
   from {
     opacity: 0;
-    transform: translateY(80px);
+    --reveal-y: 200px;
   }
   to {
     opacity: 1;
-    transform: none;
+    --reveal-y: 0px;
   }
 }
