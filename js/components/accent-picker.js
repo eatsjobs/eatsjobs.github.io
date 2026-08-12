@@ -1,8 +1,13 @@
-// Kept in sync with the inline anti-FOUC script in index.html's <head>,
-// which sets --accent/--accent-on-light from localStorage before first
-// paint. Reading the same list back here (rather than redefining it) keeps
-// the two from drifting apart.
-const COLORS = window.__ACCENT_COLORS__;
+// Loaded as a classic, parser-blocking <script> in <head> - not a module,
+// which would defer past first paint. That means this top-level code runs
+// immediately, before <body> is parsed, so the persisted accent is applied
+// before anything renders (no flash of the default color).
+
+const COLORS = [
+  { name: "Orange", accent: "#f97316", accentOnLight: "#c2410c" },
+  { name: "Blue", accent: "#38bdf8", accentOnLight: "#0369a1" },
+  { name: "Matrix green", accent: "#00ff41", accentOnLight: "#15803d" },
+];
 
 const STORAGE_KEY = "accentColorIndex";
 
@@ -23,6 +28,11 @@ function storeIndex(index) {
     // Persistence is best-effort only - the picker still works for the rest of this page view.
   }
 }
+
+const selectedIndex = readStoredIndex();
+const selected = COLORS[selectedIndex];
+document.documentElement.style.setProperty("--accent", selected.accent);
+document.documentElement.style.setProperty("--accent-on-light", selected.accentOnLight);
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -48,7 +58,7 @@ template.innerHTML = `
   </style>
 `;
 
-export class AccentPicker extends HTMLElement {
+class AccentPicker extends HTMLElement {
   #handleClick = (event) => {
     const button = event.target.closest("button");
     if (!button) {
@@ -74,8 +84,6 @@ export class AccentPicker extends HTMLElement {
       const shadow = this.attachShadow({ mode: "open" });
       shadow.appendChild(template.content.cloneNode(true));
 
-      const selectedIndex = readStoredIndex();
-
       COLORS.forEach(({ name, accent, accentOnLight }, index) => {
         const button = document.createElement("button");
         button.type = "button";
@@ -87,10 +95,6 @@ export class AccentPicker extends HTMLElement {
         button.classList.toggle("is-selected", index === selectedIndex);
         shadow.appendChild(button);
       });
-
-      const selected = COLORS[selectedIndex];
-      document.documentElement.style.setProperty("--accent", selected.accent);
-      document.documentElement.style.setProperty("--accent-on-light", selected.accentOnLight);
     }
 
     this.shadowRoot.addEventListener("click", this.#handleClick);

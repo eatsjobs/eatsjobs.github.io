@@ -27,6 +27,7 @@ jobs:
         run: |
           sed -i "s/data-build=\"[^\"]*\"/data-build=\"${{ github.sha }}\"/" index.html
           sed -i -E "s#href=\"(css/[^\"]+\.css)\"#href=\"\1?v=${{ github.sha }}\"#g" index.html
+          sed -i -E "s#src=\"(js/[^\"]+\.js)\"#src=\"\1?v=${{ github.sha }}\"#g" index.html
 
       - uses: actions/configure-pages@v5
 
