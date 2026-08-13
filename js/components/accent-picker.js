@@ -1,38 +1,45 @@
 // Loaded as a classic, parser-blocking <script> in <head> - not a module,
 // which would defer past first paint. That means this top-level code runs
-// immediately, before <body> is parsed, so the persisted accent is applied
-// before anything renders (no flash of the default color).
+// immediately, before <body> is parsed, so a previously chosen accent is
+// applied before anything renders (no flash of the default color). It
+// reads the persisted accent/accentOnLight values directly, rather than an
+// index into a color list, since the <accent-picker colors="..."> element
+// that supplies that list lives in <body> and isn't parsed yet at this point.
 
-const COLORS = [
-  { name: "Orange", accent: "#f97316", accentOnLight: "#c2410c" },
-  { name: "Blue", accent: "#38bdf8", accentOnLight: "#0369a1" },
-  { name: "Matrix green", accent: "#00ff41", accentOnLight: "#15803d" },
-];
+const DEFAULT_COLORS = ["#f97316", "#38bdf8", "#00ff41"];
 
-const STORAGE_KEY = "accentColorIndex";
+const ACCENT_KEY = "accentColor";
+const ACCENT_ON_LIGHT_KEY = "accentColorOnLight";
 
-function readStoredIndex() {
+function readStoredAccent() {
   try {
-    const index = Number(localStorage.getItem(STORAGE_KEY));
-    return Number.isInteger(index) && index >= 0 && index < COLORS.length ? index : 0;
+    const accent = localStorage.getItem(ACCENT_KEY);
+    const accentOnLight = localStorage.getItem(ACCENT_ON_LIGHT_KEY);
+    return accent && accentOnLight ? { accent, accentOnLight } : null;
   } catch {
-    // localStorage unavailable (private browsing, disabled storage, etc.) - just start at the default.
-    return 0;
+    // localStorage unavailable (private browsing, disabled storage, etc.) - just use the default.
+    return null;
   }
 }
 
-function storeIndex(index) {
+function storeAccent(accent, accentOnLight) {
   try {
-    localStorage.setItem(STORAGE_KEY, String(index));
+    localStorage.setItem(ACCENT_KEY, accent);
+    localStorage.setItem(ACCENT_ON_LIGHT_KEY, accentOnLight);
   } catch {
     // Persistence is best-effort only - the picker still works for the rest of this page view.
   }
 }
 
-const selectedIndex = readStoredIndex();
-const selected = COLORS[selectedIndex];
-document.documentElement.style.setProperty("--accent", selected.accent);
-document.documentElement.style.setProperty("--accent-on-light", selected.accentOnLight);
+function applyAccent(accent, accentOnLight) {
+  document.documentElement.style.setProperty("--accent", accent);
+  document.documentElement.style.setProperty("--accent-on-light", accentOnLight);
+}
+
+const storedAccent = readStoredAccent();
+if (storedAccent) {
+  applyAccent(storedAccent.accent, storedAccent.accentOnLight);
+}
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -65,43 +72,59 @@ class AccentPicker extends HTMLElement {
       return;
     }
     const buttons = Array.from(this.shadowRoot.querySelectorAll("button"));
-    const index = buttons.indexOf(button);
     const { accent, accentOnLight } = button.dataset;
 
-    document.documentElement.style.setProperty("--accent", accent);
-    document.documentElement.style.setProperty("--accent-on-light", accentOnLight);
-    storeIndex(index);
+    applyAccent(accent, accentOnLight);
+    storeAccent(accent, accentOnLight);
 
-    buttons.forEach((candidate, candidateIndex) => {
-      const isSelected = candidateIndex === index;
+    buttons.forEach((candidate) => {
+      const isSelected = candidate === button;
       candidate.classList.toggle("is-selected", isSelected);
       candidate.setAttribute("aria-pressed", String(isSelected));
     });
   };
 
-  connectedCallback() {
-    if (!this.shadowRoot) {
-      const shadow = this.attachShadow({ mode: "open" });
-      shadow.appendChild(template.content.cloneNode(true));
-
-      COLORS.forEach(({ name, accent, accentOnLight }, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.style.background = accent;
-        button.dataset.accent = accent;
-        button.dataset.accentOnLight = accentOnLight;
-        button.setAttribute("aria-label", `${name} accent`);
-        button.setAttribute("aria-pressed", String(index === selectedIndex));
-        button.classList.toggle("is-selected", index === selectedIndex);
-        shadow.appendChild(button);
-      });
+  async connectedCallback() {
+    if (this.shadowRoot) {
+      this.shadowRoot.addEventListener("click", this.#handleClick);
+      return;
     }
 
-    this.shadowRoot.addEventListener("click", this.#handleClick);
+    const { deriveAccentOnLight, nameFromColor, parseColorList } = await import(
+      "./accent-color.js"
+    );
+    const colors = parseColorList(this.getAttribute("colors"));
+    const palette = (colors.length > 0 ? colors : DEFAULT_COLORS).map((accent) => ({
+      accent,
+      accentOnLight: deriveAccentOnLight(accent),
+      name: nameFromColor(accent),
+    }));
+
+    const selectedAccent = storedAccent?.accent ?? palette[0].accent;
+    const selectedEntry = palette.find((entry) => entry.accent === selectedAccent) ?? palette[0];
+    applyAccent(selectedEntry.accent, selectedEntry.accentOnLight);
+
+    const shadow = this.attachShadow({ mode: "open" });
+    shadow.appendChild(template.content.cloneNode(true));
+
+    palette.forEach(({ name, accent, accentOnLight }) => {
+      const button = document.createElement("button");
+      const isSelected = accent === selectedEntry.accent;
+      button.type = "button";
+      button.style.background = accent;
+      button.dataset.accent = accent;
+      button.dataset.accentOnLight = accentOnLight;
+      button.setAttribute("aria-label", `${name} accent`);
+      button.setAttribute("aria-pressed", String(isSelected));
+      button.classList.toggle("is-selected", isSelected);
+      shadow.appendChild(button);
+    });
+
+    shadow.addEventListener("click", this.#handleClick);
   }
 
   disconnectedCallback() {
-    this.shadowRoot.removeEventListener("click", this.#handleClick);
+    this.shadowRoot?.removeEventListener("click", this.#handleClick);
   }
 }
 

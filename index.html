@@ -258,7 +258,11 @@
                 </button>
                 <!-- biome-ignore lint/a11y/noInteractiveElementToNoninteractiveRole: autonomous custom element with no default role; group is the correct semantic for its swatch buttons -->
                 <!-- biome-ignore lint/a11y/useSemanticElements: not a form control, so fieldset doesn't fit -->
-                <accent-picker role="group" aria-label="Accent color"></accent-picker>
+                <accent-picker
+                    colors="#f97316,#38bdf8,#00ff41"
+                    role="group"
+                    aria-label="Accent color"
+                ></accent-picker>
                 <button
                     class="mobile-menu-toggle"
                     id="mobileMenuToggle"

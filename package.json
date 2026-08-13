@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Pasquale Mangialavori's personal site",
   "scripts": {
-    "test": "node --test js/*.test.mjs",
+    "test": "node --test js/*.test.mjs js/components/*.test.mjs",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
