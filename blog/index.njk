@@ -1,0 +1,18 @@
+---
+title: "Blog — Pasquale Mangialavori"
+description: "Notes on frontend engineering, web components, and building this site."
+layout: layouts/base.njk
+permalink: /blog/
+---
+<div class="container blog-index">
+  <h1>Blog</h1>
+  <ul class="blog-list">
+    {%- for post in collections.posts | reverse %}
+    <li class="blog-list-item">
+      <a href="{{ post.url }}">{{ post.data.heading or post.data.title }}</a>
+      <time datetime="{{ post.data.date | htmlDateString }}">{{ post.data.date | readableDate }}</time>
+      <p>{{ post.data.description }}</p>
+    </li>
+    {%- endfor %}
+  </ul>
+</div>

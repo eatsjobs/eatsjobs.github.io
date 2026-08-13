@@ -23,17 +23,28 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build with Eleventy
+        run: npm run build
+
       - name: Stamp build version
         run: |
-          sed -i "s/data-build=\"[^\"]*\"/data-build=\"${{ github.sha }}\"/" index.html
-          sed -i -E "s#href=\"(css/[^\"]+\.css)\"#href=\"\1?v=${{ github.sha }}\"#g" index.html
-          sed -i -E "s#src=\"(js/[^\"]+\.js)\"#src=\"\1?v=${{ github.sha }}\"#g" index.html
+          find _site -name "*.html" -print0 | xargs -0 sed -i -E \
+            -e "s/data-build=\"[^\"]*\"/data-build=\"${{ github.sha }}\"/" \
+            -e "s#href=\"(/?css/[^\"]+\.css)\"#href=\"\1?v=${{ github.sha }}\"#g" \
+            -e "s#src=\"(/?js/[^\"]+\.js)\"#src=\"\1?v=${{ github.sha }}\"#g"
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: ./_site
 
       - id: deployment
         uses: actions/deploy-pages@v4
