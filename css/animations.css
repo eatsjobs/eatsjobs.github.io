@@ -40,7 +40,27 @@
   @supports (animation-timeline: view()) {
     animation: reveal-in linear both;
     animation-timeline: view();
-    animation-range: entry 0% entry 75%;
+    /* `entry` is bound by the SUBJECT's own height, not the viewport's -
+       for a ~12px-tall .eyebrow label that's an ~12px-long entry phase,
+       so `entry 0% entry 75%` completed within about 9px of scroll:
+       imperceptibly fast on any input device, not just choppy under a
+       mouse wheel. `cover`'s phase spans the element's entire transit
+       through the viewport (viewport height + element height), which is
+       viewport-dominated for most elements here - so scaling the same
+       animation across the first 18% of *that* gives a consistent,
+       clearly visible scroll distance regardless of how tall the
+       revealing element itself is (measured: ~180px for the 12px-tall
+       eyebrow), a ~20x improvement.
+
+       18%, not more: Contact's social links are the last .reveal
+       elements on the page, and there's only so much scroll room left
+       below them once you've hit the bottom of the document. A larger
+       percentage (tried 30%) required more scroll distance than that
+       remaining room, so those last few items got permanently stuck
+       partway through - verified 18% still reaches opacity 1 for every
+       #contact .reveal element at max scroll, at both 900px and 700px
+       viewport heights. */
+    animation-range: cover 0% cover 18%;
   }
   @media (prefers-reduced-motion: reduce) {
     animation: none !important;
