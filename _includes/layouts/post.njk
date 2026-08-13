@@ -5,6 +5,7 @@ ogType: article
 <article class="container blog-post">
   <p class="blog-post-meta">
     <time datetime="{{ date | htmlDateString }}">{{ date | readableDate }}</time>
+    · {{ content | readingTime }} min read
   </p>
   <h1 class="blog-post-title">{{ heading or title }}</h1>
   {{ content | safe }}

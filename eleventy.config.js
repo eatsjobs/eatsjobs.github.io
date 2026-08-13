@@ -9,6 +9,17 @@ export default function (eleventyConfig) {
     ),
   );
   eleventyConfig.addFilter("htmlDateString", (dateObj) => dateObj.toISOString().slice(0, 10));
+  // ~220 wpm is a common adult average for non-fiction prose. Code blocks
+  // count as words too, which suits a technical blog - code isn't read
+  // faster than prose.
+  eleventyConfig.addFilter("readingTime", (html) => {
+    const words = String(html)
+      .replace(/<[^>]*>/g, " ")
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean).length;
+    return Math.max(1, Math.round(words / 220));
+  });
 
   eleventyConfig.addPassthroughCopy("css");
   // Explicit .js globs (rather than the whole js/ directory) so *.test.mjs

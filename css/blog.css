@@ -26,8 +26,7 @@
   color: var(--accent-on-light);
 }
 
-.blog-list-item time,
-.blog-post-meta time {
+.blog-list-meta {
   display: block;
   margin-top: 4px;
   color: var(--ink-400);
@@ -42,6 +41,8 @@
 
 .blog-post-meta {
   margin: 0 0 8px;
+  color: var(--ink-400);
+  font-size: 0.875rem;
 }
 
 .blog-post p,
