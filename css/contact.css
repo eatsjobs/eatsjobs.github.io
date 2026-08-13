@@ -26,14 +26,3 @@
     }
   }
 }
-
-.site-footer {
-  padding: 28px 0;
-  background: var(--bg-dark);
-  color: var(--ink-400);
-  font-size: 13px;
-}
-
-.footer-inner {
-  text-align: center;
-}

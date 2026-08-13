@@ -57,11 +57,18 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-light);
   color: var(--ink-950);
   font-family: "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+main {
+  flex: 1 0 auto;
 }
 
 a {
@@ -139,4 +146,15 @@ ul {
   color: var(--ink-700);
   font-size: 17px;
   line-height: 1.7;
+}
+
+.site-footer {
+  padding: 28px 0;
+  background: var(--bg-dark);
+  color: var(--ink-400);
+  font-size: 13px;
+}
+
+.footer-inner {
+  text-align: center;
 }
