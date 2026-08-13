@@ -99,7 +99,16 @@
 .title--hero {
   font-size: clamp(2.75rem, 6vw, 3.75rem);
   line-height: 1.02;
-  min-height: 115px;
+  /* "Pasquale" / "Mangialavori" is always 2 lines - preallocate exactly
+     that in em units (tied to this element's own responsive font-size)
+     so the layout below doesn't jump once type-writer finishes the
+     second line. A fixed px height would drift out of sync with the
+     clamp()'d font-size at different viewport widths.
+     Note: 1.3, not this rule's own 1.02 line-height - the type-writer
+     component renders into its own shadow DOM, which hardcodes
+     `#type-write { line-height: 1.3; }` internally, ignoring this
+     host rule's line-height entirely. */
+  min-height: calc(2 * 1.3em);
 
   & type-writer {
     --font-family: "Space Grotesk", sans-serif;
