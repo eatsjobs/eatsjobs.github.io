@@ -107,6 +107,29 @@
   }
 }
 
+/* <accent-picker> builds its shadow DOM only after awaiting a dynamic import,
+   so the element has no intrinsic size until that module resolves - and these
+   rules live in the light DOM specifically so they apply before then, while
+   the shadow root's own :host block doesn't exist yet.
+
+   Without the reservation the nav reflows once the swatches appear. That's
+   worse than it sounds now that .site-header is a named view-transition
+   group: an incoming page whose picker hasn't upgraded yet snapshots a
+   narrower header than the outgoing one, so the whole header appears to shift
+   mid-navigation. It also keeps the layout honest if the module fails to load
+   at all.
+
+   Three 16px swatches plus two 10px gaps, matching the swatch geometry in
+   accent-picker.js. Keep the count in step with the `colors` attribute in
+   _includes/layouts/base.njk. */
+accent-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: calc(3 * 16px + 2 * 10px);
+  min-height: 16px;
+}
+
 .header-pixel-cam-toggle {
   display: inline-flex;
   align-items: center;
