@@ -137,6 +137,28 @@ body {
   line-height: 1.7;
 }
 
+/* base.css resets ul to list-style: none with no padding, which is right for
+   the nav and social lists but flattens a markdown list in prose into
+   run-together paragraphs. Prose lists get their markers back. */
+.blog-post ul,
+.blog-post ol {
+  margin: 20px 0;
+  padding-left: 1.5em;
+  list-style: disc;
+}
+
+.blog-post ol {
+  list-style: decimal;
+}
+
+.blog-post li + li {
+  margin-top: 8px;
+}
+
+.blog-post li::marker {
+  color: var(--ink-400);
+}
+
 .blog-post a {
   color: var(--accent-on-light);
   text-decoration: underline;
