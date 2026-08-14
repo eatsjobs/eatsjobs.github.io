@@ -1,0 +1,218 @@
+<!doctype html>
+{% set displayTitle = heading or title -%}
+{% set isPost = ogType == "article" -%}
+<html lang="en" data-build="dev">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="/js/components/accent-picker.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{{ title }}</title>
+    <meta name="description" content="{{ description }}" />
+    <meta name="author" content="Pasquale Mangialavori" />
+    <meta name="google-site-verification" content="F9nuQTtXegbrwir8NZHIjeun8FMvGsRpAsVahtFBNLs" />
+    {%- if keywords %}
+    <meta name="keywords" content="{{ keywords }}" />
+    {%- endif %}
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="format-detection" content="telephone=no, address=no, email=no" />
+    <meta name="application-name" content="Pasquale Mangialavori" />
+    <meta name="apple-mobile-web-app-title" content="Pasquale Mangialavori" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta property="og:type" content="{{ ogType or 'website' }}" />
+    <meta property="og:site_name" content="Pasquale Mangialavori" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    <meta property="og:title" content="{{ displayTitle }}" />
+    <meta property="og:description" content="{{ ogDescription or description }}" />
+    <meta property="og:locale" content="en_US" />
+    {%- if isPost %}
+    {#- No article:modified_time: posts carry a single front-matter `date` and
+        this site doesn't track edit dates separately, so there's no honest
+        value for it. Same reason BlogPosting below omits dateModified. #}
+    <meta property="article:published_time" content="{{ page.date | dateToRfc3339 }}" />
+    <meta property="article:author" content="{{ site.author.name }}" />
+    {%- endif %}
+    <meta property="og:image" content="{{ site.url }}/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="{{ displayTitle }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ displayTitle }}" />
+    <meta name="twitter:description" content="{{ ogDescription or description }}" />
+    <meta name="twitter:image" content="{{ site.url }}/og-image.png" />
+    <meta name="twitter:image:alt" content="{{ displayTitle }}" />
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ site.url }}/feed.xml" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    {%- if page.url == "/" %}
+    <link rel="stylesheet" href="/css/hero.css" />
+    <link rel="stylesheet" href="/css/about.css" />
+    <link rel="stylesheet" href="/css/experience.css" />
+    <link rel="stylesheet" href="/css/projects.css" />
+    <link rel="stylesheet" href="/css/contact.css" />
+    {%- else %}
+    <link rel="stylesheet" href="/css/blog.css" />
+    {%- endif %}
+    <link rel="stylesheet" href="/css/print.css" media="print" />
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="c11ff6e9-67e4-4456-a30c-474f91518609"></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "{{ site.url }}/#website",
+            "url": "{{ site.url }}/",
+            "name": "Pasquale Mangialavori",
+            "description": "Personal website of Pasquale Mangialavori, Senior Frontend Engineer.",
+            "inLanguage": "en",
+            "publisher": { "@id": "{{ site.url }}/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "{{ site.url }}/#person",
+            "name": "Pasquale Mangialavori",
+            "alternateName": "eatsjobs",
+            "url": "{{ site.url }}/",
+            "image": "{{ site.url }}/og-image.png",
+            "jobTitle": "Senior Frontend Engineer",
+            "description": "Senior Frontend Engineer at Scandit, based in Barcelona, building web platforms and open-source JavaScript/TypeScript tools.",
+            "knowsLanguage": ["English", "Italian", "Spanish"],
+            "knowsAbout": ["Web Components", "Web Performance", "JavaScript", "TypeScript", "React"],
+            "nationality": "Italian",
+            "worksFor": { "@type": "Organization", "name": "Scandit" },
+            "address": { "@type": "PostalAddress", "addressLocality": "Barcelona", "addressCountry": "ES" },
+            "alumniOf": [
+              { "@type": "CollegeOrUniversity", "name": "Sapienza University of Rome" },
+              { "@type": "CollegeOrUniversity", "name": "University of Florence" }
+            ],
+            "sameAs": [
+              "https://github.com/eatsjobs",
+              "https://www.linkedin.com/in/pasquale-mangialavori",
+              "https://dev.to/eatsjobs",
+              "https://medium.com/@eatsjobs",
+              "https://stackoverflow.com/users/5364206/pasquale-mangialavori",
+              "https://bsky.app/profile/eatsjobs.bsky.social"
+            ]
+          },
+          {%- if isPost %}
+          {
+            "@type": "BlogPosting",
+            "@id": "{{ site.url }}{{ page.url }}#post",
+            "url": "{{ site.url }}{{ page.url }}",
+            "headline": {{ displayTitle | dump | safe }},
+            "description": {{ description | dump | safe }},
+            "datePublished": "{{ page.date | dateToRfc3339 }}",
+            "author": { "@id": "{{ site.url }}/#person" },
+            "publisher": { "@id": "{{ site.url }}/#person" },
+            "image": "{{ site.url }}/og-image.png",
+            "isPartOf": { "@id": "{{ site.url }}/#website" },
+            "mainEntityOfPage": { "@id": "{{ site.url }}{{ page.url }}#post" },
+            "inLanguage": "en"
+          }
+          {%- else %}
+          {
+            "@type": "WebPage",
+            "@id": "{{ site.url }}{{ page.url }}#webpage",
+            "url": "{{ site.url }}{{ page.url }}",
+            "name": {{ displayTitle | dump | safe }},
+            "isPartOf": { "@id": "{{ site.url }}/#website" },
+            "about": { "@id": "{{ site.url }}/#person" },
+            "description": {{ description | dump | safe }},
+            "inLanguage": "en"
+          }
+          {%- endif %}
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <p class="print-only-header">eatsjobs.github.io</p>
+    <dialog class="mobile-drawer" id="mobileDrawer" aria-label="Mobile navigation">
+      <div class="mobile-drawer-inner">
+        <button class="mobile-menu-close" id="mobileMenuClose" type="button" aria-label="Close menu">
+          &times;
+        </button>
+        <ul class="mobile-nav-links">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/#projects">Projects</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/#contact">Contact</a></li>
+        </ul>
+      </div>
+    </dialog>
+    <header class="site-header" id="siteHeader">
+      <div class="container site-nav">
+        <a class="brand" href="/#top">Pasquale<span>.</span></a>
+        <nav aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#experience">Experience</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/#contact">Contact</a></li>
+          </ul>
+        </nav>
+        <button
+          class="header-pixel-cam-toggle"
+          id="pixelCamToggle"
+          type="button"
+          aria-label="Camera background"
+          aria-pressed="false"
+          hidden
+        >
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M2.5 13.5A.5.5 0 0 1 3 13h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5M13.991 3l.024.001a1.5 1.5 0 0 1 .538.143.76.76 0 0 1 .302.254c.067.1.145.277.145.602v5.991l-.001.024a1.5 1.5 0 0 1-.143.538.76.76 0 0 1-.254.302c-.1.067-.277.145-.602.145H2.009l-.024-.001a1.5 1.5 0 0 1-.538-.143.76.76 0 0 1-.302-.254C1.078 10.502 1 10.325 1 10V4.009l.001-.024a1.5 1.5 0 0 1 .143-.538.76.76 0 0 1 .254-.302C1.498 3.078 1.675 3 2 3zM14 2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h12c2 0 2-2 2-2V4c0-2-2-2-2-2"/></svg>
+        </button>
+        <!-- biome-ignore lint/a11y/noInteractiveElementToNoninteractiveRole: autonomous custom element with no default role; group is the correct semantic for its swatch buttons -->
+        <!-- biome-ignore lint/a11y/useSemanticElements: not a form control, so fieldset doesn't fit -->
+        <accent-picker colors="#f97316,#38bdf8,#00ff41" role="group" aria-label="Accent color"></accent-picker>
+        <button
+          class="mobile-menu-toggle"
+          id="mobileMenuToggle"
+          type="button"
+          aria-label="Open menu"
+          aria-controls="mobileDrawer"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      {%- if isPost %}
+      {#- aria-hidden: this is a purely visual affordance. role="progressbar"
+          would need an aria-valuenow that only JS could keep current, and a
+          stale value is worse than none. #}
+      <div class="reading-progress" aria-hidden="true"></div>
+      {%- endif %}
+    </header>
+    <main id="top">
+      {{ content | safe }}
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span>© 2026 Pasquale Mangialavori. All rights reserved.</span>
+      </div>
+    </footer>
+    {%- if page.url == "/" %}
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@eatsjobs/type-writer@1.2.1/+esm"></script>
+    {%- endif %}
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>

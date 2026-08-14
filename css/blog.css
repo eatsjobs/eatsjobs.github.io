@@ -1,0 +1,235 @@
+/* Reading progress for blog posts. Lives inside .site-header (which is
+   position: sticky, so it's already a containing block) and sits on the
+   header's bottom edge, covering the 1px border where filled.
+
+   Scroll-driven like the header's own elevation effect - no scroll listener,
+   no JS - but tied to a named view timeline on the article rather than to
+   scroll(root). Document scroll would count the article's bottom padding and
+   the footer as "left to read": ~2% off on a long post, but proportionally
+   much worse on a short one, where the fixed chrome is a bigger share of the
+   page. `contain` is the phase that means "article top at viewport top" ->
+   "article bottom at viewport bottom", which is exactly reading progress.
+
+   .blog-post is in <main> while this bar is in <header> - sibling subtrees -
+   so the name can't resolve by ancestor lookup alone; timeline-scope on body
+   is what makes it visible to both. .blog-post also carries a min-height that
+   keeps this range non-degenerate; see the note there. No JS is involved.
+
+   scaleX rather than width: composited, and nothing else sets transform on
+   this element, so animating it directly is safe here (unlike .reveal, which
+   has to route through custom properties to avoid stealing :hover's
+   transform). */
+body {
+  timeline-scope: --article;
+}
+
+.blog-post {
+  view-timeline-name: --article;
+  /* The `contain` range above is only meaningful while the article is taller
+     than the viewport. Left to its natural height, a post short enough to fit
+     on screen has nothing to scroll, and the view timeline resolves to an
+     arbitrary fixed progress instead - measured 85.7% for a 446px article in
+     a 900px viewport, with every other animation-range candidate landing
+     between 43% and 86%. There's no way to ask CSS whether the document
+     scrolls, so this guarantees it does.
+
+     100svh alone isn't enough: it makes the article exactly viewport-height,
+     so `contain` has zero length and the bar snaps straight from 0% to 100%
+     with nothing in between (measured). The 180px of headroom is the scroll
+     distance this site already measured as the point where a scroll-driven
+     effect reads as motion rather than a jump (see the reveal animation in
+     animations.css), and it doubles as slack for mobile, where the viewport
+     grows by roughly the address bar's height once it retracts and svh is
+     the smallest of those states. Long posts are unaffected - min-height
+     only binds when the content is shorter. */
+  min-height: calc(100svh + 180px);
+}
+
+.reading-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  /* Hidden by default so a browser without scroll-driven animations gets no
+     bar at all: one frozen at scaleX(0) reads as broken, an absent one reads
+     as a design choice. timeline-scope is the narrowest of the properties
+     this needs, so it's the one worth testing for. */
+  display: none;
+
+  @supports (timeline-scope: --a) {
+    display: block;
+    animation: reading-progress-fill linear both;
+    animation-timeline: --article;
+    animation-range: contain 0% contain 100%;
+  }
+
+  /* After the @supports block, so it wins: the bar is continuous
+     scroll-linked movement in the reader's peripheral vision, which is what
+     this preference asks us to drop. */
+  @media (prefers-reduced-motion: reduce) {
+    display: none;
+  }
+}
+
+@keyframes reading-progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.blog-index,
+.blog-post {
+  padding: calc(var(--section-pad) / 1.5) 0 var(--section-pad);
+  max-width: 720px;
+}
+
+.blog-index h1,
+.blog-post-title {
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.1;
+  margin: 0 0 32px;
+}
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.blog-list-item a {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.blog-list-item a:hover {
+  color: var(--accent-on-light);
+}
+
+.blog-list-meta {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink-400);
+  font-size: 0.875rem;
+}
+
+.blog-list-item p {
+  margin: 8px 0 0;
+  color: var(--ink-700);
+  line-height: 1.6;
+}
+
+.blog-post-meta {
+  margin: 0 0 8px;
+  color: var(--ink-400);
+  font-size: 0.875rem;
+}
+
+.blog-post p,
+.blog-post li {
+  color: var(--ink-700);
+  line-height: 1.7;
+}
+
+/* base.css resets ul to list-style: none with no padding, which is right for
+   the nav and social lists but flattens a markdown list in prose into
+   run-together paragraphs. Prose lists get their markers back. */
+.blog-post ul,
+.blog-post ol {
+  margin: 20px 0;
+  padding-left: 1.5em;
+  list-style: disc;
+}
+
+.blog-post ol {
+  list-style: decimal;
+}
+
+.blog-post li + li {
+  margin-top: 8px;
+}
+
+.blog-post li::marker {
+  color: var(--ink-400);
+}
+
+.blog-post a {
+  color: var(--accent-on-light);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent-on-light) 35%, transparent);
+}
+
+.blog-post h2 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.375rem;
+  line-height: 1.3;
+  margin: 40px 0 16px;
+}
+
+.blog-post code {
+  background: var(--ink-200);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.9em;
+}
+
+.blog-post pre {
+  background: var(--ink-950);
+  color: var(--ink-200);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 20px 0;
+  overflow-x: auto;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+.blog-post pre code {
+  background: none;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* Syntax highlighting (via @11ty/eleventy-plugin-syntaxhighlight, rendered at
+   build time - no client-side JS or theme stylesheet needed). Property/
+   function/string colors are fixed, independent of the page's live --accent,
+   so highlighting stays legible and consistent no matter which accent the
+   visitor has picked; only keywords/at-rules borrow --accent for a bit of
+   cohesion with the rest of the site. */
+.blog-post .token.comment {
+  color: var(--ink-400);
+}
+.blog-post .token.punctuation {
+  color: var(--ink-400);
+}
+.blog-post .token.selector,
+.blog-post .token.tag {
+  color: #f9a8d4;
+}
+.blog-post .token.property,
+.blog-post .token.attr-name {
+  color: #7dd3fc;
+}
+.blog-post .token.function {
+  color: #c4b5fd;
+}
+.blog-post .token.string,
+.blog-post .token.attr-value {
+  color: #86efac;
+}
+.blog-post .token.number,
+.blog-post .token.unit {
+  color: #fca5a5;
+}
+.blog-post .token.atrule,
+.blog-post .token.rule,
+.blog-post .token.keyword,
+.blog-post .token.important {
+  color: var(--accent);
+  font-weight: 600;
+}
