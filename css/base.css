@@ -71,6 +71,75 @@ main {
   flex: 1 0 auto;
 }
 
+/* --- Cross-document view transitions ------------------------------------
+   Smooths real navigations between pages. Not document.startViewTransition():
+   that animates a DOM mutation within one document, which is an SPA shape this
+   site doesn't have. For an actual page load the browser does the work itself,
+   given this opt-in in BOTH the outgoing and incoming document - which is why
+   it lives in base.css, the only stylesheet every page loads.
+
+   Unsupported browsers navigate normally, so there's nothing to feature-detect
+   and no fallback to maintain. */
+@view-transition {
+  navigation: auto;
+}
+
+/* Naming an element gives it its own transition group, captured and animated
+   independently of the `root` snapshot. Worth doing for the header: it's
+   sticky at top: 0, so it occupies the same viewport box on every page and
+   its group animation has nothing to move. Its two snapshots still cross-fade,
+   which is what we want - the header isn't quite identical between pages (the
+   reading-progress bar and the camera toggle come and go), so a fade reads
+   better than a hard swap.
+
+   The footer deliberately gets NO name. Its viewport position depends on how
+   long the page is: measured at y=829 on the blog index (short page, pushed
+   down by the sticky-footer layout) versus y=4028 on a post. Its own group
+   would animate it across that whole distance mid-transition for no reason.
+   Unnamed, it just travels with `root`. */
+.site-header {
+  view-transition-name: site-header;
+}
+
+main {
+  view-transition-name: page-content;
+}
+
+@keyframes page-content-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes page-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Deliberately short: a navigation that animates for much longer than this
+   starts to feel like latency rather than polish. */
+::view-transition-old(page-content) {
+  animation: page-content-out 180ms ease-in both;
+}
+
+::view-transition-new(page-content) {
+  animation: page-content-in 220ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Keeps the transition machinery but drops every animation, so navigation
+     lands instantly. The wildcard covers the named groups above and the
+     browser's own default cross-fade for anything unnamed. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;
