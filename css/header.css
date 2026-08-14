@@ -34,8 +34,14 @@
   gap: 16px;
   min-height: 64px;
 
-  & > nav {
-    margin-left: auto;
+  /* The free space sits right after the brand, so everything else - camera
+     toggle, nav, accent picker, menu button - stays grouped on the right in
+     DOM order. Putting the auto margin on the brand rather than on the first
+     right-hand item keeps it working when that item isn't there: the camera
+     toggle is feature-detected and stays [hidden] where it can't run, which
+     would otherwise collapse the whole layout to the left. */
+  & > .brand {
+    margin-right: auto;
   }
 }
 
