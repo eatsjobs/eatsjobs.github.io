@@ -3,12 +3,23 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 24px;
+
+  /* All five projects on one row once there's room for it. An explicit
+     5-column track rather than just lowering the minmax() floor above:
+     auto-fit picks its column count from the available width, so it would
+     land on five at some widths and leave the last card orphaned on its own
+     row at others. Below this breakpoint the auto-fit line takes over and
+     wraps as needed. minmax(0, 1fr) rather than 1fr so a long unbroken word
+     can't push a track wider than its share. */
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+  }
 }
 
 .project-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 28px;
   border-radius: var(--radius-lg);
   background: var(--bg-dark-soft);
@@ -27,11 +38,35 @@
     font-size: 18px;
     color: var(--ink-200);
   }
+  /* margin-top: auto pins the link to the bottom of the card while the
+     heading and description stay together at the top. The grid stretches
+     every card to the tallest one, and the previous justify-content:
+     space-between distributed all three children instead - which vertically
+     centred each description at a different height depending on its length,
+     leaving the row visibly ragged. padding-top keeps a minimum gap for the
+     card whose text does reach the bottom. */
   & .link-button {
     display: inline-block;
-    margin-top: 16px;
+    margin-top: auto;
+    padding-top: 16px;
     color: var(--accent);
     font-size: 13px;
     font-weight: 600;
+  }
+
+  /* Five across leaves each card around 215px wide, where the padding and
+     type sizes tuned for the wider layout stop fitting - the
+     media-mock-extension heading in particular. Scoped to that layout only,
+     so a full-width card on mobile keeps the roomier treatment. */
+  @media (min-width: 1200px) {
+    padding: 20px;
+
+    & h3 {
+      font-size: 16px;
+    }
+    & .body-copy {
+      font-size: 15px;
+      line-height: 1.6;
+    }
   }
 }
