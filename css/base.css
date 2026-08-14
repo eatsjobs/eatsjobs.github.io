@@ -92,27 +92,32 @@ main {
    reading-progress bar and the camera toggle come and go), so a fade reads
    better than a hard swap.
 
-   The footer deliberately gets NO name. Its viewport position depends on how
-   long the page is: measured at y=829 on the blog index (short page, pushed
-   down by the sticky-footer layout) versus y=4028 on a post. Its own group
-   would animate it across that whole distance mid-transition for no reason.
-   Unnamed, it just travels with `root`. */
+   Nothing else gets a name, and that's the important part. A named group's
+   animation interpolates that element's real box between the two documents, so
+   a name is only safe on something whose geometry doesn't depend on scroll
+   position or page length:
+
+   - <main> was named at first, and it was the bug. Leaving a homepage scrolled
+     to 2500px its box measured top: -2435px / height: 3882px, against
+     top: 65px / height: 764px on the blog index - so the group was asked to
+     slide the whole content area 2500px and shrink it by 3118px inside 250ms.
+     Unnamed, the content rides in `root`, whose snapshot is the viewport-sized
+     snapshot containing block and so identical in both documents: it
+     cross-fades in place instead of flying.
+   - The footer, likewise: measured at y=829 on the blog index (short page,
+     pushed down by the sticky-footer layout) against y=4028 on a post. */
 .site-header {
   view-transition-name: site-header;
 }
 
-main {
-  view-transition-name: page-content;
-}
-
-@keyframes page-content-out {
+@keyframes page-out {
   to {
     opacity: 0;
     transform: translateY(-8px);
   }
 }
 
-@keyframes page-content-in {
+@keyframes page-in {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -120,13 +125,23 @@ main {
 }
 
 /* Deliberately short: a navigation that animates for much longer than this
-   starts to feel like latency rather than polish. */
-::view-transition-old(page-content) {
-  animation: page-content-out 180ms ease-in both;
+   starts to feel like latency rather than polish.
+
+   Overriding root's animation replaces the UA's cross-fade, which pairs its
+   fade with mix-blend-mode: plus-lighter so two overlapping snapshots don't
+   dip through a visibly lighter frame mid-fade. These keyframes cross-fade the
+   same way, so they keep that blend mode. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: plus-lighter;
 }
 
-::view-transition-new(page-content) {
-  animation: page-content-in 220ms ease-out both;
+::view-transition-old(root) {
+  animation: page-out 180ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: page-in 220ms ease-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {
