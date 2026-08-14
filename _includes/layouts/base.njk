@@ -195,6 +195,12 @@
           <span></span><span></span><span></span>
         </button>
       </div>
+      {%- if isPost %}
+      {#- aria-hidden: this is a purely visual affordance. role="progressbar"
+          would need an aria-valuenow that only JS could keep current, and a
+          stale value is worse than none. #}
+      <div class="reading-progress" aria-hidden="true"></div>
+      {%- endif %}
     </header>
     <main id="top">
       {{ content | safe }}
