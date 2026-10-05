@@ -45,13 +45,8 @@
     margin: 0;
     font-family: "Space Grotesk", sans-serif;
     font-weight: 700;
-    font-size: 17px;
+    font-size: 19px;
   }
-}
-
-.timeline-company {
-  color: var(--accent-on-light);
-  font-weight: 500;
 }
 
 .timeline-badge {
@@ -87,8 +82,83 @@
   color: var(--ink-700);
 }
 
+/* Roles held at the company: an indented list hung off a rail, one dot per
+   role, so promotions within the same company read as one continuous run. */
+.timeline-roles {
+  --role-gap: 18px;
+  --dot-size: 9px;
+  /* Vertically centres the dot on the role title's first line (15px * 1.4). */
+  --dot-top: 6px;
+  /* Rail sits indented under the company name; role text starts past it. */
+  --rail-x: 16px;
+  --role-indent: 44px;
+
+  margin: 16px 0 0;
+  padding: 0 0 0 var(--role-indent);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--role-gap);
+}
+
+.timeline-role {
+  position: relative;
+
+  /* Drawn with a border rather than a background so it survives printing,
+     where browsers drop background colours by default. */
+  &::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--rail-x) - var(--role-indent));
+    top: var(--dot-top);
+    box-sizing: border-box;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border: calc(var(--dot-size) / 2) solid var(--accent-on-light);
+    border-radius: 50%;
+  }
+
+  /* Rail from this dot down to the next role's dot. */
+  &:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--rail-x) - var(--role-indent) + var(--dot-size) / 2 - 0.5px);
+    top: calc(var(--dot-top) + var(--dot-size) + 4px);
+    bottom: calc(-1 * (var(--role-gap) + var(--dot-top)) + 4px);
+    border-left: 1px solid color-mix(in srgb, var(--accent-on-light) 35%, transparent);
+  }
+}
+
+.timeline-role-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+
+  & h4 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+}
+
+.timeline-role-dates {
+  font-size: 12px;
+  color: var(--ink-700);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+
+  /* A sole role spans the same dates as the company pill above it. */
+  .timeline-role:only-child & {
+    display: none;
+  }
+}
+
 .timeline-desc {
-  margin-top: 10px;
+  margin-top: 6px;
 
   & a {
     color: var(--accent-on-light);
