@@ -109,31 +109,31 @@ body {
   font-weight: 700;
 }
 .blog-list-item a:hover {
-  color: var(--accent-on-light);
+  color: var(--accent);
 }
 
 .blog-list-meta {
   display: block;
   margin-top: 4px;
-  color: var(--ink-400);
+  color: var(--text-muted);
   font-size: 0.875rem;
 }
 
 .blog-list-item p {
   margin: 8px 0 0;
-  color: var(--ink-700);
+  color: var(--text-muted);
   line-height: 1.6;
 }
 
 .blog-post-meta {
   margin: 0 0 8px;
-  color: var(--ink-400);
+  color: var(--text-muted);
   font-size: 0.875rem;
 }
 
 .blog-post p,
 .blog-post li {
-  color: var(--ink-700);
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -156,13 +156,13 @@ body {
 }
 
 .blog-post li::marker {
-  color: var(--ink-400);
+  color: var(--text-muted);
 }
 
 .blog-post a {
-  color: var(--accent-on-light);
+  color: var(--accent);
   text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--accent-on-light) 35%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
 }
 
 .blog-post h2 {
@@ -173,15 +173,15 @@ body {
 }
 
 .blog-post code {
-  background: var(--ink-200);
+  background: var(--text);
   border-radius: 4px;
   padding: 2px 6px;
   font-size: 0.9em;
 }
 
 .blog-post pre {
-  background: var(--ink-950);
-  color: var(--ink-200);
+  background: var(--text);
+  color: var(--text);
   border-radius: var(--radius-md);
   padding: 16px 20px;
   margin: 20px 0;
@@ -202,10 +202,10 @@ body {
    visitor has picked; only keywords/at-rules borrow --accent for a bit of
    cohesion with the rest of the site. */
 .blog-post .token.comment {
-  color: var(--ink-400);
+  color: var(--text-muted);
 }
 .blog-post .token.punctuation {
-  color: var(--ink-400);
+  color: var(--text-muted);
 }
 .blog-post .token.selector,
 .blog-post .token.tag {

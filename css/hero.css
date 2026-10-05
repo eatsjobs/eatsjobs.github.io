@@ -60,7 +60,7 @@
       color-mix(in srgb, var(--accent) 12%, transparent) 32%,
       transparent 62%
     ),
-    var(--bg-light);
+    var(--bg);
   animation: hero-gradient-drift 20s ease-in-out infinite alternate;
 
   @media (prefers-reduced-motion: reduce) {
@@ -113,11 +113,11 @@
   & type-writer {
     --font-family: "Space Grotesk", sans-serif;
     --font-size: clamp(2.75rem, 6vw, 3.75rem);
-    --text-color: var(--ink-950);
+    --text-color: var(--text);
     --playground-background: transparent;
     --cursor-width: 3px;
     --cursor-height: 0.85em;
-    --cursor-color: var(--accent-on-light);
+    --cursor-color: var(--accent);
     cursor: pointer;
   }
 }
@@ -149,17 +149,17 @@
     transform: translateY(-1px);
   }
   &:focus-visible {
-    outline: 2px solid var(--ink-950);
+    outline: 2px solid var(--text);
     outline-offset: 3px;
   }
 }
 .button-primary {
-  background: var(--accent-on-light);
+  background: var(--accent);
   color: #fff;
 }
 .button-outline {
-  border-color: var(--accent-on-light);
-  color: var(--accent-on-light);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .card-panel {
@@ -170,8 +170,7 @@
 .hero-feature {
   position: relative;
   background: linear-gradient(150deg, #0f172a 0%, #1c2b4a 100%);
-  color: var(--ink-200);
-  box-shadow: var(--shadow-card);
+  color: var(--text);
   will-change: transform;
 
   & h2 {
@@ -237,7 +236,7 @@
   font-size: 20px;
 
   & small {
-    color: var(--ink-400);
+    color: var(--text-muted);
     font-size: 11px;
     font-weight: 500;
   }

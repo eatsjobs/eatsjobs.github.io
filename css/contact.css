@@ -15,14 +15,14 @@
     gap: 8px;
     padding: 10px 18px;
     border-radius: var(--radius-sm);
-    border: 1px solid color-mix(in srgb, var(--accent-on-light) 25%, transparent);
-    color: var(--accent-on-light);
+    border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+    color: var(--accent);
     font-size: 14px;
     font-weight: 600;
     transition: background 160ms ease;
 
     &:hover {
-      background: color-mix(in srgb, var(--accent-on-light) 8%, transparent);
+      background: color-mix(in srgb, var(--accent) 8%, transparent);
     }
   }
 }

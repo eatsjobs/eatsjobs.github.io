@@ -22,7 +22,7 @@
   flex-direction: column;
   padding: 28px;
   border-radius: var(--radius-lg);
-  background: var(--bg-dark-soft);
+  background: var(--bg);
   border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
   transition:
     transform 160ms ease,
@@ -36,7 +36,7 @@
     margin: 0 0 10px;
     font-family: "Space Grotesk", sans-serif;
     font-size: 18px;
-    color: var(--ink-200);
+    color: var(--text);
   }
   /* margin-top: auto pins the link to the bottom of the card while the
      heading and description stay together at the top. The grid stretches

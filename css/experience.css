@@ -54,9 +54,9 @@
   margin-left: 8px;
   padding: 2px 8px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--accent-on-light) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-on-light) 25%, transparent);
-  color: var(--accent-on-light);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--accent);
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
@@ -68,10 +68,10 @@
   display: inline-flex;
   padding: 4px 12px;
   border-radius: 999px;
-  background: color-mix(in srgb, var(--accent-on-light) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent-on-light) 25%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
   font-size: 12px;
-  color: var(--accent-on-light);
+  color: var(--accent);
   white-space: nowrap;
 }
 
@@ -79,7 +79,7 @@
   display: block;
   margin-top: 4px;
   font-size: 13px;
-  color: var(--ink-700);
+  color: var(--text-muted);
 }
 
 /* Roles held at the company: an indented list hung off a rail, one dot per
@@ -114,7 +114,7 @@
     box-sizing: border-box;
     width: var(--dot-size);
     height: var(--dot-size);
-    border: calc(var(--dot-size) / 2) solid var(--accent-on-light);
+    border: calc(var(--dot-size) / 2) solid var(--accent);
     border-radius: 50%;
   }
 
@@ -125,7 +125,7 @@
     left: calc(var(--rail-x) - var(--role-indent) + var(--dot-size) / 2 - 0.5px);
     top: calc(var(--dot-top) + var(--dot-size) + 4px);
     bottom: calc(-1 * (var(--role-gap) + var(--dot-top)) + 4px);
-    border-left: 1px solid color-mix(in srgb, var(--accent-on-light) 35%, transparent);
+    border-left: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   }
 }
 
@@ -147,7 +147,7 @@
 
 .timeline-role-dates {
   font-size: 12px;
-  color: var(--ink-700);
+  color: var(--text-muted);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 
@@ -161,9 +161,9 @@
   margin-top: 6px;
 
   & a {
-    color: var(--accent-on-light);
+    color: var(--accent);
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--accent-on-light) 35%, transparent);
+    text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
 
     &:hover {
       text-decoration-color: currentColor;
