@@ -6,6 +6,7 @@
    dark-on-white instead of white-on-white. !important on the accent beats
    the inline value accent-picker.js writes onto <html>. --- */
 :root {
+  color-scheme: light;
   --bg: #fff;
   --text: #0f172a;
   --text-muted: #47546b;

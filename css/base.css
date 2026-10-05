@@ -7,8 +7,11 @@
   initial-value: #f97316;
 }
 
-/* Dark-only palette. print.css redefines these tokens for paper. */
+/* Dark-only palette. print.css redefines these tokens for paper.
+   color-scheme tells the browser too, so its own UI - scrollbars, form
+   controls - renders dark rather than in its light default. */
 :root {
+  color-scheme: dark;
   --bg: #000;
   --text: #fff;
   --text-muted: #a0a0a0;
@@ -32,12 +35,31 @@
   box-sizing: border-box;
 }
 
+/* The page scrollbar: a thin accent thumb on the black page, so where you
+   are on a long page reads in the same colour as the rest of the site's
+   highlights. It follows the picker, since --accent is inherited.
+   scrollbar-color is the standard; Chrome ignores the ::-webkit-scrollbar
+   rules once it's set, so those only style Safari. */
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--accent) var(--bg);
+  scrollbar-width: thin;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--accent);
 }
 
 body {
@@ -77,8 +99,7 @@ main {
    sticky at top: 0, so it occupies the same viewport box on every page and
    its group animation has nothing to move. Its two snapshots still cross-fade,
    which is what we want - the header isn't quite identical between pages (the
-   reading-progress bar and the camera toggle come and go), so a fade reads
-   better than a hard swap.
+   camera toggle comes and goes), so a fade reads better than a hard swap.
 
    Nothing else gets a name, and that's the important part. A named group's
    animation interpolates that element's real box between the two documents, so
