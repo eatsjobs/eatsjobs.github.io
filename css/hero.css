@@ -1,39 +1,9 @@
-/* Typed custom properties so the gradient's position can be smoothly
-   animated by a keyframe animation - plain (untyped) custom properties
-   can't be interpolated, they'd just snap between values. */
-@property --hero-gx {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-@property --hero-gy {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-
-@keyframes hero-gradient-drift {
-  0% {
-    --hero-gx: 0%;
-    --hero-gy: 0%;
-  }
-  50% {
-    --hero-gx: 100%;
-    --hero-gy: 35%;
-  }
-  100% {
-    --hero-gx: 15%;
-    --hero-gy: 100%;
-  }
-}
-
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: calc(100svh - 65px);
   display: flex;
   align-items: center;
-  padding: clamp(64px, 12svh, 140px) 0;
+  padding: clamp(72px, 14vw, 160px) 0 clamp(64px, 10vw, 120px);
 }
 
 .hero-pixel-canvas {
@@ -49,38 +19,31 @@
   display: block;
 }
 
+/* Two faint glows tinted with the live accent. Fixed radii rather than
+   percentages: a percentage radius reached the hero's bottom edge and left a
+   hard line against the next section. */
 .hero-scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   background:
     radial-gradient(
-      circle at var(--hero-gx) var(--hero-gy),
-      color-mix(in srgb, var(--accent) 32%, transparent) 0%,
-      color-mix(in srgb, var(--accent) 12%, transparent) 32%,
-      transparent 62%
+      circle 520px at 80% 15%,
+      color-mix(in srgb, var(--accent) 14%, transparent),
+      transparent
+    ),
+    radial-gradient(
+      circle 420px at 5% 30%,
+      color-mix(in srgb, var(--accent) 7%, transparent),
+      transparent
     ),
     var(--bg);
-  animation: hero-gradient-drift 20s ease-in-out infinite alternate;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-    --hero-gx: 0%;
-    --hero-gy: 0%;
-  }
 }
-/* Once the camera background is active, lighten/thin the scrim so the
-   pixel art reads clearly while keeping the hero's dark text legible
+/* Once the camera background is active, the scrim becomes a plain dark veil
+   so the pixel art reads clearly while the hero's white text stays legible
    regardless of what's in frame. */
 .hero.is-pixel-cam-active .hero-scrim {
-  background:
-    radial-gradient(
-      circle at var(--hero-gx) var(--hero-gy),
-      color-mix(in srgb, var(--accent) 55%, transparent) 0%,
-      color-mix(in srgb, var(--accent) 30%, transparent) 45%,
-      rgba(248, 250, 252, 0.6) 75%
-    ),
-    transparent;
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .hero-grid {
@@ -97,7 +60,7 @@
 }
 
 .title--hero {
-  font-size: clamp(2.75rem, 6vw, 3.75rem);
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
   line-height: 1.02;
   /* "Pasquale" / "Mangialavori" is always 2 lines - preallocate exactly
      that in em units (tied to this element's own responsive font-size)
@@ -111,11 +74,11 @@
   min-height: calc(2 * 1.3em);
 
   & type-writer {
-    --font-family: "Space Grotesk", sans-serif;
-    --font-size: clamp(2.75rem, 6vw, 3.75rem);
+    --font-family: "Inter", sans-serif;
+    --font-size: clamp(2.5rem, 6vw, 3.5rem);
     --text-color: var(--text);
     --playground-background: transparent;
-    --cursor-width: 3px;
+    --cursor-width: 2px;
     --cursor-height: 0.85em;
     --cursor-color: var(--accent);
     cursor: pointer;
@@ -123,7 +86,7 @@
 }
 
 .hero-tagline {
-  max-width: 460px;
+  max-width: 640px;
   margin-top: 20px;
 }
 .hero-actions {
@@ -137,29 +100,29 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 0 26px;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
-  font-weight: 600;
-  border: 1px solid transparent;
-  transition: transform 160ms ease;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 2px solid var(--text);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font-size: 18px;
+  transition: background-color 160ms ease;
 
   &:hover {
-    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.08);
   }
   &:focus-visible {
-    outline: 2px solid var(--text);
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
-}
-.button-primary {
-  background: var(--accent);
-  color: #fff;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }
 .button-outline {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .card-panel {
@@ -167,17 +130,21 @@
   overflow: hidden;
 }
 
+/* A faint glass panel with a hairline border, so the hero's accent glow
+   shows through it. Its tilt and gloss come from js/hero-tilt.js. */
 .hero-feature {
   position: relative;
-  background: linear-gradient(150deg, #0f172a 0%, #1c2b4a 100%);
-  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(150deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
   will-change: transform;
 
   & h2 {
     margin: 18px 0;
-    font-family: "Space Grotesk", sans-serif;
     font-size: 24px;
-    line-height: 1.15;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--text);
   }
   & .accent {
     color: var(--accent);
@@ -201,20 +168,16 @@
 
 .status-badge {
   display: inline-flex;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--accent);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
 }
 
 .hero-divider {
   height: 1px;
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  background: var(--line);
   margin-bottom: 20px;
 }
 
@@ -223,7 +186,7 @@
   grid-template-columns: repeat(3, 1fr);
 }
 .feature-metric + .feature-metric {
-  border-left: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  border-left: 1px solid var(--line);
   padding-left: 14px;
   margin-left: 14px;
 }
@@ -231,13 +194,12 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
   font-size: 20px;
 
+  /* 13px, not 14: each column is ~91px wide, and at 14px "yrs frontend"
+     wraps onto a second line. */
   & small {
     color: var(--text-muted);
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 13px;
   }
 }
