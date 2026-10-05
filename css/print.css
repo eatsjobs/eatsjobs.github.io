@@ -314,3 +314,15 @@ body {
 .social-links a::after {
   word-break: break-all;
 }
+
+/* --- Blog code blocks sit on a near-black panel on screen, while their
+   text follows --text, which is dark on paper. With "Background graphics"
+   enabled that panel would print and leave dark-on-dark code, so on paper
+   code drops its fill for a plain hairline box. --- */
+.blog-post pre,
+.blog-post code {
+  background: none !important;
+}
+.blog-post pre {
+  border-color: #cbd5e1 !important;
+}
