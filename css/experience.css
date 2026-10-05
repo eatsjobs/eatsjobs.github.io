@@ -12,16 +12,14 @@
   margin: 0 -16px;
   border-bottom: 1px solid var(--line);
   border-radius: var(--radius-md);
-  /* This element also carries .reveal (see js/reveal.js), which wants its own
-     transition on opacity/transform. `transition` is a single property, so
-     the two declarations can't merge across files - the later-loaded one
-     would simply replace the earlier one. Folding everything this element
-     needs into one declaration here avoids that: background-color/transform
-     stay snappy for the hover effect, opacity gets the slower fade the
-     reveal system uses everywhere else. */
+  /* This element also carries .reveal, which fades it in. `transition` is a
+     single property, so declarations can't merge across files - the
+     later-loaded one would simply replace the earlier one. Folding
+     everything this element needs into one declaration here avoids that:
+     background-color stays snappy for the hover effect, opacity gets the
+     slower fade the reveal system uses everywhere else. */
   transition:
     background-color 200ms ease,
-    transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
     opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
 
   &:last-child {
@@ -29,8 +27,7 @@
     border-bottom: none;
   }
   &:hover {
-    background-color: rgba(15, 23, 42, 0.06);
-    transform: translateX(6px);
+    background-color: rgba(255, 255, 255, 0.03);
   }
 }
 
@@ -43,42 +40,32 @@
 
   & h3 {
     margin: 0;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 700;
-    font-size: 19px;
+    font-size: 24px;
+    font-weight: 400;
   }
 }
 
 .timeline-badge {
-  display: inline-flex;
-  margin-left: 8px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-  color: var(--accent);
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  vertical-align: middle;
+  margin-left: 6px;
+  color: var(--text-muted);
+  font-size: 16px;
+
+  &::before {
+    content: "·";
+    margin-right: 6px;
+  }
 }
 
 .timeline-dates {
-  display: inline-flex;
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
-  font-size: 12px;
-  color: var(--accent);
+  color: var(--text-muted);
+  font-size: 18px;
   white-space: nowrap;
 }
 
 .timeline-location {
   display: block;
   margin-top: 4px;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--text-muted);
 }
 
@@ -87,8 +74,8 @@
 .timeline-roles {
   --role-gap: 18px;
   --dot-size: 9px;
-  /* Vertically centres the dot on the role title's first line (15px * 1.4). */
-  --dot-top: 6px;
+  /* Vertically centres the dot on the role title's first line (20px * 1.4). */
+  --dot-top: 9.5px;
   /* Rail sits indented under the company name; role text starts past it. */
   --rail-x: 16px;
   --role-indent: 44px;
@@ -125,7 +112,7 @@
     left: calc(var(--rail-x) - var(--role-indent) + var(--dot-size) / 2 - 0.5px);
     top: calc(var(--dot-top) + var(--dot-size) + 4px);
     bottom: calc(-1 * (var(--role-gap) + var(--dot-top)) + 4px);
-    border-left: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
   }
 }
 
@@ -138,20 +125,19 @@
 
   & h4 {
     margin: 0;
-    font-family: "Space Grotesk", sans-serif;
-    font-weight: 600;
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: 400;
     line-height: 1.4;
   }
 }
 
 .timeline-role-dates {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--text-muted);
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 
-  /* A sole role spans the same dates as the company pill above it. */
+  /* A sole role spans the same dates as the company's own, above it. */
   .timeline-role:only-child & {
     display: none;
   }
@@ -160,13 +146,14 @@
 .timeline-desc {
   margin-top: 6px;
 
+  /* In-text links keep a permanent, static underline: against the muted
+     copy around them, white text alone is only ~2.6:1 - short of the 3:1
+     WCAG 1.4.1 asks for when colour is the only cue. */
   & a {
-    color: var(--accent);
+    color: var(--text);
     text-decoration: underline;
-    text-decoration-color: color-mix(in srgb, var(--accent) 35%, transparent);
-
-    &:hover {
-      text-decoration-color: currentColor;
-    }
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
   }
 }
