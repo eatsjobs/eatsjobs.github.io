@@ -17,10 +17,11 @@
    (--reveal-y, --reveal-scale) instead of `transform` directly. An
    actively-animating property always wins the cascade over a normal
    rule for that same property, regardless of specificity - so animating
-   `transform` directly here would silently defeat
-   .timeline-item:hover/.project-card:hover's own `transform` (verified:
-   the hover background/border still applied, but the hover transform
-   never did). Routing it through custom properties means only those
+   `transform` directly here would silently defeat any other `transform`
+   set on a .reveal element, such as a :hover effect (verified back when
+   timeline entries and project cards had one: the hover background still
+   applied, but the hover transform never did). Routing it through custom
+   properties means only those
    properties are animation-owned; `transform` itself stays a normal,
    overridable declaration built from both. */
 @property --reveal-y {

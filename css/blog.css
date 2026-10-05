@@ -20,8 +20,10 @@
 /* Underline drawn in on hover by .link-draw (base.css). */
 .blog-list-item a {
   font-size: 24px;
+  color: var(--text-muted);
 }
-.blog-list-item a:hover {
+.blog-list-item a:hover,
+.blog-list-item a:focus-visible {
   color: var(--text);
 }
 
@@ -90,7 +92,7 @@
 
 .blog-post h2 {
   font-weight: 400;
-  font-size: 1.375rem;
+  font-size: 28px;
   line-height: 1.3;
   margin: 40px 0 16px;
 }
