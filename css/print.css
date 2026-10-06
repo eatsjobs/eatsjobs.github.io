@@ -1,6 +1,85 @@
 /* Loaded only for print (see the <link media="print"> in index.html) - no
    @media wrapper needed in this file. */
 
+/* --- Paper palette. The screen palette is dark-only; resetting the tokens
+   here means anything below that isn't explicitly overridden still prints
+   dark-on-white instead of white-on-white. !important on the accent beats
+   the inline value accent-picker.js writes onto <html>. --- */
+:root {
+  color-scheme: light;
+  --bg: #fff;
+  --text: #0f172a;
+  --text-muted: #47546b;
+  --line: rgba(15, 23, 42, 0.1);
+  --accent: #c2410c !important;
+}
+
+/* --- Paper type scale. The screen's minimal look runs large (20px body,
+   40px titles); on paper that would stretch the resume, so print keeps the
+   denser scale it was laid out for. Inter is the only face loaded, so
+   headings use its 600 weight for emphasis. --- */
+body {
+  font-size: 16px;
+  line-height: normal;
+}
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.title--hero {
+  font-size: 2.75rem;
+}
+.body-copy {
+  font-size: 17px;
+  line-height: 1.7;
+}
+.eyebrow,
+.section .eyebrow {
+  display: block !important;
+  margin: 0 0 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.fact-list {
+  font-size: 14px;
+}
+.fact-list strong {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.timeline-header h3 {
+  font-size: 19px;
+  font-weight: 600;
+}
+.timeline-dates {
+  font-size: 12px;
+}
+.timeline-location {
+  font-size: 13px;
+}
+.timeline-roles {
+  --dot-top: 6px;
+}
+.timeline-role-header h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+.timeline-role-dates {
+  font-size: 12px;
+}
+.timeline-role:not(:last-child)::after {
+  border-left-color: #cbd5e1 !important;
+}
+.project-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
 /* --- Hide screen-only chrome and decoration --- */
 .site-header,
 .mobile-drawer,
@@ -55,7 +134,7 @@ type-writer {
   background: #ffffff !important;
 }
 
-/* --- The screen body background (--bg-light, a pale gray-blue) is never
+/* --- The screen body background (--bg) is never
    covered by a section in the leftover blank space at the end of a page -
    force plain white paper everywhere, not just inside named sections. --- */
 html,
@@ -146,7 +225,11 @@ body {
 }
 .project-card {
   margin-bottom: 12px;
+  /* On screen the entry is a plain list item with no padding; boxed on
+     paper it needs the inset the old card had. */
+  padding: 28px;
   border: 1px solid #cbd5e1 !important;
+  border-radius: var(--radius-lg);
   background: #ffffff !important;
   box-shadow: none !important;
   transform: none !important;
@@ -160,7 +243,7 @@ body {
   color: #0f172a !important;
 }
 .project-card .link-button {
-  color: #c2410c !important;
+  color: var(--accent) !important;
 }
 
 /* --- Timeline: dense, resume-style list - no card box, just a hairline
@@ -179,16 +262,16 @@ body {
 .timeline-item:last-child {
   border-bottom: none !important;
 }
+/* Set through --role-gap, not gap, so the rail between dots (sized from the
+   same variable in experience.css) shrinks with it. */
 .timeline-roles {
+  --role-gap: 6px;
   margin-top: 6px !important;
-  gap: 6px !important;
 }
 .timeline-desc {
   margin-top: 2px !important;
 }
 .timeline-badge {
-  background: none !important;
-  border: 1px solid #cbd5e1 !important;
   color: #0f172a !important;
 }
 
@@ -225,7 +308,21 @@ body {
   display: flex !important;
   width: 100%;
   box-sizing: border-box;
+  border: 1px solid #cbd5e1 !important;
+  font-size: 14px;
 }
 .social-links a::after {
   word-break: break-all;
+}
+
+/* --- Blog code blocks sit on a near-black panel on screen, while their
+   text follows --text, which is dark on paper. With "Background graphics"
+   enabled that panel would print and leave dark-on-dark code, so on paper
+   code drops its fill for a plain hairline box. --- */
+.blog-post pre,
+.blog-post code {
+  background: none !important;
+}
+.blog-post pre {
+  border-color: #cbd5e1 !important;
 }

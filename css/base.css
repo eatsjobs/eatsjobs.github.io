@@ -1,39 +1,28 @@
-/* Typed so JS-driven accent swaps (see .accent-swatch) animate smoothly
-   through every var(--accent)/var(--accent-on-light) usage site-wide,
-   rather than snapping instantly - plain (untyped) custom properties
-   can't be interpolated. */
+/* Typed so JS-driven accent swaps (see accent-picker.js) animate smoothly
+   through every var(--accent) usage site-wide, rather than snapping
+   instantly - plain (untyped) custom properties can't be interpolated. */
 @property --accent {
   syntax: "<color>";
   inherits: true;
   initial-value: #f97316;
 }
-@property --accent-on-light {
-  syntax: "<color>";
-  inherits: true;
-  initial-value: #c2410c;
-}
 
+/* Dark-only palette. print.css redefines these tokens for paper.
+   color-scheme tells the browser too, so its own UI - scrollbars, form
+   controls - renders dark rather than in its light default. */
 :root {
-  --bg-dark: #0f172a;
-  --bg-dark-soft: #14213a;
-  --bg-light: #f8fafc;
-  --surface: #ffffff;
+  color-scheme: dark;
+  --bg: #000;
+  --text: #fff;
+  --text-muted: #a0a0a0;
+  --line: rgba(255, 255, 255, 0.12);
   --accent: #f97316;
-  --accent-on-light: #c2410c;
-  --ink-950: #0f172a;
-  --ink-700: #47546b;
-  --ink-400: #94a3b8;
-  --ink-200: #e2e8f0;
-  --line: rgba(15, 23, 42, 0.1);
   --radius-lg: 18px;
   --radius-md: 14px;
   --radius-sm: 8px;
-  --shadow-card: 0 20px 50px rgba(15, 23, 42, 0.35);
-  --container: 1200px;
-  --section-pad: 96px;
-  transition:
-    --accent 400ms ease,
-    --accent-on-light 400ms ease;
+  --container: 960px;
+  --section-pad: 120px;
+  transition: --accent 400ms ease;
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -46,12 +35,31 @@
   box-sizing: border-box;
 }
 
+/* The page scrollbar: a thin accent thumb on the black page, so where you
+   are on a long page reads in the same colour as the rest of the site's
+   highlights. It follows the picker, since --accent is inherited.
+   scrollbar-color is the standard; Chrome ignores the ::-webkit-scrollbar
+   rules once it's set, so those only style Safari. */
 html {
   scroll-behavior: smooth;
+  scrollbar-color: var(--accent) var(--bg);
+  scrollbar-width: thin;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: var(--accent);
 }
 
 body {
@@ -60,9 +68,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-light);
-  color: var(--ink-950);
+  background: var(--bg);
+  color: var(--text);
   font-family: "Inter", sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -89,8 +99,7 @@ main {
    sticky at top: 0, so it occupies the same viewport box on every page and
    its group animation has nothing to move. Its two snapshots still cross-fade,
    which is what we want - the header isn't quite identical between pages (the
-   reading-progress bar and the camera toggle come and go), so a fade reads
-   better than a hard swap.
+   camera toggle comes and goes), so a fade reads better than a hard swap.
 
    Nothing else gets a name, and that's the important part. A named group's
    animation interpolates that element's real box between the two documents, so
@@ -188,55 +197,73 @@ ul {
   scroll-margin-top: 88px;
 }
 
-.section-dark {
-  background: var(--bg-dark);
-  color: var(--ink-200);
-
-  & .eyebrow {
-    color: var(--accent);
-  }
-  & .body-copy {
-    color: var(--ink-400);
-  }
-}
-.section-white {
-  background: var(--surface);
-}
+/* The section-* classes no longer differ on screen, but print.css keys off
+   them, so they stay in the markup. */
+.section-dark,
+.section-white,
 .section-light {
-  background: var(--bg-light);
+  background: var(--bg);
 }
 
 .eyebrow {
-  display: inline-block;
-  margin: 0 0 20px;
-  color: var(--accent-on-light);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  display: block;
+  margin: 0 0 16px;
+  color: var(--text-muted);
+  font-size: 20px;
+}
+
+/* A section's eyebrow just repeats the heading below it. Kept in the markup
+   because print.css shows it again, where it labels the resume's sections. */
+.section .eyebrow {
+  display: none;
 }
 
 .title {
   margin: 0;
-  font-family: "Space Grotesk", sans-serif;
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .body-copy {
   margin: 0;
-  color: var(--ink-700);
-  font-size: 17px;
-  line-height: 1.7;
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+/* Standalone links: no underline at rest; on hover or keyboard focus an
+   accent underline draws in from left to right. A background rather than
+   text-decoration (whose extent can't be animated) or an ::after bar (which
+   can't follow a link that wraps): a background on an inline box runs along
+   each line fragment in turn. Works on the link itself, or on a label inside
+   a larger link such as a project card. */
+.link-draw {
+  padding-bottom: 3px;
+  background: linear-gradient(var(--accent), var(--accent)) left bottom / 0% 2px no-repeat;
+  transition:
+    background-size 300ms ease,
+    color 200ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+a.link-draw:hover,
+a.link-draw:focus-visible,
+a:hover > .link-draw,
+a:focus-visible > .link-draw {
+  background-size: 100% 2px;
 }
 
 .site-footer {
   padding: 28px 0;
-  background: var(--bg-dark);
-  color: var(--ink-400);
-  font-size: 13px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 16px;
 }
 
 .footer-inner {

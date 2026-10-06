@@ -1,72 +1,36 @@
 .projects-grid {
   margin-top: 36px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px 40px;
 
-  /* All five projects on one row once there's room for it. An explicit
-     5-column track rather than just lowering the minmax() floor above:
-     auto-fit picks its column count from the available width, so it would
-     land on five at some widths and leave the last card orphaned on its own
-     row at others. Below this breakpoint the auto-fit line takes over and
-     wraps as needed. minmax(0, 1fr) rather than 1fr so a long unbroken word
-     can't push a track wider than its share. */
-  @media (min-width: 1200px) {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 16px;
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
   }
 }
 
+/* A plain list entry rather than a card: the whole entry is the link, and
+   hovering it draws the underline under its label (.link-draw in base.css). */
 .project-card {
   display: flex;
   flex-direction: column;
-  padding: 28px;
-  border-radius: var(--radius-lg);
-  background: var(--bg-dark-soft);
-  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
-  transition:
-    transform 160ms ease,
-    border-color 160ms ease;
 
-  &:hover {
-    transform: translateY(-2px);
-    border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  &:hover .link-button,
+  &:focus-visible .link-button {
+    color: var(--text);
   }
   & h3 {
     margin: 0 0 10px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 18px;
-    color: var(--ink-200);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--text);
   }
-  /* margin-top: auto pins the link to the bottom of the card while the
-     heading and description stay together at the top. The grid stretches
-     every card to the tallest one, and the previous justify-content:
-     space-between distributed all three children instead - which vertically
-     centred each description at a different height depending on its length,
-     leaving the row visibly ragged. padding-top keeps a minimum gap for the
-     card whose text does reach the bottom. */
+  /* Sits right under its own description rather than pinned to the bottom
+     of the row, which left a gap under the shorter ones. */
   & .link-button {
-    display: inline-block;
-    margin-top: auto;
-    padding-top: 16px;
-    color: var(--accent);
-    font-size: 13px;
-    font-weight: 600;
-  }
-
-  /* Five across leaves each card around 215px wide, where the padding and
-     type sizes tuned for the wider layout stop fitting - the
-     media-mock-extension heading in particular. Scoped to that layout only,
-     so a full-width card on mobile keeps the roomier treatment. */
-  @media (min-width: 1200px) {
-    padding: 20px;
-
-    & h3 {
-      font-size: 16px;
-    }
-    & .body-copy {
-      font-size: 15px;
-      line-height: 1.6;
-    }
+    align-self: flex-start;
+    padding-top: 12px;
+    color: var(--text-muted);
+    font-size: 16px;
   }
 }

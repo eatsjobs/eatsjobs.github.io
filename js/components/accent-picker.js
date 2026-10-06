@@ -2,43 +2,41 @@
 // which would defer past first paint. That means this top-level code runs
 // immediately, before <body> is parsed, so a previously chosen accent is
 // applied before anything renders (no flash of the default color). It
-// reads the persisted accent/accentOnLight values directly, rather than an
-// index into a color list, since the <accent-picker colors="..."> element
-// that supplies that list lives in <body> and isn't parsed yet at this point.
+// reads the persisted accent value directly, rather than an index into a
+// color list, since the <accent-picker colors="..."> element that supplies
+// that list lives in <body> and isn't parsed yet at this point.
 
 const DEFAULT_COLORS = ["#f97316", "#38bdf8", "#00ff41"];
 
 const ACCENT_KEY = "accentColor";
-const ACCENT_ON_LIGHT_KEY = "accentColorOnLight";
+// Earlier versions also stored a darker copy for the old light background.
+const LEGACY_ACCENT_ON_LIGHT_KEY = "accentColorOnLight";
 
 function readStoredAccent() {
   try {
-    const accent = localStorage.getItem(ACCENT_KEY);
-    const accentOnLight = localStorage.getItem(ACCENT_ON_LIGHT_KEY);
-    return accent && accentOnLight ? { accent, accentOnLight } : null;
+    localStorage.removeItem(LEGACY_ACCENT_ON_LIGHT_KEY);
+    return localStorage.getItem(ACCENT_KEY);
   } catch {
     // localStorage unavailable (private browsing, disabled storage, etc.) - just use the default.
     return null;
   }
 }
 
-function storeAccent(accent, accentOnLight) {
+function storeAccent(accent) {
   try {
     localStorage.setItem(ACCENT_KEY, accent);
-    localStorage.setItem(ACCENT_ON_LIGHT_KEY, accentOnLight);
   } catch {
     // Persistence is best-effort only - the picker still works for the rest of this page view.
   }
 }
 
-function applyAccent(accent, accentOnLight) {
+function applyAccent(accent) {
   document.documentElement.style.setProperty("--accent", accent);
-  document.documentElement.style.setProperty("--accent-on-light", accentOnLight);
 }
 
 const storedAccent = readStoredAccent();
 if (storedAccent) {
-  applyAccent(storedAccent.accent, storedAccent.accentOnLight);
+  applyAccent(storedAccent);
 }
 
 const template = document.createElement("template");
@@ -60,8 +58,8 @@ template.innerHTML = `
       transition: transform 160ms ease, border-color 160ms ease;
     }
     button:hover { transform: scale(1.15); }
-    button:focus-visible { outline: 2px solid var(--accent-on-light); }
-    button.is-selected { border-color: var(--ink-700); }
+    button:focus-visible { outline: 2px solid var(--accent); }
+    button.is-selected { border-color: var(--text); }
   </style>
 `;
 
@@ -72,10 +70,10 @@ class AccentPicker extends HTMLElement {
       return;
     }
     const buttons = Array.from(this.shadowRoot.querySelectorAll("button"));
-    const { accent, accentOnLight } = button.dataset;
+    const { accent } = button.dataset;
 
-    applyAccent(accent, accentOnLight);
-    storeAccent(accent, accentOnLight);
+    applyAccent(accent);
+    storeAccent(accent);
 
     buttons.forEach((candidate) => {
       const isSelected = candidate === button;
@@ -90,30 +88,26 @@ class AccentPicker extends HTMLElement {
       return;
     }
 
-    const { deriveAccentOnLight, nameFromColor, parseColorList } = await import(
-      "./accent-color.js"
-    );
+    const { nameFromColor, parseColorList } = await import("./accent-color.js");
     const colors = parseColorList(this.getAttribute("colors"));
     const palette = (colors.length > 0 ? colors : DEFAULT_COLORS).map((accent) => ({
       accent,
-      accentOnLight: deriveAccentOnLight(accent),
       name: nameFromColor(accent),
     }));
 
-    const selectedAccent = storedAccent?.accent ?? palette[0].accent;
+    const selectedAccent = storedAccent ?? palette[0].accent;
     const selectedEntry = palette.find((entry) => entry.accent === selectedAccent) ?? palette[0];
-    applyAccent(selectedEntry.accent, selectedEntry.accentOnLight);
+    applyAccent(selectedEntry.accent);
 
     const shadow = this.attachShadow({ mode: "open" });
     shadow.appendChild(template.content.cloneNode(true));
 
-    palette.forEach(({ name, accent, accentOnLight }) => {
+    palette.forEach(({ name, accent }) => {
       const button = document.createElement("button");
       const isSelected = accent === selectedEntry.accent;
       button.type = "button";
       button.style.background = accent;
       button.dataset.accent = accent;
-      button.dataset.accentOnLight = accentOnLight;
       button.setAttribute("aria-label", `${name} accent`);
       button.setAttribute("aria-pressed", String(isSelected));
       button.classList.toggle("is-selected", isSelected);

@@ -13,14 +13,13 @@
   flex-direction: column;
   gap: 14px;
   margin-top: 20px;
-  font-size: 14px;
+  font-size: 18px;
 
   & strong {
     display: block;
-    color: var(--ink-400);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-size: 16px;
+    font-weight: 400;
     margin-bottom: 2px;
   }
 }
