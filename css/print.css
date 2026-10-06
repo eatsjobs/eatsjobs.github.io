@@ -179,8 +179,12 @@ body {
 .timeline-item:last-child {
   border-bottom: none !important;
 }
+.timeline-roles {
+  margin-top: 6px !important;
+  gap: 6px !important;
+}
 .timeline-desc {
-  margin-top: 4px !important;
+  margin-top: 2px !important;
 }
 .timeline-badge {
   background: none !important;
