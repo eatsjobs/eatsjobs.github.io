@@ -44,6 +44,14 @@ html {
   scroll-behavior: smooth;
   scrollbar-color: var(--accent) var(--bg);
   scrollbar-width: thin;
+  /* Reserve the scrollbar's space on every page, scrolling or not. With
+     classic (non-overlay) scrollbars, a page only lost that width when it
+     was long enough to scroll, so the short blog index laid out 11px wider
+     than the homepage: everything centred, the header included, jumped
+     5.5px, and the header's view-transition group visibly animated its
+     width between the two (1269px -> 1280px) on every navigation. Overlay
+     scrollbars take no space, so this changes nothing there. */
+  scrollbar-gutter: stable;
 
   @media (prefers-reduced-motion: reduce) {
     scroll-behavior: auto;
