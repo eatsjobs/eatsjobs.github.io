@@ -1,6 +1,6 @@
+import { initHeroSmoke } from "./hero-smoke.js";
 import { initHeroTilt } from "./hero-tilt.js";
 import { initMobileMenu } from "./mobile-menu.js";
-import { initPixelCam } from "./pixel-cam.js";
 import { initTypewriterRestart } from "./typewriter-restart.js";
 
 initMobileMenu({
@@ -14,11 +14,9 @@ initHeroTilt({
   glossElement: document.querySelector(".hero-feature-gloss"),
 });
 
-initPixelCam({
-  toggleElement: document.getElementById("pixelCamToggle"),
+initHeroSmoke({
   heroElement: document.querySelector(".hero"),
-  canvasElement: document.querySelector(".hero-pixel-canvas"),
-  docElement: document.documentElement,
+  canvasElement: document.querySelector(".hero-smoke"),
 });
 
 initTypewriterRestart({

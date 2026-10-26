@@ -98,8 +98,7 @@ main {
    independently of the `root` snapshot. Worth doing for the header: it's
    sticky at top: 0, so it occupies the same viewport box on every page and
    its group animation has nothing to move. Its two snapshots still cross-fade,
-   which is what we want - the header isn't quite identical between pages (the
-   camera toggle comes and goes), so a fade reads better than a hard swap.
+   which is harmless: the header is the same markup on every page.
 
    Nothing else gets a name, and that's the important part. A named group's
    animation interpolates that element's real box between the two documents, so
