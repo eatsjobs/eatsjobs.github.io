@@ -46,6 +46,9 @@
     <meta name="twitter:image:alt" content="{{ displayTitle }}" />
     <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
     <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ site.url }}/feed.xml" />
+    {%- if page.url == "/" %}
+    <link rel="alternate" type="application/json" title="Résumé (JSON Resume)" href="{{ site.url }}/resume.json" />
+    {%- endif %}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -104,12 +107,9 @@
               { "@type": "CollegeOrUniversity", "name": "University of Florence" }
             ],
             "sameAs": [
-              "https://github.com/eatsjobs",
-              "https://www.linkedin.com/in/pasquale-mangialavori",
-              "https://dev.to/eatsjobs",
-              "https://medium.com/@eatsjobs",
-              "https://stackoverflow.com/users/5364206/pasquale-mangialavori",
-              "https://bsky.app/profile/eatsjobs.bsky.social"
+              {%- for profile in resume.basics.profiles %}
+              {{ profile.url | dump | safe }}{% if not loop.last %},{% endif %}
+              {%- endfor %}
             ]
           },
           {%- if isPost %}
@@ -192,6 +192,10 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <span>© 2026 Pasquale Mangialavori. All rights reserved.</span>
+        {%- if page.url == "/" %}
+        <!-- Prints this page, which print.css lays out as the CV. -->
+        <button class="footer-cv link-draw" type="button">Save as PDF</button>
+        {%- endif %}
       </div>
     </footer>
     {%- if page.url == "/" %}

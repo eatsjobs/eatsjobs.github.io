@@ -1,0 +1,5 @@
+---
+permalink: /resume.json
+eleventyExcludeFromCollections: true
+---
+{{ resume | publishedResume | dump(2) | safe }}

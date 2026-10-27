@@ -181,6 +181,8 @@ ul {
   list-style: none;
 }
 
+/* Shown only on paper; print.css reveals them. .screen-only is the reverse. */
+.print-only,
 .print-only-header,
 .print-only-name {
   display: none;
@@ -252,6 +254,8 @@ ul {
 }
 a.link-draw:hover,
 a.link-draw:focus-visible,
+button.link-draw:hover,
+button.link-draw:focus-visible,
 a:hover > .link-draw,
 a:focus-visible > .link-draw {
   background-size: 100% 2px;
@@ -266,5 +270,16 @@ a:focus-visible > .link-draw {
 }
 
 .footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
   text-align: center;
+}
+
+.footer-cv {
+  padding: 0 0 3px;
+  border: 0;
+  color: var(--text);
+  font-weight: 600;
 }

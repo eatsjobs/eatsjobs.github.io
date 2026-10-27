@@ -81,7 +81,10 @@ layout: layouts/base.njk
             <section class="section section-dark" id="about">
                 <div class="container about-grid">
                     <div class="about-facts">
-                        <span class="eyebrow reveal">About</span>
+                        <span class="eyebrow reveal"
+                            ><span class="screen-only">About</span
+                            ><span class="print-only">Summary</span></span
+                        >
                         <ul class="fact-list">
                             <li class="reveal"><strong>Also known as</strong> eatsjobs</li>
                             <li class="reveal"><strong>Based in</strong> Barcelona, Spain</li>
@@ -100,16 +103,8 @@ layout: layouts/base.njk
                             A frontend engineer who grew up on 'nduja and red
                             onions
                         </h2>
-                        <p class="body-copy reveal">
-                            Born in Tropea, in the south of Italy, and raised
-                            nearby in Capo Vaticano, I studied at La Sapienza in
-                            Rome and specialized with a master's degree at the
-                            University of Florence. After two internships, I
-                            started my career at Docomo Digital, then moved to
-                            Barcelona to work at eDreamsOdigeo. Since 2022 I've
-                            been building frontend platforms at Scandit.
-                        </p>
-                        <p class="body-copy reveal">
+                        <p class="body-copy reveal">{{ resume.basics.summary }}</p>
+                        <p class="body-copy reveal screen-only">
                             When I'm not staring at a screen, I'm usually out
                             for a walk, playing beach volleyball or football,
                             swimming, or playing guitar and annoying the
@@ -123,280 +118,81 @@ layout: layouts/base.njk
                     <span class="eyebrow reveal">Experience</span>
                     <h2 class="title reveal">Where I've worked</h2>
                     <ol class="timeline">
+                        {%- for company in resume.work | groupWork %}
                         <li class="timeline-item reveal">
                             <div class="timeline-header">
                                 <h3>
-                                    Scandit
+                                    {{ company.name }}
+                                    {%- if company.isCurrent %}
                                     <span class="timeline-badge">Current</span>
+                                    {%- endif %}
                                 </h3>
                                 <span class="timeline-dates"
-                                    >Sep 2022 – Present</span
+                                    >{{ company.startDate | monthYear }} – {{ company.endDate | monthYear }}</span
                                 >
                             </div>
-                            <span class="timeline-location">Remote</span>
+                            <span class="timeline-location">{{ company.location }}</span>
                             <ul class="timeline-roles">
+                                {%- for role in company.positions %}
                                 <li class="timeline-role">
                                     <div class="timeline-role-header">
-                                        <h4>
-                                            Senior Front-end Software Engineer
-                                        </h4>
+                                        <h4>{{ role.position }}</h4>
                                         <span class="timeline-role-dates"
-                                            >Jul 2024 – Present</span
+                                            >{{ role.startDate | monthYear }} – {{ role.endDate | monthYear }}</span
                                         >
                                     </div>
                                     <p class="body-copy timeline-desc">
-                                        Continuing to develop and maintain the
-                                        Scandit Web SDK, delivering real-time
-                                        web experiences built on the web
-                                        platform.
+                                        {{ role.summary | inlineLinks | safe }}
                                     </p>
                                 </li>
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>Front-end Software Engineer</h4>
-                                        <span class="timeline-role-dates"
-                                            >Sep 2022 – Jul 2024</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        Developed and maintained the Scandit Web
-                                        SDK, delivering real-time web
-                                        experiences built on the web platform.
-                                    </p>
-                                </li>
+                                {%- endfor %}
                             </ul>
                         </li>
-                        <li class="timeline-item reveal">
-                            <div class="timeline-header">
-                                <h3>eDreamsOdigeo</h3>
-                                <span class="timeline-dates"
-                                    >Jul 2019 – Sep 2022</span
-                                >
-                            </div>
-                            <span class="timeline-location">Barcelona</span>
-                            <ul class="timeline-roles">
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>
-                                            Senior Front-end Software Engineer
-                                        </h4>
-                                        <span class="timeline-role-dates"
-                                            >Apr 2022 – Sep 2022</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        On the design system team, built
-                                        several primitive components in React
-                                        and set up interaction and automated
-                                        visual regression testing at the
-                                        component level. Later moved to the
-                                        accommodation team, putting those
-                                        components into production on the
-                                        results page for a new accommodation
-                                        product.
-                                    </p>
-                                </li>
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>Front-end Software Engineer</h4>
-                                        <span class="timeline-role-dates"
-                                            >Jul 2019 – Apr 2022</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        Worked on the intermediate page, which
-                                        offers hotels and other accommodation
-                                        in the middle of the flight booking
-                                        flow, across a legacy Backbone, JSP and
-                                        Java codebase alongside newer React,
-                                        TypeScript and GraphQL code. Rebuilt the
-                                        flight summary component, built a small
-                                        Storybook-style internal tool for
-                                        previewing components in isolation, and
-                                        mentored teammates.
-                                    </p>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="timeline-item reveal">
-                            <div class="timeline-header">
-                                <h3>luisaviaroma.com</h3>
-                                <span class="timeline-dates"
-                                    >Jun 2018 – Jul 2019</span
-                                >
-                            </div>
-                            <span class="timeline-location">Florence</span>
-                            <ul class="timeline-roles">
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>
-                                            Senior Front-end Software Engineer
-                                        </h4>
-                                        <span class="timeline-role-dates"
-                                            >Jun 2018 – Jul 2019</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        Designed and implemented the new React
-                                        SSR architecture and developed the
-                                        LVR-UI design system.
-                                    </p>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="timeline-item reveal">
-                            <div class="timeline-header">
-                                <h3>Docomo Digital</h3>
-                                <span class="timeline-dates"
-                                    >Feb 2015 – May 2018</span
-                                >
-                            </div>
-                            <span class="timeline-location">Florence</span>
-                            <ul class="timeline-roles">
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>Front-end Software Engineer</h4>
-                                        <span class="timeline-role-dates"
-                                            >Feb 2015 – May 2018</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        Developed subscription-based web
-                                        platforms for clients including
-                                        Vodafone, TIM, Wind, and Sky —
-                                        performant, spec-faithful frontend
-                                        delivery.
-                                    </p>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="timeline-item reveal">
-                            <div class="timeline-header">
-                                <h3>Balzo</h3>
-                                <span class="timeline-dates"
-                                    >Nov 2014 – Jan 2015</span
-                                >
-                            </div>
-                            <span class="timeline-location">Florence</span>
-                            <ul class="timeline-roles">
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>Game Developer Intern</h4>
-                                        <span class="timeline-role-dates"
-                                            >Nov 2014 – Jan 2015</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        Developed
-                                        <a
-                                            href="https://eatsjobs.github.io/pizza-birra/"
-                                            target="_blank"
-                                            rel="noreferrer"
-                                            >PizzaBirra</a
-                                        >, a game built with Cocos2d-JS for
-                                        Giunti Editore and Assobirra.
-                                    </p>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="timeline-item reveal">
-                            <div class="timeline-header">
-                                <h3>Studio Creativo Matrjoska</h3>
-                                <span class="timeline-dates"
-                                    >Sep 2013 – Jul 2014</span
-                                >
-                            </div>
-                            <span class="timeline-location">Lucca</span>
-                            <ul class="timeline-roles">
-                                <li class="timeline-role">
-                                    <div class="timeline-role-header">
-                                        <h4>Web Developer Intern</h4>
-                                        <span class="timeline-role-dates"
-                                            >Sep 2013 – Jul 2014</span
-                                        >
-                                    </div>
-                                    <p class="body-copy timeline-desc">
-                                        Developed WordPress websites and
-                                        plugins.
-                                    </p>
-                                </li>
-                            </ul>
-                        </li>
+                        {%- endfor %}
                     </ol>
                 </div>
             </section>
             <section class="section section-dark" id="projects">
                 <div class="container">
-                    <span class="eyebrow reveal">Projects</span>
+                    <span class="eyebrow reveal"
+                        ><span class="screen-only">Projects</span
+                        ><span class="print-only">Open source</span></span
+                    >
                     <h2 class="title reveal">A few things I've built</h2>
                     <div class="projects-grid">
+                        {%- for project in resume.projects %}
                         <a
                             class="project-card reveal"
-                            href="https://github.com/eatsjobs/media-mock"
+                            href="{{ project.url }}"
+                            data-print-url="{{ project.url | printableUrl }}"
                             target="_blank"
                             rel="noreferrer"
                         >
-                            <h3>media-mock</h3>
-                            <p class="body-copy">
-                                Simulates and mocks media devices like webcams
-                                in web applications.
-                            </p>
-                            <span class="link-button link-draw">View on GitHub →</span>
+                            <h3>{{ project.name }}</h3>
+                            <p class="body-copy">{{ project.description }}</p>
+                            <span class="link-button link-draw"
+                                >{% if "github.com" in project.url %}View on GitHub{% else %}Play the demo{% endif %} →</span
+                            >
                         </a>
-                        <a
-                            class="project-card reveal"
-                            href="https://github.com/eatsjobs/ts-pattern-match"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <h3>ts-pattern-match</h3>
-                            <p class="body-copy">
-                                Simple pattern matching for
-                                JavaScript/TypeScript.
-                            </p>
-                            <span class="link-button link-draw">View on GitHub →</span>
-                        </a>
-                        <a
-                            class="project-card reveal"
-                            href="https://github.com/eatsjobs/media-mock-extension"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <h3>media-mock-extension</h3>
-                            <p class="body-copy">
-                                Cross-browser extension (Chrome, Firefox,
-                                Safari) for testing camera/webcam behavior by
-                                mocking media devices, built on media-mock.
-                            </p>
-                            <span class="link-button link-draw">View on GitHub →</span>
-                        </a>
-                        <a
-                            class="project-card reveal"
-                            href="https://github.com/eatsjobs/type-writer"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <h3>type-writer</h3>
-                            <p class="body-copy">
-                                A typewriter effect web component.
-                            </p>
-                            <span class="link-button link-draw">View on GitHub →</span>
-                        </a>
-                        <a
-                            class="project-card reveal"
-                            href="https://eatsjobs.github.io/pizza-birra/"
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <h3>PizzaBirra</h3>
-                            <p class="body-copy">
-                                A browser game built with Cocos2d-JS for Giunti
-                                Editore and Assobirra, back in 2014. Still
-                                playable.
-                            </p>
-                            <span class="link-button link-draw">Play the demo →</span>
-                        </a>
+                        {%- endfor %}
                     </div>
+                </div>
+            </section>
+            <!-- The CV's closing sections. On screen the same facts sit in the
+                 About sidebar, so keep the two in step. -->
+            <section class="section print-only" id="cv-extra">
+                <div class="container">
+                    <span class="eyebrow">Education</span>
+                    <p class="body-copy">
+                        {%- for school in resume.education %}
+                        {{ school.institution }}{% if school.studyType %}, {{ school.studyType | lower }}{% endif %}
+                        {%- if not loop.last %} ·{% endif %}
+                        {%- endfor %}
+                    </p>
+                    <span class="eyebrow">Also</span>
+                    <p class="body-copy">
+                        From Tropea, Calabria, Italy · Also known as eatsjobs
+                    </p>
                 </div>
             </section>
             <section class="section section-light" id="contact">
@@ -408,60 +204,24 @@ layout: layouts/base.njk
                         talk frontend, open source, or beach volleyball.
                     </p>
                     <ul class="social-links">
-                        <li class="reveal">
+                        <li class="print-only">
                             <a
-                                href="https://github.com/eatsjobs"
-                                target="_blank"
-                                rel="me noreferrer"
-                                ><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg
-                                >GitHub</a
+                                href="{{ resume.basics.url }}"
+                                data-print-url="{{ resume.basics.url | printableUrl }}"
+                                >Website</a
                             >
                         </li>
+                        {%- for profile in resume.basics.profiles %}
                         <li class="reveal">
                             <a
-                                href="https://www.linkedin.com/in/pasquale-mangialavori"
+                                href="{{ profile.url }}"
+                                data-print-url="{{ profile.url | printableUrl }}"
                                 target="_blank"
                                 rel="me noreferrer"
-                                ><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/></svg
-                                >LinkedIn</a
+                                >{% include "icons/" + (profile.network | lower | replace(" ", "-") | replace(".", "-")) + ".svg" %}{{ profile.network }}</a
                             >
                         </li>
-                        <li class="reveal">
-                            <a
-                                href="https://dev.to/eatsjobs"
-                                target="_blank"
-                                rel="me noreferrer"
-                                ><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"/></svg
-                                >dev.to</a
-                            >
-                        </li>
-                        <li class="reveal">
-                            <a
-                                href="https://medium.com/@eatsjobs"
-                                target="_blank"
-                                rel="me noreferrer"
-                                ><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M4.21 0A4.201 4.201 0 0 0 0 4.21v15.58A4.201 4.201 0 0 0 4.21 24h15.58A4.201 4.201 0 0 0 24 19.79v-1.093c-.137.013-.278.02-.422.02-2.577 0-4.027-2.146-4.09-4.832a7.592 7.592 0 0 1 .022-.708c.093-1.186.475-2.241 1.105-3.022a3.885 3.885 0 0 1 1.395-1.1c.468-.237 1.127-.367 1.664-.367h.023c.101 0 .202.004.303.01V4.211A4.201 4.201 0 0 0 19.79 0Zm.198 5.583h4.165l3.588 8.435 3.59-8.435h3.864v.146l-.019.004c-.705.16-1.063.397-1.063 1.254h-.003l.003 10.274c.06.676.424.885 1.063 1.03l.02.004v.145h-4.923v-.145l.019-.005c.639-.144.994-.353 1.054-1.03V7.267l-4.745 11.15h-.261L6.15 7.569v9.445c0 .857.358 1.094 1.063 1.253l.02.004v.147H4.405v-.147l.019-.004c.705-.16 1.065-.397 1.065-1.253V6.987c0-.857-.358-1.094-1.064-1.254l-.018-.004zm19.25 3.668c-1.086.023-1.733 1.323-1.813 3.124H24V9.298a1.378 1.378 0 0 0-.342-.047Zm-1.862 3.632c-.1 1.756.86 3.239 2.204 3.634v-3.634z"/></svg
-                                >Medium</a
-                            >
-                        </li>
-                        <li class="reveal">
-                            <a
-                                href="https://stackoverflow.com/users/5364206/pasquale-mangialavori"
-                                target="_blank"
-                                rel="me noreferrer"
-                                ><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.725 0l-1.72 1.277 6.39 8.588 1.716-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154Z"/></svg
-                                >Stack Overflow</a
-                            >
-                        </li>
-                        <li class="reveal">
-                            <a
-                                href="https://bsky.app/profile/eatsjobs.bsky.social"
-                                target="_blank"
-                                rel="me noreferrer"
-                                ><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5.202 2.857C7.954 4.922 10.913 9.11 12 11.358c1.087-2.247 4.046-6.436 6.798-8.501C20.783 1.366 24 .213 24 3.883c0 .732-.42 6.156-.667 7.037-.856 3.061-3.978 3.842-6.755 3.37 4.854.826 6.089 3.562 3.422 6.299-5.065 5.196-7.28-1.304-7.847-2.97-.104-.305-.152-.448-.153-.327 0-.121-.05.022-.153.327-.568 1.666-2.782 8.166-7.847 2.97-2.667-2.737-1.432-5.473 3.422-6.3-2.777.473-5.899-.308-6.755-3.369C.42 10.04 0 4.615 0 3.883c0-3.67 3.217-2.517 5.202-1.026"/></svg
-                                >Bluesky</a
-                            >
-                        </li>
+                        {%- endfor %}
                     </ul>
                 </div>
             </section>

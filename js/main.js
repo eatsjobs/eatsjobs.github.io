@@ -1,6 +1,7 @@
 import { initHeroSmoke } from "./hero-smoke.js";
 import { initHeroTilt } from "./hero-tilt.js";
 import { initMobileMenu } from "./mobile-menu.js";
+import { initPrintCv } from "./print-cv.js";
 import { initTypewriterRestart } from "./typewriter-restart.js";
 
 initMobileMenu({
@@ -21,4 +22,8 @@ initHeroSmoke({
 
 initTypewriterRestart({
   element: document.querySelector("type-writer"),
+});
+
+initPrintCv({
+  buttonElement: document.querySelector(".footer-cv"),
 });
