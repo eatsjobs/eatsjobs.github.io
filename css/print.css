@@ -1,5 +1,15 @@
-/* Loaded only for print (see the <link media="print"> in index.html) - no
-   @media wrapper needed in this file. */
+/* Loaded only for print (see the <link media="print"> in base.njk) - no
+   @media wrapper needed in this file.
+
+   Blog posts print as plain articles. The homepage prints as a CV for
+   recruiters: a header with the contact links, then Summary, Experience,
+   Open source and Education, on at most two A4 pages. Its rules key off the
+   homepage's section ids, which no blog page has. */
+
+@page {
+  size: A4;
+  margin: 14mm 16mm;
+}
 
 /* --- Paper palette. The screen palette is dark-only; resetting the tokens
    here means anything below that isn't explicitly overridden still prints
@@ -14,70 +24,9 @@
   --accent: #c2410c !important;
 }
 
-/* --- Paper type scale. The screen's minimal look runs large (20px body,
-   40px titles); on paper that would stretch the resume, so print keeps the
-   denser scale it was laid out for. Inter is the only face loaded, so
-   headings use its 600 weight for emphasis. --- */
 body {
   font-size: 16px;
   line-height: normal;
-}
-.title {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-}
-.title--hero {
-  font-size: 2.75rem;
-}
-.body-copy {
-  font-size: 17px;
-  line-height: 1.7;
-}
-.eyebrow,
-.section .eyebrow {
-  display: block !important;
-  margin: 0 0 20px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-.fact-list {
-  font-size: 14px;
-}
-.fact-list strong {
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.timeline-header h3 {
-  font-size: 19px;
-  font-weight: 600;
-}
-.timeline-dates {
-  font-size: 12px;
-}
-.timeline-location {
-  font-size: 13px;
-}
-.timeline-roles {
-  --dot-top: 6px;
-}
-.timeline-role-header h4 {
-  font-size: 15px;
-  font-weight: 600;
-}
-.timeline-role-dates {
-  font-size: 12px;
-}
-.timeline-role:not(:last-child)::after {
-  border-left-color: #cbd5e1 !important;
-}
-.project-card h3 {
-  font-size: 18px;
-  font-weight: 600;
 }
 
 /* --- Hide screen-only chrome and decoration --- */
@@ -85,11 +34,18 @@ body {
 .mobile-drawer,
 .mobile-drawer-backdrop,
 .hero-actions,
-.hero-feature-gloss,
-.hero-pixel-canvas,
+.hero-feature,
+.hero-smoke,
 .hero-scrim,
-type-writer {
+type-writer,
+.screen-only {
   display: none !important;
+}
+
+/* revert hands display back to the browser default for the element, so a
+   print-only <section> is a block, an <li> a list item, a <span> inline. */
+.print-only {
+  display: revert !important;
 }
 
 .print-only-header {
@@ -105,214 +61,35 @@ type-writer {
   display: inline;
 }
 
-/* --- Guarantee content is visible: the IntersectionObserver-driven reveal
-   has no meaning on a static printed page (nothing "scrolls into view"),
-   and print rendering may capture the DOM before the observer has fired. --- */
+/* --- Guarantee content is visible: the scroll-driven reveal has no meaning
+   on a static printed page, where nothing scrolls into view. Its animation
+   also has to go, not just its effect: an animated element paints as its own
+   layer, late and in DOM order, which scrambles the PDF's text order (see
+   "Reading order" below). --- */
 .reveal {
   opacity: 1 !important;
   transform: none !important;
   transition: none !important;
+  animation: none !important;
 }
 
-/* --- Page geometry: paper width replaces the on-screen container/section
-   rhythm, which would otherwise waste a lot of paper. --- */
+/* --- The @page margins frame the paper, so the container adds none. --- */
 .container {
   width: 100% !important;
   max-width: none !important;
-  padding: 0 8px !important;
-  box-sizing: border-box;
-}
-.section {
-  padding: 18px 0 !important;
-}
-.site-footer {
-  padding: 12px 0 !important;
-}
-.hero {
-  min-height: auto !important;
-  padding: 12px 0 20px !important;
-  background: #ffffff !important;
+  padding: 0 !important;
 }
 
-/* --- The screen body background (--bg) is never
-   covered by a section in the leftover blank space at the end of a page -
-   force plain white paper everywhere, not just inside named sections. --- */
+/* --- Plain white paper everywhere, including the blank space left at the
+   end of a page, which no section covers. --- */
 html,
-body {
-  background: #ffffff !important;
-}
-
-/* --- Every section becomes light-on-white: dark backgrounds are unreliable
-   in print (many browsers skip background colors by default), so text
-   color must not depend on a background that may never render. --- */
+body,
 .section-dark,
 .section-white,
 .section-light,
 .hero,
 .site-footer {
   background: #ffffff !important;
-  color: #0f172a !important;
-}
-.section-dark .eyebrow,
-.eyebrow {
-  color: #47546b !important;
-}
-.body-copy,
-.section-dark .body-copy {
-  color: #333c4d !important;
-}
-
-/* --- Single-column for the hero (name/tagline + stat card stacked) and for
-   About: the on-screen 280px facts sidebar wastes paper width next to a
-   narrow copy column, so facts become one horizontal row above the
-   narrative instead of a side-by-side grid. --- */
-.hero-grid {
-  display: block !important;
-}
-.about-grid {
-  display: block !important;
-}
-.fact-list {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  gap: 10px 32px !important;
-  margin: 12px 0 20px !important;
-}
-.hero-feature {
-  margin-top: 12px;
-  background: #ffffff !important;
-  color: #0f172a !important;
-  box-shadow: none !important;
-  border: 1px solid #cbd5e1;
-}
-.hero-feature-inner {
-  padding: 14px 16px !important;
-}
-.hero-feature h2 {
-  font-size: 16px !important;
-  margin: 8px 0 !important;
-}
-.hero-divider {
-  margin-bottom: 10px !important;
-}
-.hero-feature .accent,
-.status-badge {
-  color: #0f172a !important;
-}
-.status-badge {
-  background: none !important;
-  border: 1px solid #cbd5e1 !important;
-  font-size: 9px !important;
-  padding: 4px 8px !important;
-}
-.feature-value {
-  font-size: 15px !important;
-}
-.feature-value small {
-  font-size: 10px !important;
-}
-.about-facts {
-  margin-bottom: 16px;
-}
-
-/* --- Project cards: single column (the on-screen multi-column grid would
-   otherwise read out of order in ATS text extraction, same issue as About
-   above), drop shadows/gradients, keep a plain border so entries stay
-   legible and don't get split across a page break --- */
-.projects-grid {
-  display: block !important;
-}
-.project-card {
-  margin-bottom: 12px;
-  /* On screen the entry is a plain list item with no padding; boxed on
-     paper it needs the inset the old card had. */
-  padding: 28px;
-  border: 1px solid #cbd5e1 !important;
-  border-radius: var(--radius-lg);
-  background: #ffffff !important;
-  box-shadow: none !important;
-  transform: none !important;
-  break-inside: avoid;
-}
-.project-card:last-child {
-  margin-bottom: 0;
-}
-.project-card h3,
-.project-card .body-copy {
-  color: #0f172a !important;
-}
-.project-card .link-button {
-  color: var(--accent) !important;
-}
-
-/* --- Timeline: dense, resume-style list - no card box, just a hairline
-   divider between entries. --- */
-.timeline {
-  gap: 0 !important;
-}
-.timeline-item {
-  margin: 0 !important;
-  padding: 8px 0 !important;
-  border-radius: 0 !important;
-  border-bottom: 1px solid #cbd5e1 !important;
-  transform: none !important;
-  break-inside: avoid;
-}
-.timeline-item:last-child {
-  border-bottom: none !important;
-}
-/* Set through --role-gap, not gap, so the rail between dots (sized from the
-   same variable in experience.css) shrinks with it. */
-.timeline-roles {
-  --role-gap: 6px;
-  margin-top: 6px !important;
-}
-.timeline-desc {
-  margin-top: 2px !important;
-}
-.timeline-badge {
-  color: #0f172a !important;
-}
-
-/* --- Links carry no click on paper, so print the URL next to anything
-   that points off the page. In-page anchors (nav, hero CTAs) are already
-   hidden above, so this only touches real external links. --- */
-.project-card::after {
-  content: attr(href);
-  display: block;
-  margin-top: 10px;
-  font-size: 11px;
-  color: #47546b;
-  word-break: break-all;
-}
-.social-links a::after,
-.timeline-desc a::after {
-  content: " (" attr(href) ")";
-  font-size: 12px;
-  color: #47546b;
-}
-.social-links {
-  display: block !important;
-  column-count: 2;
-  column-gap: 24px;
-}
-.social-links li {
-  margin-bottom: 4px;
-  break-inside: avoid;
-}
-/* --- The pill is inline-flex on screen, sized to fit its content; a full
-   URL appended after the label is often wider than a print column, so it
-   must fill the column and wrap instead of overflowing past the edge. --- */
-.social-links a {
-  display: flex !important;
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #cbd5e1 !important;
-  font-size: 14px;
-}
-.social-links a::after {
-  word-break: break-all;
 }
 
 /* --- Blog code blocks sit on a near-black panel on screen, while their
@@ -325,4 +102,238 @@ body {
 }
 .blog-post pre {
   border-color: #cbd5e1 !important;
+}
+
+/* ===================== The homepage as a CV ===================== */
+
+/* The CV header carries the name and the website link, so the site label
+   above it and the copyright footer below it go. */
+body:has(#hero) .print-only-header,
+body:has(#hero) .site-footer {
+  display: none !important;
+}
+
+/* --- Reading order. Chrome writes a PDF's text layer, which is what an ATS
+   parses, in paint order, and positioned or z-indexed boxes paint after
+   everything else: the hero's name used to come out after the About
+   section. So nothing on the CV is positioned, and the contact links move
+   up under the name with flex `order`, which paint order follows too. --- */
+main:has(#hero) {
+  display: flex;
+  flex-direction: column;
+  font-size: 9.5pt;
+  line-height: 1.45;
+}
+#hero {
+  order: -2;
+}
+#contact {
+  order: -1;
+}
+.hero,
+.hero-grid {
+  position: static !important;
+  z-index: auto !important;
+}
+
+.section {
+  padding: 0 !important;
+}
+.body-copy {
+  font-size: 9.5pt;
+  line-height: 1.45;
+  color: #333c4d !important;
+}
+
+/* --- Section labels. On screen the eyebrows are hidden and the playful
+   headlines lead; on the CV it's the reverse, with plain names a recruiter
+   scans for. --- */
+.section .eyebrow {
+  display: block !important;
+  margin: 14pt 0 6pt;
+  padding-bottom: 2pt;
+  border-bottom: 0.75pt solid #e2e8f0;
+  color: var(--accent);
+  font-size: 8pt;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  break-after: avoid;
+}
+#about .title,
+#experience .title,
+#projects .title {
+  display: none !important;
+}
+
+/* --- Header: name, role, tagline. The name comes first on paper, though
+   the role precedes it in the markup. --- */
+.hero {
+  min-height: auto !important;
+  padding: 0 !important;
+}
+.hero-grid {
+  display: block !important;
+}
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+}
+.title--hero {
+  order: -1;
+  min-height: 0;
+  font-size: 22pt;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+#hero .eyebrow {
+  margin: 3pt 0 0;
+  color: var(--text-muted);
+  font-size: 11pt;
+}
+.hero-tagline {
+  max-width: none;
+  margin: 6pt 0 0;
+  font-size: 10pt;
+  color: var(--text) !important;
+}
+
+/* --- Contact links, one line under the header: label, then the address
+   spelled out, since paper can't be clicked. --- */
+#contact .eyebrow,
+#contact .title,
+.contact-intro {
+  display: none !important;
+}
+.social-links {
+  margin: 8pt 0 0;
+  gap: 2pt 12pt;
+}
+.social-links a {
+  display: inline;
+  padding: 0;
+  border: none;
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--text);
+}
+.social-links svg {
+  display: none;
+}
+.social-links a::after {
+  content: " " attr(data-print-url);
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* --- Summary: the About copy alone. The facts sidebar becomes the
+   Education and Also sections at the end. --- */
+.about-grid {
+  display: block !important;
+}
+.fact-list {
+  display: none !important;
+}
+
+/* --- Experience: company with its dates, then its roles hung off a thin
+   accent rule. On screen the rail is drawn with positioned dots, which
+   would break the reading order (see above), so paper uses a border. --- */
+.timeline {
+  margin: 0;
+  gap: 8pt;
+}
+.timeline-item {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+}
+.timeline-header {
+  gap: 0 8pt;
+  break-after: avoid;
+
+  & h3 {
+    font-size: 11pt;
+    font-weight: 600;
+  }
+}
+.timeline-badge {
+  display: none;
+}
+.timeline-dates,
+.timeline-role-dates,
+.timeline-location {
+  font-size: 8.5pt;
+}
+.timeline-location {
+  margin-top: 0;
+  break-after: avoid;
+}
+.timeline-roles {
+  --role-gap: 4pt;
+  margin: 3pt 0 0 2pt;
+  padding-left: 9pt;
+  border-left: 1.5pt solid color-mix(in srgb, var(--accent) 35%, #fff);
+}
+.timeline-role {
+  position: static;
+  break-inside: avoid;
+
+  /* !important beats the screen rail's :not(:last-child)::after. */
+  &::before,
+  &::after {
+    display: none !important;
+  }
+}
+.timeline-role-header h4 {
+  font-size: 9.5pt;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.timeline-desc {
+  margin-top: 1pt;
+
+  & a {
+    color: inherit;
+    text-decoration: none;
+  }
+  & a::after {
+    content: " (" attr(data-print-url) ")";
+    font-size: 8.5pt;
+    color: var(--text-muted);
+  }
+}
+
+/* --- Open source: one line per project, ending in its address. --- */
+.projects-grid {
+  display: block;
+  margin: 0;
+}
+.project-card {
+  display: block;
+  margin: 0 0 3pt;
+  color: var(--text);
+  break-inside: avoid;
+
+  & h3 {
+    display: inline;
+    font-size: 9.5pt;
+    font-weight: 600;
+  }
+  & h3::after {
+    content: " — ";
+    font-weight: 400;
+  }
+  & .body-copy {
+    display: inline;
+  }
+  & .link-button {
+    display: none;
+  }
+  &::after {
+    content: " " attr(data-print-url);
+    font-size: 8.5pt;
+    color: var(--text-muted);
+  }
 }

@@ -1,0 +1,153 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+  "basics": {
+    "name": "Pasquale Mangialavori",
+    "label": "Senior Frontend Engineer",
+    "url": "https://eatsjobs.github.io/",
+    "summary": "Born in Tropea, in the south of Italy, and raised nearby in Capo Vaticano, I studied at La Sapienza in Rome and specialized with a master's degree at the University of Florence. After two internships, I started my career at Docomo Digital, then moved to Barcelona to work at eDreamsOdigeo. Since 2022 I've been building frontend platforms at Scandit.",
+    "location": {
+      "city": "Barcelona",
+      "countryCode": "ES"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "eatsjobs",
+        "url": "https://github.com/eatsjobs"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "pasquale-mangialavori",
+        "url": "https://www.linkedin.com/in/pasquale-mangialavori"
+      },
+      {
+        "network": "dev.to",
+        "username": "eatsjobs",
+        "url": "https://dev.to/eatsjobs"
+      },
+      {
+        "network": "Medium",
+        "username": "eatsjobs",
+        "url": "https://medium.com/@eatsjobs"
+      },
+      {
+        "network": "Stack Overflow",
+        "username": "pasquale-mangialavori",
+        "url": "https://stackoverflow.com/users/5364206/pasquale-mangialavori"
+      },
+      {
+        "network": "Bluesky",
+        "username": "eatsjobs.bsky.social",
+        "url": "https://bsky.app/profile/eatsjobs.bsky.social"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Scandit",
+      "location": "Remote",
+      "position": "Senior Front-end Software Engineer",
+      "startDate": "2024-07",
+      "summary": "Continuing to develop and maintain the Scandit Web SDK, delivering real-time web experiences built on the web platform."
+    },
+    {
+      "name": "Scandit",
+      "location": "Remote",
+      "position": "Front-end Software Engineer",
+      "startDate": "2022-09",
+      "endDate": "2024-07",
+      "summary": "Developed and maintained the Scandit Web SDK, delivering real-time web experiences built on the web platform."
+    },
+    {
+      "name": "eDreamsOdigeo",
+      "location": "Barcelona",
+      "position": "Senior Front-end Software Engineer",
+      "startDate": "2022-04",
+      "endDate": "2022-09",
+      "summary": "On the design system team, built several primitive components in React and set up interaction and automated visual regression testing at the component level. Later moved to the accommodation team, putting those components into production on the results page for a new accommodation product."
+    },
+    {
+      "name": "eDreamsOdigeo",
+      "location": "Barcelona",
+      "position": "Front-end Software Engineer",
+      "startDate": "2019-07",
+      "endDate": "2022-04",
+      "summary": "Worked on the intermediate page, which offers hotels and other accommodation in the middle of the flight booking flow, across a legacy Backbone, JSP and Java codebase alongside newer React, TypeScript and GraphQL code. Rebuilt the flight summary component, built a small Storybook-style internal tool for previewing components in isolation, and mentored teammates."
+    },
+    {
+      "name": "luisaviaroma.com",
+      "location": "Florence",
+      "position": "Senior Front-end Software Engineer",
+      "startDate": "2018-06",
+      "endDate": "2019-07",
+      "summary": "Designed and implemented the new React SSR architecture and developed the LVR-UI design system."
+    },
+    {
+      "name": "Docomo Digital",
+      "location": "Florence",
+      "position": "Front-end Software Engineer",
+      "startDate": "2015-02",
+      "endDate": "2018-05",
+      "summary": "Developed subscription-based web platforms for clients including Vodafone, TIM, Wind, and Sky — performant, spec-faithful frontend delivery."
+    },
+    {
+      "name": "Balzo",
+      "location": "Florence",
+      "position": "Game Developer Intern",
+      "startDate": "2014-11",
+      "endDate": "2015-01",
+      "summary": "Developed [PizzaBirra](https://eatsjobs.github.io/pizza-birra/), a game built with Cocos2d-JS for Giunti Editore and Assobirra."
+    },
+    {
+      "name": "Studio Creativo Matrjoska",
+      "location": "Lucca",
+      "position": "Web Developer Intern",
+      "startDate": "2013-09",
+      "endDate": "2014-07",
+      "summary": "Developed WordPress websites and plugins."
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Florence",
+      "studyType": "Master's degree"
+    },
+    {
+      "institution": "Sapienza University of Rome"
+    }
+  ],
+  "projects": [
+    {
+      "name": "media-mock",
+      "description": "Simulates and mocks media devices like webcams in web applications.",
+      "url": "https://github.com/eatsjobs/media-mock"
+    },
+    {
+      "name": "ts-pattern-match",
+      "description": "Simple pattern matching for JavaScript/TypeScript.",
+      "url": "https://github.com/eatsjobs/ts-pattern-match"
+    },
+    {
+      "name": "media-mock-extension",
+      "description": "Cross-browser extension (Chrome, Firefox, Safari) for testing camera/webcam behavior by mocking media devices, built on media-mock.",
+      "url": "https://github.com/eatsjobs/media-mock-extension"
+    },
+    {
+      "name": "type-writer",
+      "description": "A typewriter effect web component.",
+      "url": "https://github.com/eatsjobs/type-writer"
+    },
+    {
+      "name": "PizzaBirra",
+      "description": "A browser game built with Cocos2d-JS for Giunti Editore and Assobirra, back in 2014. Still playable.",
+      "url": "https://eatsjobs.github.io/pizza-birra/"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Frontend",
+      "keywords": ["Web Components", "Web Performance", "JavaScript", "TypeScript", "React"]
+    }
+  ],
+  "languages": [{ "language": "English" }, { "language": "Italian" }, { "language": "Spanish" }]
+}
