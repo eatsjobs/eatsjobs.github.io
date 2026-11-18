@@ -129,11 +129,17 @@
           }
           {%- else %}
           {
-            "@type": "WebPage",
+            {#- The homepage is the CV: a ProfilePage (a WebPage subtype) whose
+                mainEntity is the Person, the type Google documents for
+                profile pages. #}
+            "@type": "{{ 'ProfilePage' if page.url == '/' else 'WebPage' }}",
             "@id": "{{ site.url }}{{ page.url }}#webpage",
             "url": "{{ site.url }}{{ page.url }}",
             "name": {{ displayTitle | dump | safe }},
             "isPartOf": { "@id": "{{ site.url }}/#website" },
+            {%- if page.url == "/" %}
+            "mainEntity": { "@id": "{{ site.url }}/#person" },
+            {%- endif %}
             "about": { "@id": "{{ site.url }}/#person" },
             "description": {{ description | dump | safe }},
             "inLanguage": "en"
