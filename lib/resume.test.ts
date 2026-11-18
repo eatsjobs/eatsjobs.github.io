@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { groupWork, inlineLinks, monthYear, printableUrl, publishedResume } from "./resume.js";
+import { groupWork, inlineLinks, monthYear, printableUrl, publishedResume } from "./resume.ts";
 
 test("monthYear formats a JSON Resume date as it reads on the timeline", () => {
   assert.equal(monthYear("2022-09"), "Sep 2022");

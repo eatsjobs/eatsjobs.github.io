@@ -1,8 +1,16 @@
 import { rssPlugin } from "@11ty/eleventy-plugin-rss";
 import syntaxHighlight from "@11ty/eleventy-plugin-syntaxhighlight";
-import { groupWork, inlineLinks, monthYear, printableUrl, publishedResume } from "./lib/resume.js";
 
-export default function (eleventyConfig) {
+export default async function (eleventyConfig) {
+  // lib/ is TypeScript, which Node runs directly. It's imported here rather
+  // than at the top because --serve scans top-level imports with a
+  // plain-JavaScript parser that stops the server on a type annotation. In
+  // here the scanner skips it, and the import re-runs on every config reload,
+  // so with lib/ watched by hand, edits to the filters still apply live.
+  const { groupWork, inlineLinks, monthYear, printableUrl, publishedResume } = await import(
+    "./lib/resume.ts"
+  );
+  eleventyConfig.addWatchTarget("./lib/", { resetConfig: true });
   eleventyConfig.addPlugin(syntaxHighlight);
   // _data/resume.json feeds the homepage's experience and projects and is
   // published as /resume.json; these shape it for each.

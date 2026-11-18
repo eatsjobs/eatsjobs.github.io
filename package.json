@@ -4,8 +4,11 @@
   "private": true,
   "type": "module",
   "description": "Pasquale Mangialavori's personal site",
+  "engines": {
+    "node": ">=22.18"
+  },
   "scripts": {
-    "test": "node --test js/*.test.mjs js/components/*.test.mjs lib/*.test.mjs",
+    "test": "node --test js/*.test.mjs js/components/*.test.mjs lib/*.test.ts",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
