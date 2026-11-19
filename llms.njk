@@ -1,0 +1,33 @@
+---
+permalink: /llms.txt
+eleventyExcludeFromCollections: true
+---
+{#- A plain-Markdown map of the site for AI assistants (https://llmstxt.org).
+    Built from the same data as the pages, so it never needs hand edits.
+    Every value is `| safe`: this is a text file, and Nunjucks would otherwise
+    HTML-escape apostrophes into &#39;. -#}
+# {{ resume.basics.name | safe }}
+
+> {{ resume.basics.label | safe }} at {{ resume.work[0].name | safe }}, based in {{ resume.basics.location.city | safe }}. Also known online as eatsjobs.
+
+{{ resume.basics.summary | safe }}
+
+## Pages
+
+- [Homepage and CV]({{ site.url | safe }}/): Experience, open-source projects and contact links. Prints as the CV.
+- [Blog]({{ site.url | safe }}/blog/): {{ site.subtitle | safe }}
+
+## Blog posts
+{% for post in collections.posts | reverse %}
+- [{{ (post.data.heading or post.data.title) | safe }}]({{ site.url | safe }}{{ post.url | safe }}): {{ post.data.description | safe }}
+{%- endfor %}
+
+## Machine-readable
+
+- [Résumé]({{ site.url | safe }}/resume.json): The full CV in JSON Resume format.
+- [Feed]({{ site.url | safe }}/feed.xml): Atom feed of the blog posts.
+
+## Profiles
+{% for profile in resume.basics.profiles %}
+- [{{ profile.network | safe }}]({{ profile.url | safe }})
+{%- endfor %}
